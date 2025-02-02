@@ -5,6 +5,8 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.example.labs.R
 import com.example.labs.data.lab1.CaesarCipherImpl
@@ -27,6 +29,7 @@ class FirstLabFragment : Fragment(R.layout.fragment_first_lab) {
     ): View {
         _binding = FragmentFirstLabBinding.inflate(inflater, container, false)
         return binding.root
+
     }
     override fun onDestroyView() {
         super.onDestroyView()
@@ -35,6 +38,7 @@ class FirstLabFragment : Fragment(R.layout.fragment_first_lab) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
         binding.buttonApply.setOnClickListener {
             applyCaesarCipher()
@@ -59,11 +63,12 @@ class FirstLabFragment : Fragment(R.layout.fragment_first_lab) {
     }
 
     private fun enableOrDisableButton() {
+        binding.buttonApply.isVisible = true
         val inputText = binding.inputText.text.toString()
         val shiftValue = binding.symbolShift.text.toString()
-
         binding.buttonApply.isEnabled = inputText.isNotEmpty() && shiftValue.isNotEmpty()
     }
+
 
     private fun applyCaesarCipher() {
         val inputText = binding.inputText.text.toString()
@@ -73,7 +78,6 @@ class FirstLabFragment : Fragment(R.layout.fragment_first_lab) {
             else -> throw IllegalArgumentException("Неправильный выбор!")
         }
         val shift = binding.symbolShift.text.toString().toInt()
-
         val result = if (selectedOption) {
             cipher.encrypt(inputText, shift)
         } else {
