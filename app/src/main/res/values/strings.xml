@@ -2,4 +2,12 @@
     <string name="app_name">Labs</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text_for_btn_russian">Русский</string>
+    <string name="text_for_btn_english">Английский</string>
+    <string name="encrypt">Зашифровать</string>
+    <string name="decrypt">Дешифровать</string>
+    <string name="input_text">Введите текст</string>
+    <string name="result">Результат</string>
+    <string name="apply">Применить</string>
+    <string name="number_of_shift">Количество символов сдвига</string>
 </resources>

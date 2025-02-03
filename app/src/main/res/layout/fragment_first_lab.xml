@@ -6,39 +6,61 @@
     android:padding="16dp">
 
     <EditText
-        android:layout_marginTop="200dp"
         android:id="@+id/input_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Введите текст"
+        android:layout_marginTop="200dp"
+        android:hint="@string/input_text"
         android:inputType="textMultiLine" />
 
     <RadioGroup
-        android:layout_marginTop="20dp"
         android:id="@+id/radio_group"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:checkedButton="@id/btn_decrypt"
         android:orientation="horizontal">
 
         <RadioButton
             android:id="@+id/btn_encrypt"
-            android:layout_width="wrap_content"
+            android:layout_width="136dp"
             android:layout_height="wrap_content"
-            android:text="Зашифровать" />
+            android:text="@string/encrypt" />
 
         <RadioButton
             android:id="@+id/btn_decrypt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Дешифровать" />
+            android:text="@string/decrypt" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/radio_group_for_languages"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:checkedButton="@id/btn_english"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/btn_russian"
+            android:layout_width="137dp"
+            android:layout_height="wrap_content"
+            android:text="@string/text_for_btn_russian" />
+
+        <RadioButton
+            android:id="@+id/btn_english"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_for_btn_english" />
     </RadioGroup>
 
     <EditText
-        android:layout_marginTop="20dp"
         android:id="@+id/symbol_shift"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Количество символов сдвига"
+        android:layout_marginTop="20dp"
+        android:hint="@string/number_of_shift"
         android:inputType="number" />
 
     <TextView
@@ -47,16 +69,16 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:hint="Результат"
+        android:hint="@string/result"
         android:textSize="20sp" />
 
     <Button
-        android:visibility="invisible"
         android:id="@+id/button_apply"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
-        android:text="Применить" />
+        android:text="@string/apply"
+        android:visibility="invisible" />
 
 </LinearLayout>

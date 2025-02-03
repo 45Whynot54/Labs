@@ -5,7 +5,6 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.example.labs.R
@@ -41,7 +40,12 @@ class FirstLabFragment : Fragment(R.layout.fragment_first_lab) {
 
 
         binding.buttonApply.setOnClickListener {
-            applyCaesarCipher()
+            if (binding.btnEnglish.isEnabled){
+                applyCaesarCipher()
+            }
+            else {
+
+            }
         }
 
         binding.inputText.addTextChangedListener(object : TextWatcher {
