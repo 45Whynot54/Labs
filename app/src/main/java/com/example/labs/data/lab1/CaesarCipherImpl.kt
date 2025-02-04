@@ -12,14 +12,32 @@ object CaesarCipherImpl : Cipher {
         return caesarCipher(text, -shift)
     }
 
-    private fun caesarCipher(text: String, shift: Int): String {
+    override fun caesarCipher(text: String, shift: Int): String {
         val builder = StringBuilder()
         for (char in text) {
-            val base = if (char.isLowerCase()) 'a' else 'A'
-            val position = char.code - base.code
-            val shiftedPosition = (position + shift) % 26
-            val newChar = (base.code + shiftedPosition).toChar()
-            builder.append(newChar)
+            if (char.isLetter()) {
+                val base = when {
+                    char in 'a'..'z' -> 'a'
+                    char in 'A'..'Z' -> 'A'
+                    char in 'а'..'я' -> 'а'
+                    char in 'А'..'Я' -> 'А'
+                    else -> continue
+                }
+                val alphabetSize = when (base) {
+                    'a', 'A' -> 26
+                    'а', 'А' -> 32
+                    else -> throw IllegalArgumentException("Unsupported alphabet")
+                }
+                val position = char.code - base.code
+                val shiftedPosition = (position + shift) % alphabetSize
+                val newChar = (base.code + shiftedPosition).toChar()
+                builder.append(newChar)
+            } else if (char.isDigit()) {
+                val newChar = ((char - '0' + shift) % 10 + '0'.code).toChar()
+                builder.append(newChar)
+            } else {
+                builder.append(char)
+            }
         }
         return builder.toString()
     }

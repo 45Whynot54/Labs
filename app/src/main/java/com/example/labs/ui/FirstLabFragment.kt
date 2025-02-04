@@ -40,13 +40,9 @@ class FirstLabFragment : Fragment(R.layout.fragment_first_lab) {
 
 
         binding.buttonApply.setOnClickListener {
-            if (binding.btnEnglish.isEnabled){
                 applyCaesarCipher()
             }
-            else {
 
-            }
-        }
 
         binding.inputText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
