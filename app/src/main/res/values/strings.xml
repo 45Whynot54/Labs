@@ -10,4 +10,11 @@
     <string name="result">Результат</string>
     <string name="apply">Применить</string>
     <string name="number_of_shift">Количество символов сдвига</string>
+    <string name="notification_about_development">
+        К сожалению, данный раздел находится на стадии
+        разработки, в ближайщее время будет сделан, а для того,
+        чтобы посмотреть лабораторные работы, нажмите необходимую кнопку внизу
+    </string>
+    <string name="btn_lab1">Лабораторная работа 1</string>
+    <string name="сaesar_cipher">Шифр Цезаря</string>
 </resources>

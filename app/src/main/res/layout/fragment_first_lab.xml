@@ -5,11 +5,23 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+    <TextView
+        android:id="@+id/сaesar_cipher"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:text="@string/сaesar_cipher"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
     <EditText
         android:id="@+id/input_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="60dp"
         android:hint="@string/input_text"
         android:inputType="textMultiLine" />
 
@@ -17,7 +29,7 @@
         android:id="@+id/radio_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:checkedButton="@id/btn_decrypt"
         android:orientation="horizontal">
 
@@ -39,7 +51,7 @@
         android:id="@+id/symbol_shift"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:hint="@string/number_of_shift"
         android:inputType="number" />
 
@@ -47,10 +59,10 @@
         android:id="@+id/output_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:gravity="center"
         android:hint="@string/result"
-        android:textSize="20sp" />
+        android:textSize="30sp" />
 
     <Button
         android:id="@+id/button_apply"
@@ -59,6 +71,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
         android:text="@string/apply"
+        android:textSize="20dp"
         android:visibility="invisible" />
+
 
 </LinearLayout>
