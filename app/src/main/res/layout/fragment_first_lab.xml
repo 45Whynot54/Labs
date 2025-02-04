@@ -58,6 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
+        android:gravity="center_horizontal"
         android:orientation="horizontal">
 
         <TextView
@@ -65,9 +66,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:clickable="true"
             android:focusable="true"
             android:gravity="center"
+            android:layout_marginLeft="40dp"
             android:hint="@string/result"
             android:textSize="30sp" />
 
@@ -77,7 +78,7 @@
             android:layout_height="wrap_content"
             android:src="?attr/actionModeCopyDrawable"
             android:background="@android:color/darker_gray"
-            android:contentDescription="нгшощ"
+            android:saveEnabled="false"
             android:padding="8dp" />
     </LinearLayout>
 
@@ -89,5 +90,6 @@
         android:layout_marginTop="20dp"
         android:text="@string/apply"
         android:textSize="20dp"
-        android:visibility="invisible" />
+        android:enabled="false"/>
+
 </LinearLayout>

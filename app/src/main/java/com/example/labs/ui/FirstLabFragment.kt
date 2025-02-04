@@ -1,7 +1,4 @@
 package com.example.labs.ui
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,8 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.example.labs.R
 import com.example.labs.data.AllFunctionImpl
@@ -51,8 +46,13 @@ class FirstLabFragment : Fragment() {
         binding.buttonApply.setOnClickListener {
             applyCaesarCipher()
         }
+
         binding.buttonCopy.setOnClickListener {
-            generalFunctions.copyText(requireContext(), binding.outputText.text.toString())
+                generalFunctions.copyText(requireContext(), binding.outputText.text.toString())
+        }
+
+        binding.buttonCopy.setOnClickListener {
+                generalFunctions.copyText(requireContext(), binding.outputText.text.toString())
         }
     }
 
@@ -62,7 +62,6 @@ class FirstLabFragment : Fragment() {
     }
 
     private fun enableOrDisableButton() {
-        binding.buttonApply.isVisible = true
         val inputText = binding.inputText.text.toString()
         val shiftValue = binding.symbolShift.text.toString()
         binding.buttonApply.isEnabled = inputText.isNotEmpty() && shiftValue.isNotEmpty()
