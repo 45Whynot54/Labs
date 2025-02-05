@@ -17,6 +17,6 @@
             android:id="@+id/firstLabFragment"
             android:name="com.example.labs.ui.FirstLabFragment"
             android:label="fragment_first_lab"
-            tools:layout="@layout/fragment_first_lab" />
+            tools:layout="@layout/first_lab_fragment" />
 
     </navigation>

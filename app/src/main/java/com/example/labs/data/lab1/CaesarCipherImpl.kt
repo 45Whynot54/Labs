@@ -1,8 +1,10 @@
 package com.example.labs.data.lab1
 
+import com.example.labs.R
 import com.example.labs.domain.lab1.Cipher
 
 object CaesarCipherImpl : Cipher {
+
 
     override fun encrypt(text: String, shift: Int): String {
         return caesarCipher(text, shift)

@@ -68,6 +68,7 @@
             android:layout_weight="1"
             android:focusable="true"
             android:gravity="center"
+            android:visibility="invisible"
             android:layout_marginLeft="40dp"
             android:hint="@string/result"
             android:textSize="30sp" />
@@ -79,6 +80,7 @@
             android:src="?attr/actionModeCopyDrawable"
             android:background="@android:color/darker_gray"
             android:saveEnabled="false"
+            android:visibility="invisible"
             android:padding="8dp" />
     </LinearLayout>
 

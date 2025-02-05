@@ -5,12 +5,12 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.example.labs.R
 import com.example.labs.data.AllFunctionImpl
 import com.example.labs.data.lab1.CaesarCipherImpl
-import com.example.labs.databinding.FragmentFirstLabBinding
+import com.example.labs.databinding.FirstLabFragmentBinding
 
 
 class FirstLabFragment : Fragment() {
@@ -18,14 +18,17 @@ class FirstLabFragment : Fragment() {
     private val cipher = CaesarCipherImpl
     private val generalFunctions = AllFunctionImpl
 
-    private var _binding: FragmentFirstLabBinding?= null
-    private val binding: FragmentFirstLabBinding
+    private var _binding: FirstLabFragmentBinding?= null
+    private val binding: FirstLabFragmentBinding
         get() = _binding ?: throw RuntimeException("HomeFragmentBinding == null")
 
     private val textWatcher = object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         override fun afterTextChanged(s: Editable?) {
+            binding.outputText.text = ""
+            binding.buttonCopy.isVisible = false
+            binding.outputText.isVisible = false
             enableOrDisableButton()
         }
     }
@@ -35,7 +38,7 @@ class FirstLabFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentFirstLabBinding.inflate(inflater, container, false)
+        _binding = FirstLabFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -46,14 +49,11 @@ class FirstLabFragment : Fragment() {
         binding.buttonApply.setOnClickListener {
             applyCaesarCipher()
         }
-
         binding.buttonCopy.setOnClickListener {
                 generalFunctions.copyText(requireContext(), binding.outputText.text.toString())
         }
 
-        binding.buttonCopy.setOnClickListener {
-                generalFunctions.copyText(requireContext(), binding.outputText.text.toString())
-        }
+
     }
 
     override fun onDestroyView() {
@@ -82,6 +82,9 @@ class FirstLabFragment : Fragment() {
             cipher.decrypt(inputText, shift)
         }
         binding.outputText.text = result
+        binding.outputText.isVisible = true
+        binding.buttonCopy.isVisible = true
     }
+
 }
 
