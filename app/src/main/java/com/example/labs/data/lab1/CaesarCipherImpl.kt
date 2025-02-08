@@ -1,6 +1,5 @@
 package com.example.labs.data.lab1
 
-import com.example.labs.R
 import com.example.labs.domain.lab1.Cipher
 
 object CaesarCipherImpl : Cipher {
@@ -18,11 +17,11 @@ object CaesarCipherImpl : Cipher {
         val builder = StringBuilder()
         for (char in text) {
             if (char.isLetter()) {
-                val base = when {
-                    char in 'a'..'z' -> 'a'
-                    char in 'A'..'Z' -> 'A'
-                    char in 'а'..'я' -> 'а'
-                    char in 'А'..'Я' -> 'А'
+                val base = when (char) {
+                    in 'a'..'z' -> 'a'
+                    in 'A'..'Z' -> 'A'
+                    in 'а'..'я' -> 'а'
+                    in 'А'..'Я' -> 'А'
                     else -> continue
                 }
                 val alphabetSize = when (base) {

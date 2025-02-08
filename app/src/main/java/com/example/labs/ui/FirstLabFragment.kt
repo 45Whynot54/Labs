@@ -1,8 +1,6 @@
 package com.example.labs.ui
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.example.labs.R
 import com.example.labs.data.lab1.CaesarCipherImpl
@@ -11,12 +9,6 @@ import com.example.labs.data.lab1.CaesarCipherImpl
 class FirstLabFragment : MainLabsFragment() {
 
     private val cipher = CaesarCipherImpl
-
-    init {
-        binding.textForNameLab.resources.getString(R.string.app_name)
-    }
-
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

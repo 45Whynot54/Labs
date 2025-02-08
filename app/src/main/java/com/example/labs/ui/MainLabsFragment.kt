@@ -1,29 +1,22 @@
 package com.example.labs.ui
 
-import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.StringRes
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.example.labs.data.AllFunctionImpl
 import com.example.labs.databinding.FragmentMainLabsBinding
 
 
-abstract class MainLabsFragment(val context: Context) : Fragment() {
+open class MainLabsFragment : Fragment() {
 
-    protected fun setTitle(@StringRes stringResId: Int) {
-        if (context is Activity) {
-            context.title = context.getString(stringResId)
-        }
-    }
     private val generalFunctions = AllFunctionImpl
 
-    var _binding: FragmentMainLabsBinding ?= null
+    private var _binding: FragmentMainLabsBinding ?= null
     val binding: FragmentMainLabsBinding
         get() = _binding ?: throw RuntimeException("MainLabsFragmentBinding == null")
 
