@@ -8,13 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import com.example.labs.data.AllFunctionImpl
+import com.example.labs.R
+import com.example.labs.data.GeneralFunctionsImpl
 import com.example.labs.databinding.FragmentMainLabsBinding
 
 
 open class MainLabsFragment : Fragment() {
 
-    private val generalFunctions = AllFunctionImpl
+    private val generalFunctions = GeneralFunctionsImpl
 
     private var _binding: FragmentMainLabsBinding ?= null
     val binding: FragmentMainLabsBinding
@@ -52,6 +53,14 @@ open class MainLabsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    protected fun selectedOption(): Boolean {
+        return when (binding.radioGroup.checkedRadioButtonId) {
+            R.id.btn_encrypt -> true
+            R.id.btn_decrypt -> false
+            else -> throw IllegalArgumentException("Неправильный выбор!")
+        }
     }
 
     private fun enableOrDisableButton() {

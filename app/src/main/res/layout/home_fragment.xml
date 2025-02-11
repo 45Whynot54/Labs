@@ -1,32 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <Button
+        android:id="@+id/btn_lab1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="@string/btn_lab1"
+        app:layout_constraintBottom_toTopOf="@+id/btn_lab2"
+        tools:layout_editor_absoluteX="164dp" />
 
     <Button
-        android:id="@+id/btnLab1"
-        android:layout_width="wrap_content"
+        android:id="@+id/btn_lab2"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/btn_lab1"
+        android:layout_marginBottom="16dp"
+        android:text="@string/btn_lab2"
+        app:layout_constraintBottom_toTopOf="@+id/btn_lab3"
+        tools:layout_editor_absoluteX="129dp" />
+
+    <Button
+        android:id="@+id/btn_lab3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="@string/btn_lab3"
+        app:layout_constraintBottom_toTopOf="@+id/btn_lab4"
+        tools:layout_editor_absoluteX="109dp" />
+
+    <Button
+        android:id="@+id/btn_lab4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="@string/btn_lab4"
+        app:layout_constraintBottom_toTopOf="@+id/btn_lab5"
+        tools:layout_editor_absoluteX="179dp" />
+
+    <Button
+        android:id="@+id/btn_lab5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="@string/btn_lab5"
+        app:layout_constraintBottom_toTopOf="@+id/btn_lab6"
+        tools:layout_editor_absoluteX="167dp" />
+
+    <Button
+        android:id="@+id/btn_lab6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="@string/btn_lab6"
+        app:layout_constraintBottom_toTopOf="@+id/btn_lab7"
+        tools:layout_editor_absoluteX="172dp" />
+
+    <Button
+        android:id="@+id/btn_lab7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="@string/btn_lab7"
+        app:layout_constraintBottom_toTopOf="@+id/btn_lab8"
+        tools:layout_editor_absoluteX="172dp" />
+
+    <Button
+        android:id="@+id/btn_lab8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="100dp"
+        android:text="@string/btn_lab8"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        tools:layout_editor_absoluteX="167dp" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="250dp"
-        android:layout_marginRight="20dp"
-        android:text="@string/notification_about_development"
-        android:textSize="20dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/cipher"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/btn_lab1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

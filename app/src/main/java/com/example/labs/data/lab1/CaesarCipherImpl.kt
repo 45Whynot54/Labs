@@ -1,8 +1,8 @@
 package com.example.labs.data.lab1
 
-import com.example.labs.domain.lab1.Cipher
+import com.example.labs.domain.lab1.CipherCaesar
 
-object CaesarCipherImpl : Cipher {
+object CaesarCipherImpl : CipherCaesar {
 
 
     override fun encrypt(text: String, shift: Int): String {

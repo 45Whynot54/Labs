@@ -12,11 +12,59 @@
             <action
                 android:id="@+id/action_homeFragment_to_lab1Fragment"
                 app:destination="@id/firstLabFragment" />
+            <action
+                android:id="@+id/action_homeFragment_to_secondLabFragment"
+                app:destination="@id/secondLabFragment" />
+            <action
+                android:id="@+id/action_homeFragment_to_sixth"
+                app:destination="@id/sixth" />
+            <action
+                android:id="@+id/action_homeFragment_to_third"
+                app:destination="@id/third" />
+            <action
+                android:id="@+id/action_homeFragment_to_seventh"
+                app:destination="@id/seventh" />
+            <action
+                android:id="@+id/action_homeFragment_to_fifth"
+                app:destination="@id/fifth" />
+            <action
+                android:id="@+id/action_homeFragment_to_eighth"
+                app:destination="@id/eighth" />
+            <action
+                android:id="@+id/action_homeFragment_to_fourth"
+                app:destination="@id/fourth" />
         </fragment>
-        <fragment
-            android:id="@+id/firstLabFragment"
-            android:name="com.example.labs.ui.FirstLabFragment"
-            android:label="fragment_first_lab"
-            tools:layout="@layout/first_lab_fragment" />
+    <fragment
+        android:id="@+id/firstLabFragment"
+        android:name="com.example.labs.ui.labFragments.First"
+        android:label="fragment_first_lab" />
+    <fragment
+        android:id="@+id/secondLabFragment"
+        android:name="com.example.labs.ui.labFragments.Second"
+        android:label="fragment_second_lab" />
+    <fragment
+        android:id="@+id/eighth"
+        android:name="com.example.labs.ui.labFragments.Eighth"
+        android:label="Eighth" />
+    <fragment
+        android:id="@+id/fifth"
+        android:name="com.example.labs.ui.labFragments.Fifth"
+        android:label="Fifth" />
+    <fragment
+        android:id="@+id/seventh"
+        android:name="com.example.labs.ui.labFragments.Seventh"
+        android:label="Seventh" />
+    <fragment
+        android:id="@+id/sixth"
+        android:name="com.example.labs.ui.labFragments.Sixth"
+        android:label="Sixth" />
+    <fragment
+        android:id="@+id/third"
+        android:name="com.example.labs.ui.labFragments.Third"
+        android:label="Third" />
+    <fragment
+        android:id="@+id/fourth"
+        android:name="com.example.labs.ui.labFragments.Fourth"
+        android:label="Fourth" />
 
-    </navigation>
+</navigation>

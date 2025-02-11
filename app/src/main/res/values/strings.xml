@@ -1,20 +1,31 @@
 <resources>
     <string name="app_name">Labs</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="text_for_btn_russian">Русский</string>
-    <string name="text_for_btn_english">Английский</string>
-    <string name="encrypt">Зашифровать</string>
-    <string name="decrypt">Дешифровать</string>
-    <string name="input_text">Введите текст</string>
-    <string name="result">Результат</string>
-    <string name="apply">Применить</string>
-    <string name="number_of_shift">Количество символов сдвига</string>
+
     <string name="notification_about_development">
         К сожалению, данный раздел находится на стадии
         разработки, в ближайщее время будет сделан, а для того,
         чтобы посмотреть лабораторные работы, нажмите необходимую кнопку внизу
     </string>
+
+    //default layout names
+    <string name="encrypt">Зашифровать</string>
+    <string name="decrypt">Дешифровать</string>
+    <string name="input_text">Введите текст</string>
+    <string name="result">Результат</string>
+    <string name="apply">Применить</string>
+    <string name="count_of_int">Количество символов сдвига</string>
+    <string name="code">Код шифра</string>
+    <string name="cipher">Разные шифры</string>
+
+    // names for labs
     <string name="btn_lab1">Лабораторная работа 1</string>
+    <string name="btn_lab2">Лабораторная работа 2</string>
+    <string name="btn_lab3">Лабораторная работа 3</string>
+    <string name="btn_lab4">Лабораторная работа 4</string>
+    <string name="btn_lab5">Лабораторная работа 5</string>
+    <string name="btn_lab6">Лабораторная работа 6</string>
+    <string name="btn_lab7">Лабораторная работа 7</string>
+    <string name="btn_lab8">Лабораторная работа 8</string>
     <string name="сaesar_cipher">Шифр Цезаря</string>
+    <string name="number_of_shift">Количество символов сдвига</string>
 </resources>

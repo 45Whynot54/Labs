@@ -28,9 +28,33 @@ class HomeFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.btnLab1.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_lab1Fragment)
+          findNavController().navigate(R.id.action_homeFragment_to_lab1Fragment)
         }
+        binding.btnLab2.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_secondLabFragment)
+        }
+        binding.btnLab3.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_third)
+        }
+        binding.btnLab4.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_fourth)
+        }
+        binding.btnLab5.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_fifth)
+        }
+        binding.btnLab6.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_sixth)
+        }
+        binding.btnLab7.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_seventh)
+        }
+        binding.btnLab8.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_eighth)
+        }
+
     }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -1,12 +1,13 @@
-package com.example.labs.ui
+package com.example.labs.ui.labFragments
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import com.example.labs.R
 import com.example.labs.data.lab1.CaesarCipherImpl
+import com.example.labs.ui.MainLabsFragment
 
 
-class FirstLabFragment : MainLabsFragment() {
+class First : MainLabsFragment() {
 
     private val cipher = CaesarCipherImpl
 
@@ -15,17 +16,16 @@ class FirstLabFragment : MainLabsFragment() {
         binding.buttonApply.setOnClickListener {
             applyCaesarCipher()
         }
-
+        binding.symbolShift.setHint(R.string.number_of_shift)
+        binding.textForNameLab.setText(R.string.сaesar_cipher)
     }
+
+
     private fun applyCaesarCipher() {
         val inputText = binding.inputText.text.toString()
-        val selectedOption = when (binding.radioGroup.checkedRadioButtonId) {
-            R.id.btn_encrypt -> true
-            R.id.btn_decrypt -> false
-            else -> throw IllegalArgumentException("Неправильный выбор!")
-        }
         val shift = binding.symbolShift.text.toString().toInt()
-        val result = if (selectedOption) {
+
+        val result = if (selectedOption()) {
             cipher.encrypt(inputText, shift)
         } else {
             cipher.decrypt(inputText, shift)
@@ -34,6 +34,5 @@ class FirstLabFragment : MainLabsFragment() {
         binding.outputText.isVisible = true
         binding.buttonCopy.isVisible = true
     }
-
 }
 
