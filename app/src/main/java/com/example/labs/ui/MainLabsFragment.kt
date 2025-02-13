@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.labs.R
 import com.example.labs.data.GeneralFunctionsImpl
 import com.example.labs.databinding.FragmentMainLabsBinding
@@ -47,6 +48,10 @@ open class MainLabsFragment : Fragment() {
         binding.symbolShift.addTextChangedListener(textWatcher)
         binding.buttonCopy.setOnClickListener {
             generalFunctions.copyText(requireContext(), binding.outputText.text.toString())
+        }
+
+        binding.backOnMain.setOnClickListener{
+            requireActivity().onBackPressedDispatcher.onBackPressed()
         }
     }
 

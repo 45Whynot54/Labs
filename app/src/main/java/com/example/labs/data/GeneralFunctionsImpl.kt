@@ -11,4 +11,9 @@ object GeneralFunctionsImpl: GeneralFunctions {
             val clip = ClipData.newPlainText("label", text)
             clipboard.setPrimaryClip(clip)
     }
+
+    override fun containsCyrillic(text: String): Boolean {
+        val cyrillicPattern = "[а-яА-Я]".toRegex()
+        return cyrillicPattern.containsMatchIn(text)
+    }
 }

@@ -26,6 +26,12 @@
     <string name="btn_lab6">Лабораторная работа 6</string>
     <string name="btn_lab7">Лабораторная работа 7</string>
     <string name="btn_lab8">Лабораторная работа 8</string>
+
+    //First
     <string name="сaesar_cipher">Шифр Цезаря</string>
     <string name="number_of_shift">Количество символов сдвига</string>
+
+    //Second
+    <string name="key_gamming">Ключ</string>
+    <string name="name_for_gamming">Шифр гаммирования</string>
 </resources>

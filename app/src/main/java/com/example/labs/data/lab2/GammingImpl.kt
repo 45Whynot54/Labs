@@ -1,0 +1,25 @@
+package com.example.labs.data.lab2
+
+import com.example.labs.domain.lab2.Gamming
+import kotlin.experimental.xor
+import kotlin.random.Random
+
+object GammingImpl: Gamming {
+    override fun generateKey(length: Int): ByteArray {
+        return ByteArray(length) { Random.nextInt(0, 256).toByte()}
+    }
+
+    override fun encrypt(text: String, key: ByteArray): ByteArray {
+        val textBytes = text.toByteArray()
+        return textBytes.mapIndexed { index, byte ->
+            byte xor key[index]
+        }.toByteArray()
+    }
+
+    override fun decrypt(encryptedText: ByteArray, key: ByteArray): String {
+        val decryptedBytes = encryptedText.mapIndexed { index, byte ->
+            byte xor key[index]
+        }.toByteArray()
+        return String(decryptedBytes)
+    }
+}
