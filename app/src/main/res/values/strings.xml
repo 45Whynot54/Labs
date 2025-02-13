@@ -16,6 +16,8 @@
     <string name="count_of_int">Количество символов сдвига</string>
     <string name="code">Код шифра</string>
     <string name="cipher">Разные шифры</string>
+    <string name="close">Закрыть</string>
+    <string name="error_for_explatation">Объяснение не сделано</string>
 
     // names for labs
     <string name="btn_lab1">Лабораторная работа 1</string>
@@ -30,8 +32,64 @@
     //First
     <string name="сaesar_cipher">Шифр Цезаря</string>
     <string name="number_of_shift">Количество символов сдвига</string>
+    <string name="explanation_lab1">
+    override fun encrypt(text: String, shift: Int): String {\n
+        return caesarCipher(text, shift)\n
+    }\n\n
+    override fun decrypt(text: String, shift: Int): String {\n
+        return caesarCipher(text, -shift)\n
+    }\n\n
+    override fun caesarCipher(text: String, shift: Int): String {\n
+        val builder = StringBuilder()\n
+        for (char in text) {\n
+            if (char.isLetter()) {\n
+                val base = when (char) {\n
+                    in \'a\'..\'z\' -> \'a\'\n
+                    in \'A\'..\'Z\' -> \'A\'\n
+                    in \'а\'..\'я\' -> \'а\'\n
+                    in \'А\'..\'Я\' -> \'А\'\n
+                    else -> continue\n
+                }\n
+                val alphabetSize = when (base) {\n
+                    \'a\', \'A\' -> 26\n
+                    \'а\', \'А\' -> 32\n
+                    else -> throw IllegalArgumentException("Unsupported alphabet")\n
+                }\n
+                val position = char.code - base.code\n
+                val shiftedPosition = (position + shift) % alphabetSize\n
+                val newChar = (base.code + shiftedPosition).toChar()\n
+                builder.append(newChar)\n
+            } else if (char.isDigit()) {\n
+                val newChar = ((char - \'0\' + shift) % 10 + \'0\'.code).toChar()\n
+                builder.append(newChar)\n
+            } else {\n
+                builder.append(char)\n
+            }\n
+        }\n
+        return builder.toString()\n
+    }
+</string>
+
 
     //Second
     <string name="key_gamming">Ключ</string>
     <string name="name_for_gamming">Шифр гаммирования</string>
+    <string name="explanation_lab2">
+        override fun generateKey(length: Int): ByteArray {\n
+        return ByteArray(length) { Random.nextInt(0, 256).toByte()}\n
+    }\n\n
+
+    override fun encrypt(text: String, key: ByteArray): ByteArray {\n
+        val textBytes = text.toByteArray()\n
+        return textBytes.mapIndexed { index, byte ->\n
+            byte xor key[index]\n
+        }.toByteArray()\n
+    }\n\n
+
+    override fun decrypt(encryptedText: ByteArray, key: ByteArray): String {\n
+        val decryptedBytes = encryptedText.mapIndexed { index, byte ->\n
+            byte xor key[index]\n
+        }.toByteArray()\n
+        return String(decryptedBytes)\n
+    }</string>
 </resources>

@@ -13,13 +13,14 @@ class Second: MainLabsFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.buttonApply.setOnClickListener {
             applyGamming()
         }
-
         binding.symbolShift.setHint(R.string.key_gamming)
         binding.textForNameLab.setText(R.string.name_for_gamming)
+        binding.explanationImageView.setOnClickListener {
+            showExplanation("Lab2")
+        }
     }
 
     private fun applyGamming() {

@@ -50,14 +50,20 @@ open class MainLabsFragment : Fragment() {
             generalFunctions.copyText(requireContext(), binding.outputText.text.toString())
         }
 
-        binding.backOnMain.setOnClickListener{
+        binding.backOnMain.setOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
+
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    protected fun showExplanation(labId: String) {
+        val bottomSheet = ExplanationBottomSheetFragment.newInstance(labId)
+        bottomSheet.show(parentFragmentManager, "ExplanationBottomSheetFragment")
     }
 
     protected fun selectedOption(): Boolean {

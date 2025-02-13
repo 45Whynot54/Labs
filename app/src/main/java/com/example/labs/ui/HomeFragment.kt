@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.labs.R
+import com.example.labs.data.GeneralFunctionsImpl.showShortToast
 import com.example.labs.databinding.HomeFragmentBinding
 
 class HomeFragment: Fragment() {
@@ -27,37 +28,46 @@ class HomeFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.btnLab1.setOnClickListener {
-          findNavController().navigate(R.id.action_homeFragment_to_lab1Fragment)
-        }
-        binding.btnLab2.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_secondLabFragment)
-        }
-        binding.btnLab3.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_third)
-        }
-        binding.btnLab4.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_fourth)
-        }
-        binding.btnLab5.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_fifth)
-        }
-        binding.btnLab6.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_sixth)
-        }
-        binding.btnLab7.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_seventh)
-        }
-        binding.btnLab8.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_eighth)
-        }
-
+        btnEmployed()
+        btnNotEmployed()
     }
-
 
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
+
+    private fun btnEmployed() {
+        val btnLabs = mapOf(
+            binding.btnLab1 to R.id.action_homeFragment_to_lab1Fragment,
+            binding.btnLab2 to R.id.action_homeFragment_to_secondLabFragment,
+
+            )
+        btnLabs.forEach { (button, actionId) ->
+            button.setOnClickListener {
+                findNavController().navigate(actionId)
+            }
+        }
+    }
+
+    private fun btnNotEmployed() {
+        val btnLabsIsNotEmployed = listOf(
+            binding.btnLab3,
+            binding.btnLab4,
+            binding.btnLab5,
+            binding.btnLab6,
+            binding.btnLab7,
+            binding.btnLab8
+        )
+
+        btnLabsIsNotEmployed.forEach { button ->
+            button.setOnClickListener {
+                showShortToast(context, "Не сделано :)", 200)
+            }
+        }
+    }
+
+
 }

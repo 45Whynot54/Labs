@@ -1,0 +1,61 @@
+package com.example.labs.ui
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import com.example.labs.R
+import com.example.labs.databinding.BottomSheetExplanationBinding
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+
+
+
+open class ExplanationBottomSheetFragment : BottomSheetDialogFragment() {
+
+    private var _binding: BottomSheetExplanationBinding? = null
+    private val binding: BottomSheetExplanationBinding
+        get() = _binding ?: throw RuntimeException("ExplanationForLabFragment == null")
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = BottomSheetExplanationBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val labId = arguments?.getString(ARG_LAB_ID) ?: "Unknown"
+        val code = when (labId) {
+            "Lab1" -> R.string.explanation_lab1
+            "Lab2" -> R.string.explanation_lab2
+            else -> R.string.number_of_shift
+        }
+
+        binding.explanationText.setText(code)
+
+        binding.closeButton.setOnClickListener {
+            dismiss()
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    companion object {
+        private const val ARG_LAB_ID = "labId"
+
+        fun newInstance(labId: String): ExplanationBottomSheetFragment {
+            val fragment = ExplanationBottomSheetFragment()
+            val args = Bundle()
+            args.putString(ARG_LAB_ID, labId)
+            fragment.arguments = args
+            return fragment
+        }
+    }
+}
