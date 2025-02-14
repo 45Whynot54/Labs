@@ -32,7 +32,7 @@
     //First
     <string name="сaesar_cipher">Шифр Цезаря</string>
     <string name="number_of_shift">Количество символов сдвига</string>
-    <string name="explanation_lab1">
+    <string name="code_lab1">
     override fun encrypt(text: String, shift: Int): String {\n
         return caesarCipher(text, shift)\n
     }\n\n
@@ -70,11 +70,15 @@
     }
 </string>
 
+    <string name="explanation_lab1">
+        1
+    </string>
+
 
     //Second
     <string name="key_gamming">Ключ</string>
     <string name="name_for_gamming">Шифр гаммирования</string>
-    <string name="explanation_lab2">
+    <string name="code_lab2">
         override fun generateKey(length: Int): ByteArray {\n
         return ByteArray(length) { Random.nextInt(0, 256).toByte()}\n
     }\n\n
@@ -92,4 +96,62 @@
         }.toByteArray()\n
         return String(decryptedBytes)\n
     }</string>
+
+    <string name="explanation_lab2">
+        2
+    </string>
+
+
+    //Third
+    <string name="code_lab3">
+
+    </string>
+    <string name="explanation_lab3">
+
+    </string>
+
+
+    //Fourth
+    <string name="code_lab4">
+
+    </string>
+    <string name="explanation_lab4">
+
+    </string>
+
+
+    //Fifth
+    <string name="code_lab5">
+
+    </string>
+    <string name="explanation_lab5">
+
+    </string>
+
+
+    //Sixth
+    <string name="code_lab6">
+
+    </string>
+    <string name="explanation_lab6">
+
+    </string>
+
+
+    //Seventh
+    <string name="code_lab7">
+
+    </string>
+    <string name="explanation_lab7">
+
+    </string>
+
+
+    //Eighth
+    <string name="code_lab8">
+
+    </string>
+    <string name="explanation_lab8">
+
+    </string>
 </resources>

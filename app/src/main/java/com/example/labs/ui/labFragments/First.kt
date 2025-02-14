@@ -19,8 +19,11 @@ class First : MainLabsFragment() {
         binding.symbolShift.setHint(R.string.number_of_shift)
         binding.textForNameLab.setText(R.string.сaesar_cipher)
 
-        binding.explanationImageView.setOnClickListener {
+        binding.btnCodeReview.setOnClickListener {
             showExplanation("Lab1")
+        }
+        binding.explanationImageView.setOnClickListener {
+            showExplanation("Lab1Exp")
         }
     }
 

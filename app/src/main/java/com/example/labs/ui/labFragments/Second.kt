@@ -18,8 +18,11 @@ class Second: MainLabsFragment() {
         }
         binding.symbolShift.setHint(R.string.key_gamming)
         binding.textForNameLab.setText(R.string.name_for_gamming)
-        binding.explanationImageView.setOnClickListener {
+        binding.btnCodeReview.setOnClickListener {
             showExplanation("Lab2")
+        }
+        binding.explanationImageView.setOnClickListener {
+            showExplanation("Lab2Exp")
         }
     }
 

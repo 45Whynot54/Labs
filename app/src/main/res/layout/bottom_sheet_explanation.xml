@@ -12,7 +12,6 @@
         android:id="@+id/explanationText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/explanation_lab1"
         android:textSize="14sp"
         android:fontFamily="monospace"
         android:lineSpacingExtra="4dp"

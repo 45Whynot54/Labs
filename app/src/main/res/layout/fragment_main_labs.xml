@@ -121,4 +121,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_help" />
 
+    <Button
+        android:id="@+id/btnCodeReview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/code"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="165dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
