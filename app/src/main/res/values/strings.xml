@@ -18,6 +18,8 @@
     <string name="cipher">Разные шифры</string>
     <string name="close">Закрыть</string>
     <string name="error_for_explatation">Объяснение не сделано</string>
+    <string name="i_am_lazy">Мне было лень делать :)\nСкоро исправлю данный момент
+    </string>
 
     // names for labs
     <string name="btn_lab1">Лабораторная работа 1</string>
@@ -79,9 +81,6 @@
     <string name="key_gamming">Ключ</string>
     <string name="name_for_gamming">Шифр гаммирования</string>
     <string name="code_lab2">
-        override fun generateKey(length: Int): ByteArray {\n
-        return ByteArray(length) { Random.nextInt(0, 256).toByte()}\n
-    }\n\n
 
     override fun encrypt(text: String, key: ByteArray): ByteArray {\n
         val textBytes = text.toByteArray()\n

@@ -31,10 +31,10 @@ open class ExplanationBottomSheetFragment : BottomSheetDialogFragment() {
         val labId = arguments?.getString(ARG_LAB_ID) ?: "Unknown"
         val code = when (labId) {
             "Lab1" -> R.string.code_lab1
-            "Lab1Exp" -> R.string.explanation_lab1
+            "Lab1Exp" -> R.string.i_am_lazy
 
             "Lab2" -> R.string.code_lab2
-            "Lab2Exp" -> R.string.explanation_lab2
+            "Lab2Exp" -> R.string.i_am_lazy
 
             "Lab3" -> R.string.code_lab3
             "Lab3Exp" -> R.string.explanation_lab3

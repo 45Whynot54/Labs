@@ -5,9 +5,6 @@ import kotlin.experimental.xor
 import kotlin.random.Random
 
 object GammingImpl: Gamming {
-    override fun generateKey(length: Int): ByteArray {
-        return ByteArray(length) { Random.nextInt(0, 256).toByte()}
-    }
 
     override fun encrypt(text: String, key: ByteArray): ByteArray {
         val textBytes = text.toByteArray()
