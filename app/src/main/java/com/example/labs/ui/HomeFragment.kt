@@ -43,7 +43,7 @@ class HomeFragment: Fragment() {
         val btnLabs = mapOf(
             binding.btnLab1 to R.id.action_homeFragment_to_lab1Fragment,
             binding.btnLab2 to R.id.action_homeFragment_to_secondLabFragment,
-
+            binding.btnLab4 to R.id.action_homeFragment_to_fourth
             )
         btnLabs.forEach { (button, actionId) ->
             button.setOnClickListener {
@@ -55,7 +55,6 @@ class HomeFragment: Fragment() {
     private fun btnNotEmployed() {
         val btnLabsIsNotEmployed = listOf(
             binding.btnLab3,
-            binding.btnLab4,
             binding.btnLab5,
             binding.btnLab6,
             binding.btnLab7,

@@ -66,6 +66,7 @@ open class MainLabsFragment : Fragment() {
         bottomSheet.show(parentFragmentManager, "ExplanationBottomSheetFragment")
     }
 
+
     protected fun selectedOption(): Boolean {
         return when (binding.radioGroup.checkedRadioButtonId) {
             R.id.btn_encrypt -> true

@@ -64,7 +64,7 @@
         android:label="Third" />
     <fragment
         android:id="@+id/fourth"
-        android:name="com.example.labs.ui.labFragments.Fourth"
+        android:name="com.example.labs.ui.labFragments.lab4.Fourth"
         android:label="Fourth" />
 
 </navigation>
