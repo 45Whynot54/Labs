@@ -39,7 +39,7 @@ open class ExplanationBottomSheetFragment : BottomSheetDialogFragment() {
             "Lab3" -> R.string.code_lab3
             "Lab3Exp" -> R.string.explanation_lab3
 
-            "Lab4" -> R.string.code_lab4
+            "Lab4" -> R.string.i_am_lazy
             "Lab4Exp" -> R.string.explanation_lab4
 
             "Lab5" -> R.string.code_lab5

@@ -7,7 +7,7 @@
         чтобы посмотреть лабораторные работы, нажмите необходимую кнопку внизу
     </string>
 
-    //default layout names
+    //generals names for layouts
     <string name="encrypt">Зашифровать</string>
     <string name="decrypt">Дешифровать</string>
     <string name="input_text">Введите текст</string>
@@ -18,8 +18,11 @@
     <string name="cipher">Разные шифры</string>
     <string name="close">Закрыть</string>
     <string name="error_for_explatation">Объяснение не сделано</string>
-    <string name="i_am_lazy">Мне было лень делать :)\nСкоро исправлю данный момент
-    </string>
+    <string name="i_am_lazy">Мне было лень делать :)\nСкоро исправлю данный момент</string>
+    <string name="open_key">Открытый ключ</string>
+    <string name="create_key">Создать ключи</string>
+    <string name="close_key">Закрытый ключ</string>
+    <string name="generate">Сгенерировать</string>
 
     // names for labs
     <string name="btn_lab1">Лабораторная работа 1</string>
@@ -112,12 +115,11 @@
 
     //Fourth
     <string name="code_lab4">
-
     </string>
     <string name="explanation_lab4">
 
     </string>
-
+    <string name="text_for_name_lab4">Шифрование RSA</string>
 
     //Fifth
     <string name="code_lab5">
@@ -153,6 +155,4 @@
     <string name="explanation_lab8">
 
     </string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
