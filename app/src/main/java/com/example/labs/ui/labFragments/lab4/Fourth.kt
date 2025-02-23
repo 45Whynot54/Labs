@@ -59,8 +59,6 @@ class Fourth : Fragment() {
         keyStorage = KeyStorage(requireContext())
 
 
-
-
         with(binding) {
 
             binding.buttonCopy.setOnClickListener {

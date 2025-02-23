@@ -9,6 +9,7 @@ import com.example.labs.data.GeneralFunctionsImpl
 import com.example.labs.data.lab4.RSAKeyGenerator
 import com.example.labs.databinding.FragmentCreationKeyBottomSheetBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import java.math.BigInteger
 
 
 open class CreationKeyBottomSheetFragment : BottomSheetDialogFragment() {
@@ -42,25 +43,48 @@ open class CreationKeyBottomSheetFragment : BottomSheetDialogFragment() {
         }
 
         binding.btnGenerateKeys.setOnClickListener {
-            val (n, e, d) = RSAKeyGenerator.generateKeys(39)
-            val openKey = "${e}"
-            val closeKey = "${d}"
+
+            val (openKey: String, closeKey: String) = regenerateKeys()
+
             binding.openKey.text = openKey
             binding.closeKey.text = closeKey
 
             viewModel.openKey = openKey
             viewModel.closeKey = closeKey
+
             onKeysGenerated?.invoke(openKey, closeKey)
 
-            println("Ключи сгенерированы и сохранены: n=${n}, e=${e}, d=${d}")
-        }
+            val keysSize = binding.openKey.text.toString().length
+            generalFunctions.showShortToast(context, "Длина ключей: ${keysSize} символов", 300)
 
+        }
 
         binding.closeKey.setOnClickListener {
             generalFunctions.showShortToast(context, "Зачем ты сюда нажал? :)", 200)
             showHiden()
         }
+
         binding.openKey.isClickable = false
+    }
+
+    private fun regenerateKeys(): Pair<String, String> {
+        var openKey: String
+        var closeKey: String
+        var n: BigInteger
+        var e: BigInteger
+        var d: BigInteger
+
+        do {
+            val keys = RSAKeyGenerator.generateKeys(48)
+            n = keys.first
+            e = keys.second
+            d = keys.third
+
+            openKey = "${e}"
+            closeKey = "${d}"
+
+        } while (openKey.length != closeKey.length || openKey.length > 14 || openKey.length < 13)
+        return Pair(openKey, closeKey)
     }
 
     private fun showHiden() {
