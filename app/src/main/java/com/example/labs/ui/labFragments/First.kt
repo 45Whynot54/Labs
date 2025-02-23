@@ -1,5 +1,6 @@
 package com.example.labs.ui.labFragments
 import android.os.Bundle
+import android.text.InputType
 import android.view.View
 import androidx.core.view.isVisible
 import com.example.labs.R
@@ -13,6 +14,8 @@ class First : MainLabsFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.symbolShift.setInputType(InputType.TYPE_CLASS_NUMBER)
+
         binding.buttonApply.setOnClickListener {
             applyCaesarCipher()
         }

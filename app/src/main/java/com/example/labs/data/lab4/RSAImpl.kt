@@ -18,15 +18,17 @@ object RSAImpl : RSA {
     }
 
     // Шифрование
-    override fun encrypt(message: String, publicKey: Pair<BigInteger, BigInteger>): BigInteger {
+    override fun encrypt(message: String, publicKey: Pair<BigInteger, BigInteger>): String {
         val (n, e) = publicKey
         val m = BigInteger(message.toByteArray())
-        return m.modPow(e, n)
+        val ciphertext = m.modPow(e, n)
+        return ciphertext.toString(16)
     }
 
     // Расшифрование
-    override fun decrypt(ciphertext: BigInteger): String {
-        val m = ciphertext.modPow(d, n)
-        return String(m.toByteArray())
+    override fun decrypt(ciphertext: String): String {
+        val m = BigInteger(ciphertext, 16)
+        val message = m.modPow(d, n)
+        return String(message.toByteArray())
     }
 }

@@ -27,23 +27,12 @@
             android:textSize="15dp"
             android:fontFamily="monospace"
             android:lineSpacingExtra="4dp"
+            android:clickable="false"
             android:hint="@string/open_key"
-            android:textIsSelectable="true"
             android:inputType="textMultiLine"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="wrap_content"
-            android:visibility="gone"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/btn_generate_keys"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/close_key"
@@ -52,7 +41,6 @@
             android:layout_marginTop="20dp"
             android:hint="@string/close_key"
             android:clickable="true"
-            android:inputType="textPassword"
             android:textSize="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"

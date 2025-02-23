@@ -34,12 +34,12 @@
         app:layout_constraintTop_toBottomOf="@id/text_for_name_lab4" />
 
     <EditText
-        android:id="@+id/open_key"
+        android:id="@+id/field_for_key"
         android:layout_width="0dp"
+        android:hint="@string/open_key"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:inputType="text"
-        android:hint="@string/open_key"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/input_text" />
@@ -58,7 +58,7 @@
         app:layout_constraintEnd_toStartOf="@id/button_copy"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/open_key" />
+        app:layout_constraintTop_toBottomOf="@id/field_for_key" />
 
     <ImageButton
         android:id="@+id/button_copy"
@@ -71,19 +71,19 @@
         android:src="?attr/actionModeCopyDrawable"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/open_key" />
+        app:layout_constraintTop_toBottomOf="@id/field_for_key" />
 
     <Button
-        android:id="@+id/btn_encrypt"
+        android:id="@+id/btn_encrypt_decrypt"
+        android:layout_marginTop="70dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:enabled="false"
         android:text="@string/encrypt"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_decrypt" />
+        app:layout_constraintTop_toBottomOf="@+id/field_for_key" />
 
     <ImageView
         android:id="@+id/back_on_main"
@@ -109,15 +109,35 @@
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="165dp" />
 
-    <Button
-        android:visibility="invisible"
-        android:id="@+id/btn_decrypt"
+    <Switch
+        android:id="@+id/switch_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@+id/text_decrypt"
+        app:layout_constraintStart_toEndOf="@+id/text_encrypt"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_encrypt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="@string/encrypt"
+        android:layout_marginTop="5dp"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@+id/explanationImageView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_decrypt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="10dp"
         android:text="@string/decrypt"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/output_text" />
+        android:textSize="15sp"
+        app:layout_constraintEnd_toStartOf="@+id/back_on_main"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

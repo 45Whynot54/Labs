@@ -4,12 +4,11 @@ import android.content.Context
 import android.content.SharedPreferences
 import java.math.BigInteger
 
-class KeyStorage(private val context: Context) {
+class KeyStorage(val context: Context) {
 
     private val sharedPreferences: SharedPreferences =
         context.getSharedPreferences("RSA_KEYS", Context.MODE_PRIVATE)
 
-    // Сохранение ключей
     fun saveKeys(n: BigInteger, e: BigInteger, d: BigInteger) {
         val editor = sharedPreferences.edit()
         editor.putString("n", n.toString())
@@ -17,15 +16,12 @@ class KeyStorage(private val context: Context) {
         editor.putString("d", d.toString())
         editor.apply()
     }
-
-    // Получение открытого ключа
     fun getPublicKey(): Pair<BigInteger, BigInteger>? {
         val n = sharedPreferences.getString("n", null)?.toBigInteger()
         val e = sharedPreferences.getString("e", null)?.toBigInteger()
         return if (n != null && e != null) Pair(n, e) else null
     }
 
-    // Получение закрытого ключа
     fun getPrivateKey(): Pair<BigInteger, BigInteger>? {
         val n = sharedPreferences.getString("n", null)?.toBigInteger()
         val d = sharedPreferences.getString("d", null)?.toBigInteger()

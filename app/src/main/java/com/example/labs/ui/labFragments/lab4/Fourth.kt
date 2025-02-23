@@ -8,11 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import com.example.labs.R
 import com.example.labs.data.GeneralFunctionsImpl
 import com.example.labs.data.lab4.KeyStorage
 import com.example.labs.data.lab4.RSAImpl
 import com.example.labs.databinding.FourthLabFragmentBinding
-import com.example.labs.domain.lab4.RSA
 import com.example.labs.ui.ExplanationBottomSheetFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -20,6 +21,7 @@ import kotlinx.coroutines.launch
 import java.math.BigInteger
 
 class Fourth : Fragment() {
+
 
     private lateinit var keyStorage: KeyStorage
     private var rsa = RSAImpl
@@ -36,7 +38,6 @@ class Fourth : Fragment() {
             binding.outputText.text = ""
             binding.buttonCopy.isVisible = false
             binding.outputText.isVisible = false
-            binding.btnDecrypt.isVisible = false
             enableOrDisableButton()
         }
     }
@@ -58,71 +59,103 @@ class Fourth : Fragment() {
         val publicKey = keyStorage.getPublicKey()
         val privateKey = keyStorage.getPrivateKey()
 
-        if (publicKey == null || privateKey == null)
-        {
+        if (publicKey == null || privateKey == null) {
             generalFunctions.showShortToast(context, "Ключи не найдены", 200)
             return
         }
         RSAImpl.initialize(publicKey.first, publicKey.second, privateKey.second)
 
 
+        with(binding) {
 
-        with(binding){
-            btnEncrypt.setOnClickListener {
-                encrypt(publicKey)
+            buttonCopy.setOnClickListener {
+                generalFunctions.copyText(requireContext(), binding.outputText.text.toString())
             }
-            btnDecrypt.setOnClickListener {
-                decrypt()
+
+            btnEncryptDecrypt.setOnClickListener {
+                decryptOrEncrypt(publicKey)
+            }
+            switchType.setOnClickListener {
+                checkTypeSwitch()
             }
             createKeyBtn.setOnClickListener {
-                showExplanation()
+                showCreateBottomSheep()
             }
             backOnMain.setOnClickListener {
                 requireActivity().onBackPressedDispatcher.onBackPressed()
             }
             inputText.addTextChangedListener(textWatcher)
-            openKey.addTextChangedListener(textWatcher)
+            fieldForKey.addTextChangedListener(textWatcher)
 
             explanationImageView.setOnClickListener {
                 showExplanationLab4("Lab4")
             }
         }
+
     }
 
-    private fun encrypt(publicKey: Pair<BigInteger, BigInteger>?) {
+
+
+    private fun decryptOrEncrypt(publicKey: Pair<BigInteger, BigInteger>){
+        if (checkTypeSwitch()){
+            decrypt()
+        }
+        else {
+            if (publicKey != null) {
+                encrypt(publicKey)
+            } else {
+                generalFunctions.showShortToast(context, "Публичный ключ не найден", 200)
+            }
+        }
+    }
+
+    private fun encrypt(publicKey: Pair<BigInteger, BigInteger>) {
         CoroutineScope(Dispatchers.Main).launch {
             val message = binding.inputText.text.toString()
             if (message.isNotEmpty()) {
-                val ciphertext = publicKey?.let { rsa.encrypt(message, it) }
-                binding.outputText.setText(ciphertext.toString())
+                val ciphertext = publicKey.let { rsa.encrypt(message, it) }
+                binding.outputText.setText(ciphertext)
                 binding.outputText.visibility = View.VISIBLE
-                binding.btnDecrypt.visibility = View.VISIBLE
+                binding.buttonCopy.isVisible = true
+                binding.btnEncryptDecrypt.visibility = View.VISIBLE
             } else {
                 generalFunctions.showShortToast(context, "Ключи не найдены", 200)
             }
         }
     }
+
 
     private fun decrypt() {
         CoroutineScope(Dispatchers.Main).launch {
             val ciphertext =
                 binding.outputText.text.toString().replace("Зашифрованное сообщение: ", "")
             if (ciphertext.isNotEmpty()) {
-                val message = rsa.decrypt(BigInteger(ciphertext))
+                val message = rsa.decrypt(ciphertext)
                 binding.outputText.setText(message)
+                binding.outputText.visibility = View.VISIBLE
+                binding.buttonCopy.isVisible = true
+                binding.btnEncryptDecrypt.visibility = View.VISIBLE
             } else {
                 generalFunctions.showShortToast(context, "Ключи не найдены", 200)
             }
         }
     }
 
-    private fun showExplanation() {
-        val bottomSheet = CreationKeyBottomSheetFragment().apply {
-            onKeysGenerated = { publicKey ->
-                binding.openKey.setText(publicKey)
+    private fun showCreateBottomSheep() {
+        val bottomSheet = if (checkTypeSwitch()) {
+            CreationKeyBottomSheetFragment().apply {
+                onKeysGenerated = { openKey, _ ->
+                    binding.fieldForKey.setText(openKey)
+                }
+            }
+        } else {
+            CreationKeyBottomSheetFragment().apply {
+                onKeysGenerated = { _, closeKey ->
+                    binding.fieldForKey.setText(closeKey)
+                }
             }
         }
-        bottomSheet.show(childFragmentManager, "KeyGenerationBottomSheet")
+       bottomSheet.show(childFragmentManager, "KeyGenerationBottomSheet")
     }
 
     override fun onDestroyView() {
@@ -137,13 +170,27 @@ class Fourth : Fragment() {
 
     private fun enableOrDisableButton() {
         val inputText = binding.inputText.text.toString()
-        val openKeyText = binding.openKey.text.toString()
-        binding.btnEncrypt.isEnabled = inputText.isNotEmpty() && openKeyText.isNotEmpty()
-        if (binding.outputText.isVisible){
-            binding.btnDecrypt.isVisible = false
+        val KeyText = binding.fieldForKey.text.toString()
+        binding.btnEncryptDecrypt.isEnabled = inputText.isNotEmpty() && KeyText.isNotEmpty()
+    }
+
+    private fun checkTypeSwitch(): Boolean {
+        return when {
+            binding.switchType.isChecked -> {
+                binding.btnEncryptDecrypt.setText(R.string.decrypt)
+                binding.fieldForKey.setHint(R.string.close_key)
+                false
+            }
+
+            else -> {
+                binding.btnEncryptDecrypt.setText(R.string.encrypt)
+                binding.fieldForKey.setHint(R.string.open_key)
+                true
+            }
         }
     }
 }
+
 
 
 
