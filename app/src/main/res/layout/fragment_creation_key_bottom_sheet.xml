@@ -26,10 +26,8 @@
             android:layout_height="wrap_content"
             android:textSize="15dp"
             android:fontFamily="monospace"
-            android:lineSpacingExtra="4dp"
             android:clickable="false"
             android:hint="@string/open_key"
-            android:inputType="textMultiLine"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -40,6 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:hint="@string/close_key"
+            android:fontFamily="monospace"
             android:clickable="true"
             android:textSize="15dp"
             app:layout_constraintEnd_toEndOf="parent"

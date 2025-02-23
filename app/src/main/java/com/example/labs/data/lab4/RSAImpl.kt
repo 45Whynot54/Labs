@@ -2,6 +2,7 @@ package com.example.labs.data.lab4
 
 import com.example.labs.domain.lab4.RSA
 import java.math.BigInteger
+import java.security.PrivateKey
 
 object RSAImpl : RSA {
 
@@ -26,7 +27,8 @@ object RSAImpl : RSA {
     }
 
     // Расшифрование
-    override fun decrypt(ciphertext: String): String {
+    override fun decrypt(ciphertext: String, privateKey: Pair<BigInteger, BigInteger>): String {
+        val (n, d) = privateKey
         val m = BigInteger(ciphertext, 16)
         val message = m.modPow(d, n)
         return String(message.toByteArray())

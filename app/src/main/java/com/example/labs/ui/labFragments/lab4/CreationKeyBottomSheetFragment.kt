@@ -34,23 +34,23 @@ open class CreationKeyBottomSheetFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.publicKey?.let { publicKey ->
-            binding.openKey.text = publicKey
+        viewModel.openKey?.let { openKey ->
+            binding.openKey.text = openKey
         }
         viewModel.closeKey?.let { closeKey ->
             binding.closeKey.text = closeKey
         }
 
         binding.btnGenerateKeys.setOnClickListener {
-            val (n, e, d) = RSAKeyGenerator.generateKeys(25)
-            val publicKey = "${e}"
+            val (n, e, d) = RSAKeyGenerator.generateKeys(39)
+            val openKey = "${e}"
             val closeKey = "${d}"
-            binding.openKey.text = publicKey
+            binding.openKey.text = openKey
             binding.closeKey.text = closeKey
 
-            viewModel.publicKey = publicKey
+            viewModel.openKey = openKey
             viewModel.closeKey = closeKey
-            onKeysGenerated?.invoke(publicKey, closeKey)
+            onKeysGenerated?.invoke(openKey, closeKey)
 
             println("Ключи сгенерированы и сохранены: n=${n}, e=${e}, d=${d}")
         }

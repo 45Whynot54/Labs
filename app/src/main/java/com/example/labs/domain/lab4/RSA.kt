@@ -4,5 +4,5 @@ import java.math.BigInteger
 
 interface RSA {
     fun encrypt(message: String, publicKey: Pair<BigInteger, BigInteger>): String
-    fun decrypt(ciphertext: String): String
+    fun decrypt(ciphertext: String, privateKey: Pair<BigInteger, BigInteger>): String
 }

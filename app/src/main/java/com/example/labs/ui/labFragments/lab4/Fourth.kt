@@ -2,7 +2,9 @@ package com.example.labs.ui.labFragments.lab4
 
 import android.os.Bundle
 import android.text.Editable
+import android.text.InputType
 import android.text.TextWatcher
+import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -56,27 +58,26 @@ class Fourth : Fragment() {
 
         keyStorage = KeyStorage(requireContext())
 
-        val publicKey = keyStorage.getPublicKey()
-        val privateKey = keyStorage.getPrivateKey()
 
-        if (publicKey == null || privateKey == null) {
-            generalFunctions.showShortToast(context, "Ключи не найдены", 200)
-            return
-        }
-        RSAImpl.initialize(publicKey.first, publicKey.second, privateKey.second)
 
 
         with(binding) {
+
+            binding.buttonCopy.setOnClickListener {
+                generalFunctions.copyText(requireContext(), binding.outputText.text.toString())
+            }
 
             buttonCopy.setOnClickListener {
                 generalFunctions.copyText(requireContext(), binding.outputText.text.toString())
             }
 
             btnEncryptDecrypt.setOnClickListener {
-                decryptOrEncrypt(publicKey)
+                decryptOrEncrypt()
+                btnEncryptDecrypt.isEnabled = false
             }
             switchType.setOnClickListener {
                 checkTypeSwitch()
+                binding.fieldForKey.text.clear()
             }
             createKeyBtn.setOnClickListener {
                 showCreateBottomSheep()
@@ -96,30 +97,35 @@ class Fourth : Fragment() {
 
 
 
-    private fun decryptOrEncrypt(publicKey: Pair<BigInteger, BigInteger>){
+    private fun decryptOrEncrypt(){
         if (checkTypeSwitch()){
             decrypt()
         }
         else {
-            if (publicKey != null) {
-                encrypt(publicKey)
-            } else {
-                generalFunctions.showShortToast(context, "Публичный ключ не найден", 200)
-            }
+            encrypt()
         }
     }
 
-    private fun encrypt(publicKey: Pair<BigInteger, BigInteger>) {
+    private fun encrypt() {
         CoroutineScope(Dispatchers.Main).launch {
             val message = binding.inputText.text.toString()
             if (message.isNotEmpty()) {
-                val ciphertext = publicKey.let { rsa.encrypt(message, it) }
-                binding.outputText.setText(ciphertext)
-                binding.outputText.visibility = View.VISIBLE
-                binding.buttonCopy.isVisible = true
-                binding.btnEncryptDecrypt.visibility = View.VISIBLE
+                // Получаем открытый ключ из текстового поля
+                val publicKeyText = binding.fieldForKey.text.toString()
+                val (n, e) = parseKey(publicKeyText) // Парсим ключ
+
+                if (n != null && e != null) {
+                    // Шифруем сообщение
+                    val ciphertext = rsa.encrypt(message, Pair(n, e))
+                    binding.outputText.setText(ciphertext)
+                    binding.outputText.visibility = View.VISIBLE
+                    binding.buttonCopy.isVisible = true
+                    binding.btnEncryptDecrypt.visibility = View.VISIBLE
+                } else {
+                    generalFunctions.showShortToast(context, "Некорректный открытый ключ", 200)
+                }
             } else {
-                generalFunctions.showShortToast(context, "Ключи не найдены", 200)
+                generalFunctions.showShortToast(context, "Введите сообщение", 200)
             }
         }
     }
@@ -127,17 +133,36 @@ class Fourth : Fragment() {
 
     private fun decrypt() {
         CoroutineScope(Dispatchers.Main).launch {
-            val ciphertext =
-                binding.outputText.text.toString().replace("Зашифрованное сообщение: ", "")
+            val ciphertext = binding.outputText.text.toString().replace("Зашифрованное сообщение: ", "")
             if (ciphertext.isNotEmpty()) {
-                val message = rsa.decrypt(ciphertext)
-                binding.outputText.setText(message)
-                binding.outputText.visibility = View.VISIBLE
-                binding.buttonCopy.isVisible = true
-                binding.btnEncryptDecrypt.visibility = View.VISIBLE
+                // Получаем закрытый ключ из текстового поля
+                val privateKeyText = binding.fieldForKey.text.toString()
+                val (n, d) = parseKey(privateKeyText) // Парсим ключ
+
+                if (n != null && d != null) {
+                    // Расшифровываем сообщение
+                    val message = rsa.decrypt(ciphertext, Pair(n, d))
+                    binding.outputText.setText(message)
+                    binding.outputText.visibility = View.VISIBLE
+                    binding.buttonCopy.isVisible = true
+                    binding.btnEncryptDecrypt.visibility = View.VISIBLE
+                } else {
+                    generalFunctions.showShortToast(context, "Некорректный закрытый ключ", 200)
+                }
             } else {
-                generalFunctions.showShortToast(context, "Ключи не найдены", 200)
+                generalFunctions.showShortToast(context, "Введите зашифрованное сообщение", 200)
             }
+        }
+    }
+
+    private fun parseKey(keyText: String): Pair<BigInteger?, BigInteger?> {
+        val parts = keyText.split(" ") // Разделяем ключ по пробелу
+        return if (parts.size == 2) {
+            val n = parts[0].toBigIntegerOrNull()
+            val eOrD = parts[1].toBigIntegerOrNull()
+            Pair(n, eOrD)
+        } else {
+            Pair(null, null)
         }
     }
 
@@ -178,14 +203,18 @@ class Fourth : Fragment() {
         return when {
             binding.switchType.isChecked -> {
                 binding.btnEncryptDecrypt.setText(R.string.decrypt)
+                binding.fieldForKey.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
+                binding.fieldForKey.transformationMethod = PasswordTransformationMethod.getInstance()
                 binding.fieldForKey.setHint(R.string.close_key)
-                false
+                true
             }
 
             else -> {
                 binding.btnEncryptDecrypt.setText(R.string.encrypt)
+                binding.fieldForKey.inputType = InputType.TYPE_CLASS_TEXT
+                binding.fieldForKey.transformationMethod = null
                 binding.fieldForKey.setHint(R.string.open_key)
-                true
+                false
             }
         }
     }
