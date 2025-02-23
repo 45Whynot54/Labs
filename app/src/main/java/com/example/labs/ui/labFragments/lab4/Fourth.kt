@@ -71,7 +71,8 @@ class Fourth : Fragment() {
             }
             switchType.setOnClickListener {
                 checkTypeSwitch()
-                binding.fieldForKey.text.clear()
+                fieldForKey.text.clear()
+                inputText.text.clear()
             }
             createKeyBtn.setOnClickListener {
                 showCreateBottomSheep()
