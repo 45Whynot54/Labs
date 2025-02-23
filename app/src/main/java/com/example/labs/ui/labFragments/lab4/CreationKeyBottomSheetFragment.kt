@@ -16,6 +16,7 @@ open class CreationKeyBottomSheetFragment : BottomSheetDialogFragment() {
 
     private val generalFunctions = GeneralFunctionsImpl
     private val viewModel: KeyViewModel by activityViewModels()
+    private var keysGeneratedInCurrentSession = false
 
     private var _binding: FragmentCreationKeyBottomSheetBinding? = null
     private val binding: FragmentCreationKeyBottomSheetBinding
@@ -35,26 +36,27 @@ open class CreationKeyBottomSheetFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.openKey?.let { openKey ->
-            binding.openKey.text = openKey
+        viewModel.publicKey?.let { (_, e) ->
+            binding.openKey.text = e.toString()
         }
-        viewModel.closeKey?.let { closeKey ->
-            binding.closeKey.text = closeKey
+
+        viewModel.privateKey?.let { (_, d) ->
+            binding.closeKey.text = d.toString()
         }
 
         binding.btnGenerateKeys.setOnClickListener {
 
             do {
                 val (n, e, d) = RSAKeyGenerator.generateKeys(48)
-                val publicKey = "${e}"
-                val closeKey = "${d}"
+
+                viewModel.publicKey = Pair(n, e)
+                viewModel.privateKey = Pair(n, d)
+                val publicKey = e.toString()
+                val closeKey = d.toString()
                 binding.openKey.text = publicKey
                 binding.closeKey.text = closeKey
+                onKeysGenerated?.invoke(e.toString(), d.toString())
 
-
-                onKeysGenerated?.invoke(publicKey, closeKey)
-
-                println("Ключи сгенерированы и сохранены: n=${n}, e=${e}, d=${d}")
             } while (publicKey.length != closeKey.length || publicKey.length > 14 || publicKey.length < 13)
 
 

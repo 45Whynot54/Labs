@@ -7,20 +7,19 @@
     android:padding="32dp">
 
 
-
     <TextView
         android:id="@+id/text_for_name_lab4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
         android:fontFamily="sans-serif"
-        android:text="@string/text_for_name_lab4"
         android:gravity="center"
+        android:text="@string/text_for_name_lab4"
+        android:layout_marginTop="30dp"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/switch_type" />
 
     <EditText
         android:id="@+id/input_text"
@@ -37,9 +36,9 @@
         android:id="@+id/field_for_key"
         android:layout_width="0dp"
         android:hint="@string/open_key"
-        android:focusable="false"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:focusable="false"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -112,6 +111,7 @@
 
     <Switch
         android:id="@+id/switch_type"
+        android:layout_marginTop="50dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toStartOf="@+id/text_decrypt"
@@ -122,22 +122,20 @@
         android:id="@+id/text_encrypt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_marginTop="55dp"
         android:text="@string/encrypt"
-        android:layout_marginTop="5dp"
         android:textSize="15sp"
-        app:layout_constraintStart_toEndOf="@+id/explanationImageView"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/text_decrypt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginTop="55dp"
         android:text="@string/decrypt"
         android:textSize="15sp"
-        app:layout_constraintEnd_toStartOf="@+id/back_on_main"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 

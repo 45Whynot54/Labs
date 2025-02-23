@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.example.labs.R
 import com.example.labs.data.GeneralFunctionsImpl
@@ -25,6 +26,7 @@ class Fourth : Fragment() {
 
     private var rsa = RSAImpl
     private val generalFunctions = GeneralFunctionsImpl
+    private val viewModel: KeyViewModel by activityViewModels()
 
     private var _binding: FourthLabFragmentBinding? = null
     val binding: FourthLabFragmentBinding
@@ -64,8 +66,13 @@ class Fourth : Fragment() {
             }
 
             btnEncryptDecrypt.setOnClickListener {
-                decryptOrEncrypt()
-                btnEncryptDecrypt.isEnabled = false
+                val publicKey = viewModel.publicKey
+                val privateKey = viewModel.privateKey
+                if (publicKey != null && privateKey != null) {
+                    decryptOrEncrypt()
+                } else {
+                    generalFunctions.showShortToast(context, "Ключи не найдены", 200)
+                }
             }
             switchType.setOnClickListener {
                 checkTypeSwitch()
@@ -87,9 +94,7 @@ class Fourth : Fragment() {
 
     }
 
-
-
-    private fun decryptOrEncrypt(){
+    private fun decryptOrEncrypt() {
         if (checkTypeSwitch()){
             encrypt()
         }
@@ -99,57 +104,36 @@ class Fourth : Fragment() {
     }
 
     private fun encrypt() {
-        CoroutineScope(Dispatchers.Main).launch {
-            val message = binding.inputText.text.toString()
-            if (message.isNotEmpty()) {
-                val publicKeyText = binding.fieldForKey.text.toString()
-                val (n, e) = parseKey(publicKeyText)
-                if (n != null && e != null) {
-                    val ciphertext = rsa.encrypt(message, Pair(n, e))
-                    binding.outputText.setText(ciphertext)
-                    binding.outputText.isVisible = true
-                    binding.buttonCopy.isVisible = true
-                    binding.btnEncryptDecrypt.isVisible = true
-                } else {
-                    generalFunctions.showShortToast(context, "Некорректный открытый ключ", 200)
-                }
+        val message = binding.inputText.text.toString()
+        if (message.isNotEmpty()) {
+            val publicKey = viewModel.publicKey
+            if (publicKey != null) {
+                val ciphertext = rsa.encrypt(message, publicKey)
+                binding.outputText.text = ciphertext
+                binding.outputText.isVisible = true
+                binding.buttonCopy.isVisible = true
             } else {
-                generalFunctions.showShortToast(context, "Введите сообщение", 200)
+                generalFunctions.showShortToast(requireContext(), "Открытый ключ не найден", 200)
             }
+        } else {
+            generalFunctions.showShortToast(requireContext(), "Введите сообщение", 200)
         }
     }
-
 
     private fun decrypt() {
-        CoroutineScope(Dispatchers.Main).launch {
-            val ciphertext = binding.outputText.text.toString().replace("Зашифрованное сообщение: ", "")
-            if (ciphertext.isNotEmpty()) {
-                val privateKeyText = binding.fieldForKey.text.toString()
-                val (n, d) = parseKey(privateKeyText)
-
-                if (n != null && d != null) {
-                    val message = rsa.decrypt(ciphertext, Pair(n, d))
-                    binding.outputText.setText(message)
-                    binding.outputText.isVisible = true
-                    binding.buttonCopy.isVisible = true
-                    binding.btnEncryptDecrypt.isVisible = true
-                } else {
-                    generalFunctions.showShortToast(context, "Некорректный закрытый ключ", 200)
-                }
+        val ciphertext = binding.inputText.text.toString()
+        if (ciphertext.isNotEmpty()) {
+            val privateKey = viewModel.privateKey
+            if (privateKey != null) {
+                val message = rsa.decrypt(ciphertext, privateKey)
+                binding.outputText.text = message
+                binding.outputText.isVisible = true
+                binding.buttonCopy.isVisible = true
             } else {
-                generalFunctions.showShortToast(context, "Введите зашифрованное сообщение", 200)
+                generalFunctions.showShortToast(requireContext(), "Закрытый ключ не найден", 200)
             }
-        }
-    }
-
-    private fun parseKey(keyText: String): Pair<BigInteger?, BigInteger?> {
-        val parts = keyText.split(" ") // Разделяем ключ по пробелу
-        return if (parts.size == 2) {
-            val n = parts[0].toBigIntegerOrNull()
-            val eOrD = parts[1].toBigIntegerOrNull()
-            Pair(n, eOrD)
         } else {
-            Pair(null, null)
+            generalFunctions.showShortToast(requireContext(), "Введите зашифрованное сообщение", 200)
         }
     }
 

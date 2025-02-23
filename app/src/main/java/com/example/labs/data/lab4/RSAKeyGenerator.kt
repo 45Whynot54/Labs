@@ -10,21 +10,17 @@ object RSAKeyGenerator {
     }
 
     fun generateKeys(bitLength: Int): Triple<BigInteger, BigInteger, BigInteger> {
-
         var n: BigInteger
-        var e: BigInteger = BigInteger.ZERO
-        var d: BigInteger = BigInteger.ZERO
+        var e: BigInteger
+        var d: BigInteger
         do {
             val p = generatePrime(bitLength / 2)
             val q = generatePrime(bitLength / 2)
             n = p.multiply(q)
-            if (n.bitLength() != bitLength) continue
             val phi = p.subtract(BigInteger.ONE).multiply(q.subtract(BigInteger.ONE))
             e = generateRandomE(phi)
             d = e.modInverse(phi)
-
         } while (n.bitLength() != bitLength)
-
         return Triple(n, e, d)
     }
 
