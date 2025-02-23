@@ -11,16 +11,11 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import com.example.labs.R
 import com.example.labs.data.GeneralFunctionsImpl
 import com.example.labs.data.lab4.RSAImpl
 import com.example.labs.databinding.FourthLabFragmentBinding
 import com.example.labs.ui.ExplanationBottomSheetFragment
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import java.math.BigInteger
 
 class Fourth : Fragment() {
 
@@ -174,8 +169,8 @@ class Fourth : Fragment() {
         return when {
             binding.switchType.isChecked -> {
                 binding.btnEncryptDecrypt.setText(R.string.decrypt)
-                binding.fieldForKey.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
-                binding.fieldForKey.transformationMethod = PasswordTransformationMethod.getInstance()
+//                binding.fieldForKey.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
+//                binding.fieldForKey.transformationMethod = PasswordTransformationMethod.getInstance()
                 binding.fieldForKey.setHint(R.string.close_key)
                 false
             }

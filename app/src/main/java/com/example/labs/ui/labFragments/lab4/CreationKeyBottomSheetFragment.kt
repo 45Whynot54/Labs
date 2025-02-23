@@ -44,33 +44,49 @@ open class CreationKeyBottomSheetFragment : BottomSheetDialogFragment() {
             binding.closeKey.text = d.toString()
         }
 
-        binding.btnGenerateKeys.setOnClickListener {
+        with(binding) {
 
-            do {
-                val (n, e, d) = RSAKeyGenerator.generateKeys(48)
+            btnGenerateKeys.setOnClickListener {
 
-                viewModel.publicKey = Pair(n, e)
-                viewModel.privateKey = Pair(n, d)
-                val publicKey = e.toString()
-                val closeKey = d.toString()
-                binding.openKey.text = publicKey
-                binding.closeKey.text = closeKey
-                onKeysGenerated?.invoke(e.toString(), d.toString())
+                do {
+                    val (n, e, d) = RSAKeyGenerator.generateKeys(48)
 
-            } while (publicKey.length != closeKey.length || publicKey.length > 14 || publicKey.length < 13)
+                    viewModel.publicKey = Pair(n, e)
+                    viewModel.privateKey = Pair(n, d)
+                    val publicKey = e.toString()
+                    val closeKey = d.toString()
+                    binding.openKey.text = publicKey
+                    binding.closeKey.text = closeKey
+                    onKeysGenerated?.invoke(e.toString(), d.toString())
+
+                } while (publicKey.length != closeKey.length || publicKey.length > 14 || publicKey.length < 13)
 
 
-            val keysSize = binding.openKey.text.toString().length
-            generalFunctions.showShortToast(context, "Длина ключей: ${keysSize} символов", 300)
+                val keysSize = binding.openKey.text.toString().length
+                generalFunctions.showShortToast(context, "Длина ключей: ${keysSize} символов", 300)
 
+            }
+
+            openKey.setOnClickListener {
+                generalFunctions.showShortToast(context, "Зачем ты сюда нажал? :)", 300)
+            }
+
+            openKey.setOnLongClickListener {
+                generalFunctions.copyText(requireContext(), binding.openKey.text.toString())
+                binding.openKey.isClickable = true
+                true
+            }
+            closeKey.setOnClickListener {
+                generalFunctions.showShortToast(context, "Зачем ты сюда нажал? :)", 300)
+                showHiden()
+            }
+
+            closeKey.setOnLongClickListener {
+                generalFunctions.copyText(requireContext(), binding.closeKey.text.toString())
+                binding.openKey.isClickable = true
+                true
+            }
         }
-
-        binding.closeKey.setOnClickListener {
-            generalFunctions.showShortToast(context, "Зачем ты сюда нажал? :)", 200)
-            showHiden()
-        }
-
-        binding.openKey.isClickable = false
     }
 
     private fun showHiden() {
