@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.labs.R
 import com.example.labs.data.GeneralFunctionsImpl
-import com.example.labs.data.lab4.KeyStorage
 import com.example.labs.data.lab4.RSAImpl
 import com.example.labs.databinding.FourthLabFragmentBinding
 import com.example.labs.ui.ExplanationBottomSheetFragment
@@ -24,8 +23,6 @@ import java.math.BigInteger
 
 class Fourth : Fragment() {
 
-
-    private lateinit var keyStorage: KeyStorage
     private var rsa = RSAImpl
     private val generalFunctions = GeneralFunctionsImpl
 
@@ -55,9 +52,6 @@ class Fourth : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        keyStorage = KeyStorage(requireContext())
-
 
         with(binding) {
 
@@ -97,10 +91,10 @@ class Fourth : Fragment() {
 
     private fun decryptOrEncrypt(){
         if (checkTypeSwitch()){
-            decrypt()
+            encrypt()
         }
         else {
-            encrypt()
+            decrypt()
         }
     }
 
@@ -108,17 +102,14 @@ class Fourth : Fragment() {
         CoroutineScope(Dispatchers.Main).launch {
             val message = binding.inputText.text.toString()
             if (message.isNotEmpty()) {
-                // Получаем открытый ключ из текстового поля
                 val publicKeyText = binding.fieldForKey.text.toString()
-                val (n, e) = parseKey(publicKeyText) // Парсим ключ
-
+                val (n, e) = parseKey(publicKeyText)
                 if (n != null && e != null) {
-                    // Шифруем сообщение
                     val ciphertext = rsa.encrypt(message, Pair(n, e))
                     binding.outputText.setText(ciphertext)
-                    binding.outputText.visibility = View.VISIBLE
+                    binding.outputText.isVisible = true
                     binding.buttonCopy.isVisible = true
-                    binding.btnEncryptDecrypt.visibility = View.VISIBLE
+                    binding.btnEncryptDecrypt.isVisible = true
                 } else {
                     generalFunctions.showShortToast(context, "Некорректный открытый ключ", 200)
                 }
@@ -133,17 +124,15 @@ class Fourth : Fragment() {
         CoroutineScope(Dispatchers.Main).launch {
             val ciphertext = binding.outputText.text.toString().replace("Зашифрованное сообщение: ", "")
             if (ciphertext.isNotEmpty()) {
-                // Получаем закрытый ключ из текстового поля
                 val privateKeyText = binding.fieldForKey.text.toString()
-                val (n, d) = parseKey(privateKeyText) // Парсим ключ
+                val (n, d) = parseKey(privateKeyText)
 
                 if (n != null && d != null) {
-                    // Расшифровываем сообщение
                     val message = rsa.decrypt(ciphertext, Pair(n, d))
                     binding.outputText.setText(message)
-                    binding.outputText.visibility = View.VISIBLE
+                    binding.outputText.isVisible = true
                     binding.buttonCopy.isVisible = true
-                    binding.btnEncryptDecrypt.visibility = View.VISIBLE
+                    binding.btnEncryptDecrypt.isVisible = true
                 } else {
                     generalFunctions.showShortToast(context, "Некорректный закрытый ключ", 200)
                 }
@@ -167,8 +156,8 @@ class Fourth : Fragment() {
     private fun showCreateBottomSheep() {
         val bottomSheet = if (checkTypeSwitch()) {
             CreationKeyBottomSheetFragment().apply {
-                onKeysGenerated = { openKey, _ ->
-                    binding.fieldForKey.setText(openKey)
+                onKeysGenerated = { publicKey, _ ->
+                    binding.fieldForKey.setText(publicKey)
                 }
             }
         } else {
@@ -204,7 +193,7 @@ class Fourth : Fragment() {
                 binding.fieldForKey.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
                 binding.fieldForKey.transformationMethod = PasswordTransformationMethod.getInstance()
                 binding.fieldForKey.setHint(R.string.close_key)
-                true
+                false
             }
 
             else -> {
@@ -212,7 +201,7 @@ class Fourth : Fragment() {
                 binding.fieldForKey.inputType = InputType.TYPE_CLASS_TEXT
                 binding.fieldForKey.transformationMethod = null
                 binding.fieldForKey.setHint(R.string.open_key)
-                false
+                true
             }
         }
     }

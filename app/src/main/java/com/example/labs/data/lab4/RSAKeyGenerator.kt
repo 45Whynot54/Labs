@@ -1,7 +1,5 @@
 package com.example.labs.data.lab4
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import java.math.BigInteger
 import java.util.Random
 
@@ -10,7 +8,6 @@ object RSAKeyGenerator {
     private fun generatePrime(bitLength: Int): BigInteger {
         return BigInteger.probablePrime(bitLength, Random())
     }
-
 
     fun generateKeys(bitLength: Int): Triple<BigInteger, BigInteger, BigInteger> {
 

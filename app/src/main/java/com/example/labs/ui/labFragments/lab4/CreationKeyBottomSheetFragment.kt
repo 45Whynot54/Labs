@@ -44,15 +44,19 @@ open class CreationKeyBottomSheetFragment : BottomSheetDialogFragment() {
 
         binding.btnGenerateKeys.setOnClickListener {
 
-            val (openKey: String, closeKey: String) = regenerateKeys()
+            do {
+                val (n, e, d) = RSAKeyGenerator.generateKeys(48)
+                val publicKey = "${e}"
+                val closeKey = "${d}"
+                binding.openKey.text = publicKey
+                binding.closeKey.text = closeKey
 
-            binding.openKey.text = openKey
-            binding.closeKey.text = closeKey
 
-            viewModel.openKey = openKey
-            viewModel.closeKey = closeKey
+                onKeysGenerated?.invoke(publicKey, closeKey)
 
-            onKeysGenerated?.invoke(openKey, closeKey)
+                println("Ключи сгенерированы и сохранены: n=${n}, e=${e}, d=${d}")
+            } while (publicKey.length != closeKey.length || publicKey.length > 14 || publicKey.length < 13)
+
 
             val keysSize = binding.openKey.text.toString().length
             generalFunctions.showShortToast(context, "Длина ключей: ${keysSize} символов", 300)
@@ -65,26 +69,6 @@ open class CreationKeyBottomSheetFragment : BottomSheetDialogFragment() {
         }
 
         binding.openKey.isClickable = false
-    }
-
-    private fun regenerateKeys(): Pair<String, String> {
-        var openKey: String
-        var closeKey: String
-        var n: BigInteger
-        var e: BigInteger
-        var d: BigInteger
-
-        do {
-            val keys = RSAKeyGenerator.generateKeys(48)
-            n = keys.first
-            e = keys.second
-            d = keys.third
-
-            openKey = "${e}"
-            closeKey = "${d}"
-
-        } while (openKey.length != closeKey.length || openKey.length > 14 || openKey.length < 13)
-        return Pair(openKey, closeKey)
     }
 
     private fun showHiden() {
