@@ -62,54 +62,78 @@ class Fourth : MainLabsFragment() {
     }
 
     private fun encryptOrDecrypt() {
-        if (selectedOption()) {
-            // Шифрование
-            val message = binding.inputText.text.toString()
-            if (message.isNotEmpty()) {
-                val publicKey = viewModel.publicKey
-                if (publicKey != null) {
-                    val ciphertext = rsa.encrypt(message, publicKey)
-                    binding.outputText.text = ciphertext
-                    binding.outputText.isVisible = true
-                    binding.buttonCopy.isVisible = true
+        try {
+            if (selectedOption()) {
+                val message = binding.inputText.text.toString()
+                if (message.isNotEmpty()) {
+                    val publicKey = viewModel.publicKey
+                    if (publicKey != null) {
+                        val checkPublicKey = binding.fieldForKey.text.toString()
+                        if (checkPublicKey == publicKey.second.toString()) { // Сравниваем e
+                            val ciphertext = rsa.encrypt(message, publicKey)
+                            binding.outputText.text = ciphertext
+                            binding.outputText.isVisible = true
+                            binding.buttonCopy.isVisible = true
+                        } else {
+                            generalFunctions.showShortToast(
+                                requireContext(),
+                                "Некорректный открытый ключ",
+                                200
+                            )
+                        }
+                    } else {
+                        generalFunctions.showShortToast(
+                            requireContext(),
+                            "Открытый ключ не найден",
+                            200
+                        )
+                    }
                 } else {
                     generalFunctions.showShortToast(
                         requireContext(),
-                        "Открытый ключ не найден",
+                        "Введите сообщение для шифрования",
                         200
                     )
                 }
             } else {
-                generalFunctions.showShortToast(
-                    requireContext(),
-                    "Введите сообщение для шифрования",
-                    200
-                )
-            }
-        } else {
-            // Расшифровка
-            val ciphertext = binding.inputText.text.toString()
-            if (ciphertext.isNotEmpty()) {
-                val privateKey = viewModel.privateKey
-                if (privateKey != null) {
-                    val message = rsa.decrypt(ciphertext, privateKey)
-                    binding.outputText.text = message
-                    binding.outputText.isVisible = true
-                    binding.buttonCopy.isVisible = true
+                val ciphertext = binding.inputText.text.toString()
+                if (ciphertext.isNotEmpty()) {
+                    val privateKey = viewModel.privateKey
+                    if (privateKey != null) {
+                        val checkPrivateKey = binding.fieldForKey.text.toString()
+                        if (checkPrivateKey == privateKey.second.toString()) {
+                            val message = rsa.decrypt(ciphertext, privateKey)
+                            binding.outputText.text = message
+                            binding.outputText.isVisible = true
+                            binding.buttonCopy.isVisible = true
+                        } else {
+                            generalFunctions.showShortToast(
+                                requireContext(),
+                                "Некорректный закрытый ключ",
+                                200
+                            )
+                        }
+                    } else {
+                        generalFunctions.showShortToast(
+                            requireContext(),
+                            "Закрытый ключ не найден",
+                            200
+                        )
+                    }
                 } else {
                     generalFunctions.showShortToast(
                         requireContext(),
-                        "Закрытый ключ не найден",
+                        "Введите зашифрованное сообщение",
                         200
                     )
                 }
-            } else {
-                generalFunctions.showShortToast(
-                    requireContext(),
-                    "Введите зашифрованное сообщение",
-                    200
-                )
             }
+        } catch (e: Exception) {
+            generalFunctions.showShortToast(
+                requireContext(),
+                "Ошибка: ${e.message}",
+                200
+            )
         }
     }
 

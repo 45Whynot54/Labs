@@ -9,7 +9,6 @@ import com.example.labs.data.GeneralFunctionsImpl
 import com.example.labs.data.lab4.RSAKeyGenerator
 import com.example.labs.databinding.FragmentCreationKeyBottomSheetBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import java.math.BigInteger
 
 
 open class CreationKeyBottomSheetFragment : BottomSheetDialogFragment() {
@@ -47,23 +46,8 @@ open class CreationKeyBottomSheetFragment : BottomSheetDialogFragment() {
         with(binding) {
 
             btnGenerateKeys.setOnClickListener {
-                do {
-                    val (n, e, d) = RSAKeyGenerator.generateKeys(48)
-
-                    viewModel.publicKey = Pair(n, e)
-                    viewModel.privateKey = Pair(n, d)
-                    val publicKey = e.toString()
-                    val closeKey = d.toString()
-                    binding.openKey.text = publicKey
-                    binding.closeKey.text = closeKey
-                    onKeysGenerated?.invoke(e.toString(), d.toString())
-
-                } while (publicKey.length != closeKey.length || publicKey.length > 14 || publicKey.length < 13)
-                val keysSize = binding.openKey.text.toString().length
-                generalFunctions.showShortToast(context, "Длина ключей: ${keysSize} символов", 300)
-
+                genSameLengthKeys()
             }
-
             openKey.setOnClickListener {
                 generalFunctions.showShortToast(context, "Зачем ты сюда нажал? :)", 300)
             }
@@ -84,6 +68,23 @@ open class CreationKeyBottomSheetFragment : BottomSheetDialogFragment() {
                 true
             }
         }
+    }
+
+    private fun genSameLengthKeys() {
+        do {
+            val (n, e, d) = RSAKeyGenerator.generateKeys(48)
+
+            viewModel.publicKey = Pair(n, e)
+            viewModel.privateKey = Pair(n, d)
+            val publicKey = e.toString()
+            val closeKey = d.toString()
+            binding.openKey.text = publicKey
+            binding.closeKey.text = closeKey
+            onKeysGenerated?.invoke(e.toString(), d.toString())
+
+        } while (publicKey.length != closeKey.length || publicKey.length > 14 || publicKey.length < 13)
+        val keysSize = binding.openKey.text.toString().length
+        generalFunctions.showShortToast(context, "Длина ключей: ${keysSize} символов", 300)
     }
 
     private fun showHiden() {
