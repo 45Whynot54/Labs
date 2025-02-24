@@ -47,7 +47,6 @@ open class CreationKeyBottomSheetFragment : BottomSheetDialogFragment() {
         with(binding) {
 
             btnGenerateKeys.setOnClickListener {
-
                 do {
                     val (n, e, d) = RSAKeyGenerator.generateKeys(48)
 
@@ -60,8 +59,6 @@ open class CreationKeyBottomSheetFragment : BottomSheetDialogFragment() {
                     onKeysGenerated?.invoke(e.toString(), d.toString())
 
                 } while (publicKey.length != closeKey.length || publicKey.length > 14 || publicKey.length < 13)
-
-
                 val keysSize = binding.openKey.text.toString().length
                 generalFunctions.showShortToast(context, "Длина ключей: ${keysSize} символов", 300)
 

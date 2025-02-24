@@ -13,12 +13,12 @@ class Second: MainLabsFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.buttonApply.setOnClickListener {
+        binding.btnEncryptOrDecrypt.setOnClickListener {
             applyGamming()
         }
-        binding.symbolShift.setHint(R.string.key_gamming)
+        binding.fieldForKey.setHint(R.string.key_gamming)
         binding.textForNameLab.setText(R.string.name_for_gamming)
-        binding.btnCodeReview.setOnClickListener {
+        binding.btnForBottomDialog.setOnClickListener {
             showExplanation("Lab2")
         }
         binding.explanationImageView.setOnClickListener {
@@ -28,7 +28,7 @@ class Second: MainLabsFragment() {
 
     private fun applyGamming() {
         val inputText = binding.inputText.text.toString()
-        val keyText = binding.symbolShift.text.toString()
+        val keyText = binding.fieldForKey.text.toString()
 
         val key = if (keyText.length < inputText.length) {
             keyText.toByteArray().copyOf(inputText.length)
@@ -54,7 +54,7 @@ class Second: MainLabsFragment() {
         } catch (e: Exception) {
             binding.outputText.text = "Ошибка: Поддержка только английских букв"
             binding.outputText.isVisible = true
-            binding.buttonApply.isEnabled = false
+            binding.btnEncryptOrDecrypt.isEnabled = false
         }
     }
 }

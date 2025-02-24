@@ -45,7 +45,7 @@ open class MainLabsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.inputText.addTextChangedListener(textWatcher)
-        binding.symbolShift.addTextChangedListener(textWatcher)
+        binding.fieldForKey.addTextChangedListener(textWatcher)
         binding.buttonCopy.setOnClickListener {
             generalFunctions.copyText(requireContext(), binding.outputText.text.toString())
         }
@@ -75,9 +75,19 @@ open class MainLabsFragment : Fragment() {
         }
     }
 
+    protected fun updateHintForField(openKeyHint: Int, closeKeyHint: Int) {
+        binding.fieldForKey.setHint(
+            if (selectedOption()) {
+                openKeyHint
+            } else {
+                closeKeyHint
+            }
+        )
+    }
+
     private fun enableOrDisableButton() {
         val inputText = binding.inputText.text.toString()
-        val shiftValue = binding.symbolShift.text.toString()
-        binding.buttonApply.isEnabled = inputText.isNotEmpty() && shiftValue.isNotEmpty()
+        val shiftValue = binding.fieldForKey.text.toString()
+        binding.btnEncryptOrDecrypt.isEnabled = inputText.isNotEmpty() && shiftValue.isNotEmpty()
     }
 }

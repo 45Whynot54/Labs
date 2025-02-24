@@ -14,15 +14,15 @@ class First : MainLabsFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.symbolShift.setInputType(InputType.TYPE_CLASS_NUMBER)
+        binding.fieldForKey.setInputType(InputType.TYPE_CLASS_NUMBER)
 
-        binding.buttonApply.setOnClickListener {
+        binding.btnEncryptOrDecrypt.setOnClickListener {
             applyCaesarCipher()
         }
-        binding.symbolShift.setHint(R.string.number_of_shift)
+        binding.fieldForKey.setHint(R.string.number_of_shift)
         binding.textForNameLab.setText(R.string.сaesar_cipher)
 
-        binding.btnCodeReview.setOnClickListener {
+        binding.btnForBottomDialog.setOnClickListener {
             showExplanation("Lab1")
         }
         binding.explanationImageView.setOnClickListener {
@@ -33,7 +33,7 @@ class First : MainLabsFragment() {
 
     private fun applyCaesarCipher() {
         val inputText = binding.inputText.text.toString()
-        val shift = binding.symbolShift.text.toString().toInt()
+        val shift = binding.fieldForKey.text.toString().toInt()
 
         val result = if (selectedOption()) {
             cipher.encrypt(inputText, shift)
