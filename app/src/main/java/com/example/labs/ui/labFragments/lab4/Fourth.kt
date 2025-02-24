@@ -22,9 +22,13 @@ class Fourth : MainLabsFragment() {
 
         with(binding) {
 
+            btnForBottomDialog.setText(R.string.create_key)
+
             radioGroup.setOnCheckedChangeListener { _, _ ->
+                updateTextForButton()
                 inputText.text.clear()
                 fieldForKey.text.clear()
+                updateKeysInViewModel()
                 updateHintForField(R.string.open_key, R.string.close_key)
             }
             textForNameLab.setText(R.string.text_for_name_lab4)
@@ -47,6 +51,7 @@ class Fourth : MainLabsFragment() {
                 } else {
                     generalFunctions.showShortToast(context, "Ключи не найдены", 200)
                 }
+                btnEncryptOrDecrypt.isEnabled = false
             }
             btnForBottomDialog.setOnClickListener {
                 showCreateBottomSheep()
@@ -69,7 +74,7 @@ class Fourth : MainLabsFragment() {
                     val publicKey = viewModel.publicKey
                     if (publicKey != null) {
                         val checkPublicKey = binding.fieldForKey.text.toString()
-                        if (checkPublicKey == publicKey.second.toString()) { // Сравниваем e
+                        if (checkPublicKey == publicKey.second.toString()) {
                             val ciphertext = rsa.encrypt(message, publicKey)
                             binding.outputText.text = ciphertext
                             binding.outputText.isVisible = true
@@ -152,6 +157,20 @@ class Fourth : MainLabsFragment() {
             }
         }
         bottomSheet.show(childFragmentManager, "KeyGenerationBottomSheet")
+    }
+
+    private fun updateKeysInViewModel() {
+        if (selectedOption()) {
+            val publicKey = viewModel.publicKey
+            if (publicKey != null) {
+                binding.fieldForKey.setText(publicKey.second.toString())
+            }
+        } else {
+            val privateKey = viewModel.privateKey
+            if (privateKey != null) {
+                binding.fieldForKey.setText(privateKey.second.toString())
+            }
+        }
     }
 }
 

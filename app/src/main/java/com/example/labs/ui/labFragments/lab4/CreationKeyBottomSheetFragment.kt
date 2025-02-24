@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import com.example.labs.R
 import com.example.labs.data.GeneralFunctionsImpl
 import com.example.labs.data.lab4.RSAKeyGenerator
 import com.example.labs.databinding.FragmentCreationKeyBottomSheetBinding
@@ -44,6 +45,9 @@ open class CreationKeyBottomSheetFragment : BottomSheetDialogFragment() {
         }
 
         with(binding) {
+
+            openKey.setHint(R.string.created_open_key)
+            closeKey.setHint(R.string.created_close_key)
 
             btnGenerateKeys.setOnClickListener {
                 genSameLengthKeys()

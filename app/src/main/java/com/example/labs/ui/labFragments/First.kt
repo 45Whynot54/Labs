@@ -14,6 +14,7 @@ class First : MainLabsFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.fieldForKey.setInputType(InputType.TYPE_CLASS_NUMBER)
 
         binding.btnEncryptOrDecrypt.setOnClickListener {

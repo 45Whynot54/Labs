@@ -75,6 +75,16 @@ open class MainLabsFragment : Fragment() {
         }
     }
 
+    protected fun updateTextForButton(){
+        binding.btnEncryptOrDecrypt.setText(
+            if (selectedOption()){
+                R.string.encrypt
+            } else {
+                R.string.decrypt
+            }
+        )
+    }
+
     protected fun updateHintForField(openKeyHint: Int, closeKeyHint: Int) {
         binding.fieldForKey.setHint(
             if (selectedOption()) {

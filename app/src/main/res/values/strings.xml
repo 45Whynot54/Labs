@@ -22,6 +22,8 @@
     <string name="open_key">Открытый ключ</string>
     <string name="create_key">Создать ключи</string>
     <string name="close_key">Закрытый ключ</string>
+    <string name="created_close_key">Созданный закрытый ключ</string>
+    <string name="created_open_key">Созданный открытый ключ</string>
     <string name="generate">Сгенерировать</string>
 
     // names for labs
