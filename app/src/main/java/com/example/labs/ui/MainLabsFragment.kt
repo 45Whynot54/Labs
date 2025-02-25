@@ -49,7 +49,6 @@ open class MainLabsFragment : Fragment() {
         binding.buttonCopy.setOnClickListener {
             generalFunctions.copyText(requireContext(), binding.outputText.text.toString())
         }
-
         binding.backOnMain.setOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
