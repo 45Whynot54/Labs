@@ -18,6 +18,7 @@ open class CreationKeyBottomSheetFragment : BottomSheetDialogFragment() {
 
     private val generalFunctions = GeneralFunctionsImpl
     private val viewModel: KeyViewModel by activityViewModels()
+    private val keyViewModel: CheckBitLengthViewModel by activityViewModels()
 
     private var _binding: FragmentCreationKeyBottomSheetBinding? = null
     private val binding: FragmentCreationKeyBottomSheetBinding
@@ -85,15 +86,16 @@ open class CreationKeyBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     private fun genSameLengthKeys() {
-        val countCharacters =
-            binding.editTextNumberOfKeyCharacters.text.toString().toIntOrNull() ?: 1
-        val countedCharacters = countCharacters * 4
-        if (countedCharacters > 1024) {
+        val countCharacters = binding.editTextNumberOfKeyCharacters.text.toString().toIntOrNull() ?: 1
+        val bitLengthForKey = countCharacters * 4
+        if (bitLengthForKey > 1024) {
             generalFunctions.showShortToast(requireContext(), "Введите количество символов для ключа не более 256", 500)
             return
+        } else {
+            keyViewModel.countBitLength = bitLengthForKey
         }
         do {
-            val (nHex, eHex, dHex) = RSAKeyGenerator.generateKeys(countedCharacters)
+            val (nHex, eHex, dHex) = RSAKeyGenerator.generateKeys(bitLengthForKey)
             viewModel.publicKey = Pair(nHex, eHex)
             viewModel.privateKey = Pair(nHex, dHex)
             binding.openKey.text = eHex

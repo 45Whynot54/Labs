@@ -14,6 +14,7 @@ class Fourth : MainLabsFragment() {
     private var rsa = RSAImpl
     private val generalFunctions = GeneralFunctionsImpl
     private val viewModel: KeyViewModel by activityViewModels()
+    private val keyViewModel: CheckBitLengthViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -64,17 +65,15 @@ class Fourth : MainLabsFragment() {
     private fun encryptOrDecrypt() {
         try {
             if (selectedOption()) {
-                //encrypt
 
                 val message = binding.inputText.text.toString()
-                //check length and Russian alphabet
-                if (message.length > 10) return
-                if (generalFunctions.containsCyrillic(message)) {
-                    generalFunctions.showShortToast(requireContext(),"Русский язык не работает", 500)
-                    binding.inputText.text.clear()
+                val check = keyViewModel.countBitLength?.div(4) ?: 1
+                if (message.length > check) {
+                    generalFunctions.showShortToast(requireContext(), "Нужен ключ побольше: ${message.length} символа", 500)
                     return
                 }
 
+                //encrypt
                 val publicKey = viewModel.publicKey
                 val checkPublicKey = binding.fieldForKey.text.toString()
                 if (publicKey != null && checkPublicKey == publicKey.second) {
