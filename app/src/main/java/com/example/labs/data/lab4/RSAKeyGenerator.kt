@@ -9,7 +9,7 @@ object RSAKeyGenerator {
         return BigInteger.probablePrime(bitLength, Random())
     }
 
-    fun generateKeys(bitLength: Int): Triple<BigInteger, BigInteger, BigInteger> {
+    fun generateKeys(bitLength: Int): Triple<String, String, String> {
         var n: BigInteger
         var e: BigInteger
         var d: BigInteger
@@ -21,7 +21,12 @@ object RSAKeyGenerator {
             e = generateRandomE(phi)
             d = e.modInverse(phi)
         } while (n.bitLength() != bitLength)
-        return Triple(n, e, d)
+
+        val nHex = n.toString(16)
+        val eHex = e.toString(16)
+        val dHex = d.toString(16)
+
+        return Triple(nHex, eHex, dHex)
     }
 
 

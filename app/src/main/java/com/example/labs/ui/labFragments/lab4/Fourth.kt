@@ -77,7 +77,7 @@ class Fourth : MainLabsFragment() {
 
                 val publicKey = viewModel.publicKey
                 val checkPublicKey = binding.fieldForKey.text.toString()
-                if (publicKey != null && checkPublicKey == publicKey.second.toString()) {
+                if (publicKey != null && checkPublicKey == publicKey.second) {
                     val ciphertext = rsa.encrypt(message, publicKey)
                     binding.outputText.text = ciphertext
                     binding.outputText.isVisible = true

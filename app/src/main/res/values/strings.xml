@@ -25,6 +25,7 @@
     <string name="created_close_key">Созданный закрытый ключ</string>
     <string name="created_open_key">Созданный открытый ключ</string>
     <string name="generate">Сгенерировать</string>
+    <string name="input_number_of_key_characters">Введите количество символов ключа</string>
 
     // names for labs
     <string name="btn_lab1">Лабораторная работа 1</string>
