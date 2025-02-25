@@ -64,7 +64,17 @@ class Fourth : MainLabsFragment() {
     private fun encryptOrDecrypt() {
         try {
             if (selectedOption()) {
+                //encrypt
+
                 val message = binding.inputText.text.toString()
+                //check length and Russian alphabet
+                if (message.length > 10) return
+                if (generalFunctions.containsCyrillic(message)) {
+                    generalFunctions.showShortToast(requireContext(),"Русский язык не работает", 500)
+                    binding.inputText.text.clear()
+                    return
+                }
+
                 val publicKey = viewModel.publicKey
                 val checkPublicKey = binding.fieldForKey.text.toString()
                 if (publicKey != null && checkPublicKey == publicKey.second.toString()) {
@@ -72,8 +82,9 @@ class Fourth : MainLabsFragment() {
                     binding.outputText.text = ciphertext
                     binding.outputText.isVisible = true
                     binding.buttonCopy.isVisible = true
-                } else { generalFunctions.showShortToast(requireContext(), "Открытый ключ не найден/не подходит", 400) }
+                } else { generalFunctions.showShortToast(requireContext(), "Открытый ключ не найден/не подходит", 500) }
 
+                //decrypt
             } else {
                 val ciphertext = binding.inputText.text.toString()
                 val privateKey = viewModel.privateKey
@@ -83,10 +94,12 @@ class Fourth : MainLabsFragment() {
                     binding.outputText.text = message
                     binding.outputText.isVisible = true
                     binding.buttonCopy.isVisible = true
-                } else { generalFunctions.showShortToast(requireContext(), "Закрытый ключ не найден/не подходит", 400) }
+                } else { generalFunctions.showShortToast(requireContext(), "Закрытый ключ не найден/не подходит", 500) }
             }
-        } catch (e: Exception) {
-            generalFunctions.showShortToast(requireContext(), "Ошибка: ${e.message}", 400)
+        }
+        //general error
+        catch (e: Exception) {
+            generalFunctions.showShortToast(requireContext(), "Ошибка: ${e.message}", 500)
         }
     }
 
