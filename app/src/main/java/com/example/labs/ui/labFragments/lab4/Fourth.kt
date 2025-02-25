@@ -65,9 +65,13 @@ class Fourth : MainLabsFragment() {
     private fun encryptOrDecrypt() {
         try {
             if (selectedOption()) {
-
                 val message = binding.inputText.text.toString()
+
                 val check = keyViewModel.countBitLength?.div(4) ?: 1
+                if (generalFunctions.containsCyrillic(message) && (message.length * 4.5).toInt() > check){
+                    generalFunctions.showShortToast(requireContext(), "Русский в блоке... Нужно больше: ${(message.length * 4.5).toInt()} символа", 500)
+                    return
+                }
                 if (message.length > check) {
                     generalFunctions.showShortToast(requireContext(), "Нужен ключ побольше: ${message.length} символа", 500)
                     return
