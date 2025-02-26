@@ -6,4 +6,5 @@ import java.math.BigInteger
 class KeyViewModel : ViewModel() {
     var publicKey: Pair<String, String>? = null
     var privateKey: Pair<String, String>? = null
+    var countBitLength: Int ?= null
 }

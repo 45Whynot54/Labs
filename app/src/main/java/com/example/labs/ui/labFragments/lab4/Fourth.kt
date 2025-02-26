@@ -14,7 +14,6 @@ class Fourth : MainLabsFragment() {
     private var rsa = RSAImpl
     private val generalFunctions = GeneralFunctionsImpl
     private val viewModel: KeyViewModel by activityViewModels()
-    private val keyViewModel: CheckBitLengthViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -67,7 +66,7 @@ class Fourth : MainLabsFragment() {
             if (selectedOption()) {
                 val message = binding.inputText.text.toString()
 
-                val check = keyViewModel.countBitLength?.div(4) ?: 1
+                val check = viewModel.countBitLength?.div(4) ?: 1
                 if (generalFunctions.containsCyrillic(message) && (message.length * 4.5).toInt() > check){
                     generalFunctions.showShortToast(requireContext(), "Русский в блоке... Нужно больше: ${(message.length * 4.5).toInt()} символа", 500)
                     return
