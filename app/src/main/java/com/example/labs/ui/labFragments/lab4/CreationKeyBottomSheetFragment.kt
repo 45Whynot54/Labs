@@ -103,7 +103,7 @@ open class CreationKeyBottomSheetFragment : BottomSheetDialogFragment() {
 
         } while (eHex.length != dHex.length)
         val keysSize = binding.openKey.text.toString().length
-        generalFunctions.showShortToast(context, "Длина ключей: ${keysSize} символов", 100)
+        generalFunctions.showShortToast(context, "Длина ключей: $keysSize символов", 100)
     }
 
     private fun showHiden() {

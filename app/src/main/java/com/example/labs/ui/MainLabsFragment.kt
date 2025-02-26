@@ -6,9 +6,9 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.example.labs.R
 import com.example.labs.data.GeneralFunctionsImpl
 import com.example.labs.databinding.FragmentMainLabsBinding
@@ -52,12 +52,47 @@ open class MainLabsFragment : Fragment() {
         binding.backOnMain.setOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
-
+        binding.btnForCheck.isVisible = false
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    protected fun updateButtonConstraints(btnForCheck: Boolean) {
+        val constraintSet = ConstraintSet()
+        constraintSet.clone(binding.root)
+
+        if (btnForCheck) {
+            constraintSet.connect(
+                R.id.btn_for_bottom_dialog,
+                ConstraintSet.END,
+                R.id.btn_for_check,
+                ConstraintSet.START,
+                0
+            )
+            constraintSet.connect(
+                R.id.btn_for_check,
+                ConstraintSet.START,
+                R.id.btn_for_bottom_dialog,
+                ConstraintSet.END,
+                0
+            )
+            constraintSet.setHorizontalWeight(R.id.btn_for_bottom_dialog, 1f)
+            constraintSet.setHorizontalWeight(R.id.btn_for_check, 1f)
+        } else {
+            constraintSet.connect(
+                R.id.btn_for_bottom_dialog,
+                ConstraintSet.END,
+                ConstraintSet.PARENT_ID,
+                ConstraintSet.END,
+                0
+            )
+            constraintSet.clear(R.id.btn_for_check, ConstraintSet.START)
+            constraintSet.setHorizontalWeight(R.id.btn_for_bottom_dialog, 1f)
+        }
+        constraintSet.applyTo(binding.root)
     }
 
     protected fun showExplanation(labId: String) {
