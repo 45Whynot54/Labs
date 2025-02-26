@@ -60,24 +60,24 @@ open class MainLabsFragment : Fragment() {
         _binding = null
     }
 
-    protected fun updateButtonConstraints(btnForCheck: Boolean) {
+    protected fun updateButtonConstraints(btnForCheckVisible: Boolean) {
         val constraintSet = ConstraintSet()
         constraintSet.clone(binding.root)
 
-        if (btnForCheck) {
+        if (btnForCheckVisible) {
             constraintSet.connect(
                 R.id.btn_for_bottom_dialog,
                 ConstraintSet.END,
                 R.id.btn_for_check,
                 ConstraintSet.START,
-                0
+                resources.getDimensionPixelSize(R.dimen.button_margin)
             )
             constraintSet.connect(
                 R.id.btn_for_check,
                 ConstraintSet.START,
                 R.id.btn_for_bottom_dialog,
                 ConstraintSet.END,
-                0
+                resources.getDimensionPixelSize(R.dimen.button_margin)
             )
             constraintSet.setHorizontalWeight(R.id.btn_for_bottom_dialog, 1f)
             constraintSet.setHorizontalWeight(R.id.btn_for_check, 1f)
@@ -94,6 +94,7 @@ open class MainLabsFragment : Fragment() {
         }
         constraintSet.applyTo(binding.root)
     }
+
 
     protected fun showExplanation(labId: String) {
         val bottomSheet = ExplanationBottomSheetFragment.newInstance(labId)

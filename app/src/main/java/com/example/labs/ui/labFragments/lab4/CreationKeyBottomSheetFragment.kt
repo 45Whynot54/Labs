@@ -97,6 +97,7 @@ open class CreationKeyBottomSheetFragment : BottomSheetDialogFragment() {
             val (nHex, eHex, dHex) = RSAKeyGenerator.generateKeys(bitLengthForKey)
             viewModel.publicKey = Pair(nHex, eHex)
             viewModel.privateKey = Pair(nHex, dHex)
+            viewModel.updateButtonState()
             binding.openKey.text = eHex
             binding.closeKey.text = dHex
             onKeysGenerated?.invoke(eHex, dHex)

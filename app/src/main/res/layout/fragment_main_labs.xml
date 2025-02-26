@@ -136,7 +136,7 @@
         android:id="@+id/btn_for_check"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Button"
+        android:text="@string/checking"
         android:layout_marginLeft="10dp"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintBottom_toBottomOf="parent"

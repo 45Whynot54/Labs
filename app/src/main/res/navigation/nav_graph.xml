@@ -65,6 +65,14 @@
     <fragment
         android:id="@+id/fourth"
         android:name="com.example.labs.ui.labFragments.lab4.Fourth"
-        android:label="Fourth" />
+        android:label="Fourth" >
+        <action
+            android:id="@+id/action_fourth_to_checkForOpenKeyFragment"
+            app:destination="@id/checkForOpenKeyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/checkForOpenKeyFragment"
+        android:name="com.example.labs.ui.labFragments.lab4.CheckForOpenKeyFragment"
+        android:label="CheckForOpenKeyFragment" />
 
 </navigation>

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.example.labs.R
 import com.example.labs.data.GeneralFunctionsImpl
 import com.example.labs.data.lab4.RSAImpl
@@ -22,7 +23,13 @@ class Fourth : MainLabsFragment() {
         binding.btnForCheck.isVisible = true
         updateButtonConstraints(true)
         with(binding) {
-
+            btnForCheck.isEnabled = false
+            viewModel.isButtonEnabled.observe(viewLifecycleOwner) {
+                    isEnabled -> binding.btnForCheck.isEnabled = true
+            }
+            btnForCheck.setOnClickListener {
+                findNavController().navigate(R.id.action_fourth_to_checkForOpenKeyFragment)
+            }
             //defould
             textForNameLab.setText(R.string.text_for_name_lab4)
             inputText.setHint(R.string.input_text)
@@ -61,6 +68,7 @@ class Fourth : MainLabsFragment() {
             }
         }
     }
+
 
     private fun encryptOrDecrypt() {
         try {
