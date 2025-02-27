@@ -16,7 +16,7 @@ class Second: MainLabsFragment() {
         binding.btnEncryptOrDecrypt.setOnClickListener {
             applyGamming()
         }
-        binding.fieldForKey.setHint(R.string.key_gamming)
+        binding.fieldForKey.setHint(R.string.key)
         binding.textForNameLab.setText(R.string.name_for_gamming)
         binding.btnForBottomDialog.setOnClickListener {
             showExplanation("Lab2")

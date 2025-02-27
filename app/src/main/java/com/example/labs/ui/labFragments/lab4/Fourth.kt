@@ -73,7 +73,7 @@ class Fourth : MainLabsFragment() {
     private fun encryptOrDecrypt() {
         try {
             if (selectedOption()) {
-                val message = binding.inputText.text.toString()
+                val message = binding.inputText.text.toString().trim()
                 val check = viewModel.countBitLength?.div(4) ?: 1
                 checkKeyForCompliance(message, check)
 
