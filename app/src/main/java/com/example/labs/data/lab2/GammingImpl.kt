@@ -2,7 +2,6 @@ package com.example.labs.data.lab2
 
 import com.example.labs.domain.lab2.Gamming
 import kotlin.experimental.xor
-import kotlin.random.Random
 
 object GammingImpl: Gamming {
 

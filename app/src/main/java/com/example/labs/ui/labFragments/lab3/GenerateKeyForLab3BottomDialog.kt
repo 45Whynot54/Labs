@@ -6,20 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.example.labs.R
+import com.example.labs.data.GeneralFunctionsImpl
 import com.example.labs.data.lab3.FeistelNetworkKeyGenerator
 import com.example.labs.databinding.FragmentGenerateKeyForLab3BottomDialogBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
-class GenerateKeyForLab3BottomDialog : BottomSheetDialogFragment() {
+open class GenerateKeyForLab3BottomDialog : BottomSheetDialogFragment() {
 
     private val generateKeyFeistelNetwork = FeistelNetworkKeyGenerator
     private val viewModel: FeistelKeyViewModel by activityViewModels()
-    private var keyGenerated: String? = null
+    private val generalFunctions = GeneralFunctionsImpl
 
     private var _binding: FragmentGenerateKeyForLab3BottomDialogBinding? = null
     private val binding: FragmentGenerateKeyForLab3BottomDialogBinding
-        get() = _binding ?: throw RuntimeException("FragmentGenerateKeyForLab3BottomDialogBinding == null")
+        get() = _binding
+            ?: throw RuntimeException("FragmentGenerateKeyForLab3BottomDialogBinding == null")
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,22 +35,31 @@ class GenerateKeyForLab3BottomDialog : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.generatedKey.apply {
-            keyGenerated
-        }
+        with(binding) {
+            createdKey.setHint(R.string.generated_key)
 
-        binding.keyTv.setText(R.string.key)
-        binding.btnGenerateKeys.setOnClickListener {
-            gen()
-        }
+            extracted()
 
+            keyTv.setText(R.string.key)
+            btnGenerateKeys.setOnClickListener {
+                gen()
+            }
+        }
     }
 
-    private fun gen(){
+    private fun FragmentGenerateKeyForLab3BottomDialogBinding.extracted() {
+        if (viewModel.generatedKey != null) {
+            createdKey.text = viewModel.generatedKey.toString()
+        }
+    }
+
+    private fun gen() {
         val genKey = generateKeyFeistelNetwork.keyGenerator()
-        viewModel.generatedKey = genKey.toString()
+        viewModel.generatedKey = genKey.toLong()
         binding.createdKey.text = genKey.toString()
+        generalFunctions.showShortToast(requireContext(), "${binding.createdKey.text.length}", 1000)
     }
+
 
     override fun onDestroy() {
         super.onDestroy()

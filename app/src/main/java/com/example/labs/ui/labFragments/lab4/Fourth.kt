@@ -33,10 +33,8 @@ class Fourth : MainLabsFragment() {
             //defould
             textForNameLab.setText(R.string.text_for_name_lab4)
             inputText.setHint(R.string.input_text)
-            btnForBottomDialog.setText(R.string.create_key)
-            explanationImageView.setOnClickListener {
-                showExplanation("Lab4")
-            }
+            btnForBottomDialog.setText(R.string.create_keys)
+
             btnForBottomDialog.setOnClickListener {
                 showExplanation("Lab4")
             }

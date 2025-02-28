@@ -1,26 +1,32 @@
 package com.example.labs.data.lab3
 
 import com.example.labs.domain.lab3.FeistelNetwork
-import kotlin.experimental.xor
 
 object FeistelNetworkImpl: FeistelNetwork {
 
-    override fun feistelNetwork(block: Int, key: Int, rounds: Int): Int {
+    override fun feistelNetwork(message: String, key: Long, rounds: Int, crypt: Boolean): Long {
+        val block = message.hashCode()
         var left = (block ushr 32)
         var right = block
 
-        for (i in 0 until rounds) {
-            val temp = left
-            left = right
-            right = temp xor feistelFunction(right, key)
+        if (crypt) {
+            for (i in rounds - 1 downTo 0) {
+                val temp = left
+                left = right
+                right = temp xor feistelFunction(right, key.toInt() + i)
+            }
+        } else {
+            for (i in 0 until rounds) {
+                val temp = left
+                left = right
+                right = temp xor feistelFunction(right, key.toInt() + i)
+            }
         }
 
-
-        return (left shl 32) or (right and 0xFFFF)
+        return (left.toLong() shl 32) or (right.toLong() and 0xFFFFFFFF)
     }
 
-
     override fun feistelFunction(block: Int, key: Int): Int {
-        return (block xor key)
+        return (block + key) xor (block ushr 16)
     }
 }

@@ -22,7 +22,8 @@ class Third: MainLabsFragment() {
         with(binding) {
             textForNameLab.setText(R.string.name_for_lab3)
             fieldForKey.setHint(R.string.count_of_rounds)
-            radioGroup.isVisible = false
+            btnForBottomDialog.setText(R.string.create_key)
+
             btnEncryptOrDecrypt.setOnClickListener {
                 startFeistelNetwork()
             }
@@ -32,23 +33,22 @@ class Third: MainLabsFragment() {
             fieldForKey.setInputType(InputType.TYPE_CLASS_NUMBER)
         }
     }
-    private fun startFeistelNetwork(){
-        val message = binding.inputText.text.toString()
-        val key = viewModel.generatedKey?.toIntOrNull() ?: 16
-        val rounds = binding.fieldForKey.text.toString().toIntOrNull() ?: 16
-        val messageAsLong = message.hashCode()
 
-        val result = feistelNetwork.feistelNetwork(messageAsLong, key, rounds)
+    private fun startFeistelNetwork() {
+        val message = binding.inputText.text.toString()
+        val key = viewModel.generatedKey ?: 123456789L
+        val rounds = binding.fieldForKey.text.toString().toIntOrNull() ?: 16
+        val type = selectedOption()
+        val result = feistelNetwork.feistelNetwork(message, key, rounds, type)
 
         binding.outputText.text = result.toString(16)
         binding.outputText.isVisible = true
         binding.buttonCopy.isVisible = true
-
-        generalFunctions.showShortToast(requireContext(), "${viewModel.generatedKey} и $key", 500)
     }
 
     private fun showCreateBottomSheep() {
         val bottomSheet = GenerateKeyForLab3BottomDialog()
         bottomSheet.show(parentFragmentManager, "FragmentGenerateKeyForLab3BottomDialogBinding")
     }
+
 }
