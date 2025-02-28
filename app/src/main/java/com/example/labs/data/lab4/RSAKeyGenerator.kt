@@ -5,6 +5,7 @@ import java.util.Random
 
 object RSAKeyGenerator {
 
+
     private fun generatePrime(bitLength: Int): BigInteger {
         return BigInteger.probablePrime(bitLength, Random())
     }

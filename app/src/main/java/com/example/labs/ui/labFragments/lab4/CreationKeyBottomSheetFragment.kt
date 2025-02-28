@@ -93,18 +93,23 @@ open class CreationKeyBottomSheetFragment : BottomSheetDialogFragment() {
         } else {
             viewModel.countBitLength = bitLengthForKey
         }
-        do {
-            val (nHex, eHex, dHex) = RSAKeyGenerator.generateKeys(bitLengthForKey)
-            viewModel.publicKey = Pair(nHex, eHex)
-            viewModel.privateKey = Pair(nHex, dHex)
-            viewModel.updateButtonState()
-            binding.openKey.text = eHex
-            binding.closeKey.text = dHex
-            onKeysGenerated?.invoke(eHex, dHex)
+        try {
 
-        } while (eHex.length != dHex.length)
-        val keysSize = binding.openKey.text.toString().length
-        generalFunctions.showShortToast(context, "Длина ключей: $keysSize символов", 100)
+            do {
+                val (nHex, eHex, dHex) = RSAKeyGenerator.generateKeys(bitLengthForKey)
+                viewModel.publicKey = Pair(nHex, eHex)
+                viewModel.privateKey = Pair(nHex, dHex)
+                viewModel.updateButtonState()
+                binding.openKey.text = eHex
+                binding.closeKey.text = dHex
+                onKeysGenerated?.invoke(eHex, dHex)
+
+            } while (eHex.length != dHex.length)
+            val keysSize = binding.openKey.text.toString().length
+            generalFunctions.showShortToast(context, "Длина ключей: $keysSize символов", 100)
+        } catch (e:Exception){
+            generalFunctions.showShortToast(requireContext(), "Введите число больше нуля", 500)
+        }
     }
 
     private fun showHiden() {
