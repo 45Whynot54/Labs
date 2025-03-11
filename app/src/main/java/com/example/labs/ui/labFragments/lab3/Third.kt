@@ -35,15 +35,22 @@ class Third: MainLabsFragment() {
     }
 
     private fun startFeistelNetwork() {
-        val message = binding.inputText.text.toString()
-        val key = viewModel.generatedKey ?: 123456789L
-        val rounds = binding.fieldForKey.text.toString().toIntOrNull() ?: 16
-        val type = selectedOption()
-        val result = feistelNetwork.feistelNetwork(message, key, rounds, type)
+        if (viewModel.generatedKey == null) {
+            generalFunctions.showShortToast(context, "Нужно сгенерировать ключ", 1000)
+        } else {
+            val message = binding.inputText.text.toString()
+            val key = viewModel.generatedKey.toString()
+            val rounds = binding.fieldForKey.text.toString().toIntOrNull() ?: 16
+            val result = if (selectedOption()) {
+                feistelNetwork.feistelNetworkEncrypt(message, key, rounds)
+            } else {
+                feistelNetwork.feistelFunctionDecrypt(message, key, rounds)
+            }
 
-        binding.outputText.text = result.toString(16)
-        binding.outputText.isVisible = true
-        binding.buttonCopy.isVisible = true
+            binding.outputText.text = result
+            binding.outputText.isVisible = true
+            binding.buttonCopy.isVisible = true
+        }
     }
 
     private fun showCreateBottomSheep() {
