@@ -54,7 +54,7 @@ open class GenerateKeyForLab3BottomDialog : BottomSheetDialogFragment() {
     }
 
     private fun gen() {
-        val genKey = generateKeyFeistelNetwork.keyGenerator()
+        val genKey = generateKeyFeistelNetwork.key(null.toString(), null)
         viewModel.generatedKey = genKey.toString()
         binding.createdKey.text = genKey.toString()
         generalFunctions.showShortToast(requireContext(), "${binding.createdKey.text.length}", 1000)

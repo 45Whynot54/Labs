@@ -1,42 +1,46 @@
 package com.example.labs.data.lab3
 
+import com.example.labs.data.lab3.FeistelNetworkKeyGenerator.key
 import com.example.labs.domain.lab3.FeistelNetwork
 
 object FeistelNetworkImpl : FeistelNetwork {
 
     override fun feistelNetworkEncrypt(message: String, key: String, rounds: Int): String {
         var encryptedMessage = message
-        repeat(rounds) {
-            encryptedMessage = roundFunction(encryptedMessage, key)
+        repeat(rounds) { round ->
+            encryptedMessage = roundFunction(encryptedMessage, key, round)
         }
         return encryptedMessage
     }
 
-    override fun feistelFunctionDecrypt(message: String, key: String, rounds: Int): String {
+        override fun feistelFunctionDecrypt(message: String, key: String, rounds: Int): String {
         var decryptedMessage = message
-        repeat(rounds) {
-            decryptedMessage = reverseRoundFunction(decryptedMessage, key)
+        repeat(rounds) { round ->
+            decryptedMessage = reverseRoundFunction(decryptedMessage, key, rounds - round - 1)
         }
         return decryptedMessage
     }
 
-    private fun roundFunction(message: String, key: String): String {
+    private fun roundFunction(message: String, key: String, round: Int): String {
         val (left, right) = divideIntoBlocks(message)
-        val newRight = xor(right, key)
+        val roundKey = key(key, round)
+        val newRight = xor(right, roundKey)
         val newLeft = xor(left, newRight)
         return newLeft + newRight
     }
 
-    private fun reverseRoundFunction(message: String, key: String): String {
+    private fun reverseRoundFunction(message: String, key: String, round: Int): String {
         val (left, right) = divideIntoBlocks(message)
+        val roundKey = key(key, round)
         val newLeft = xor(left, right)
-        val newRight = xor(right, key)
+        val newRight = xor(right, roundKey)
         return newLeft + newRight
     }
 
     private fun divideIntoBlocks(message: String): Pair<String, String> {
         val mid = message.length / 2
-        return Pair(message.substring(0, mid), message.substring(mid))
+        val paddedMessage = if (message.length % 2 != 0) message + " " else message
+        return Pair(paddedMessage.substring(0, mid), paddedMessage.substring(mid))
     }
 
     private fun xor(a: String, b: String): String {
