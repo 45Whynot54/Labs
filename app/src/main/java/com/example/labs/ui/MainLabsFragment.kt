@@ -53,6 +53,9 @@ open class MainLabsFragment : Fragment() {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
         binding.btnForCheck.isVisible = false
+        binding.explanationImageView.setOnClickListener {
+            showExplanation()
+        }
     }
 
     override fun onDestroyView() {
@@ -96,8 +99,8 @@ open class MainLabsFragment : Fragment() {
     }
 
 
-    protected fun showExplanation(labId: String) {
-        val bottomSheet = ExplanationBottomSheetFragment.newInstance(labId)
+    protected fun showExplanation() {
+        val bottomSheet = ExplanationBottomSheetFragment()
         bottomSheet.show(parentFragmentManager, "ExplanationBottomSheetFragment")
     }
 

@@ -35,12 +35,6 @@ class Fourth : MainLabsFragment() {
             inputText.setHint(R.string.input_text)
             btnForBottomDialog.setText(R.string.create_keys)
 
-            btnForBottomDialog.setOnClickListener {
-                showExplanation("Lab4")
-            }
-            explanationImageView.setOnClickListener {
-                showExplanation("Lab4Exp")
-            }
 
             //specific
             radioGroup.setOnCheckedChangeListener { _, _ ->

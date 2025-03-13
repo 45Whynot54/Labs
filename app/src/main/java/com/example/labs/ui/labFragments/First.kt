@@ -22,13 +22,7 @@ class First : MainLabsFragment() {
         }
         binding.fieldForKey.setHint(R.string.number_of_shift)
         binding.textForNameLab.setText(R.string.сaesar_cipher)
-
-        binding.btnForBottomDialog.setOnClickListener {
-            showExplanation("Lab1")
-        }
-        binding.explanationImageView.setOnClickListener {
-            showExplanation("Lab1Exp")
-        }
+        binding.btnForBottomDialog.isVisible = false
     }
 
 

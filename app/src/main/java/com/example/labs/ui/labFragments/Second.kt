@@ -18,12 +18,7 @@ class Second: MainLabsFragment() {
         }
         binding.fieldForKey.setHint(R.string.key)
         binding.textForNameLab.setText(R.string.name_for_gamming)
-        binding.btnForBottomDialog.setOnClickListener {
-            showExplanation("Lab2")
-        }
-        binding.explanationImageView.setOnClickListener {
-            showExplanation("Lab2Exp")
-        }
+        binding.btnForBottomDialog.isVisible = false
     }
 
     private fun applyGamming() {

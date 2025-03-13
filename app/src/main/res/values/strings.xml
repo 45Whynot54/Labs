@@ -1,12 +1,6 @@
 <resources>
     <string name="app_name">Labs</string>
 
-    <string name="notification_about_development">
-        К сожалению, данный раздел находится на стадии
-        разработки, в ближайщее время будет сделан, а для того,
-        чтобы посмотреть лабораторные работы, нажмите необходимую кнопку внизу
-    </string>
-
     //generals names for layouts
     <string name="encrypt">Зашифровать</string>
     <string name="decrypt">Дешифровать</string>
@@ -31,6 +25,8 @@
     <string name="key">Ключ</string>
     <string name="create_key">Сгенерировать ключ</string>
     <string name="generated_key">Сгенерированный ключ</string>
+    <string name="github">https://github.com/45Whynot54/Labs</string>
+    <string name="open_code">Открытый код</string>
 
     // names for labs
     <string name="btn_lab1">Лабораторная работа 1</string>
@@ -75,59 +71,9 @@
     <string name="explanation_lab8"></string>
 
     //code
-    <string name="code_lab1">
-    override fun encrypt(text: String, shift: Int): String {\n
-        return caesarCipher(text, shift)\n
-    }\n\n
-    override fun decrypt(text: String, shift: Int): String {\n
-        return caesarCipher(text, -shift)\n
-    }\n\n
-    override fun caesarCipher(text: String, shift: Int): String {\n
-        val builder = StringBuilder()\n
-        for (char in text) {\n
-            if (char.isLetter()) {\n
-                val base = when (char) {\n
-                    in \'a\'..\'z\' -> \'a\'\n
-                    in \'A\'..\'Z\' -> \'A\'\n
-                    in \'а\'..\'я\' -> \'а\'\n
-                    in \'А\'..\'Я\' -> \'А\'\n
-                    else -> continue\n
-                }\n
-                val alphabetSize = when (base) {\n
-                    \'a\', \'A\' -> 26\n
-                    \'а\', \'А\' -> 32\n
-                    else -> throw IllegalArgumentException("Unsupported alphabet")\n
-                }\n
-                val position = char.code - base.code\n
-                val shiftedPosition = (position + shift) % alphabetSize\n
-                val newChar = (base.code + shiftedPosition).toChar()\n
-                builder.append(newChar)\n
-            } else if (char.isDigit()) {\n
-                val newChar = ((char - \'0\' + shift) % 10 + \'0\'.code).toChar()\n
-                builder.append(newChar)\n
-            } else {\n
-                builder.append(char)\n
-            }\n
-        }\n
-        return builder.toString()\n
-    }
-</string>
+    <string name="code_lab1"></string>
 
-    <string name="code_lab2">
-
-    override fun encrypt(text: String, key: ByteArray): ByteArray {\n
-        val textBytes = text.toByteArray()\n
-        return textBytes.mapIndexed { index, byte ->\n
-            byte xor key[index]\n
-        }.toByteArray()\n
-    }\n\n
-
-    override fun decrypt(encryptedText: ByteArray, key: ByteArray): String {\n
-        val decryptedBytes = encryptedText.mapIndexed { index, byte ->\n
-            byte xor key[index]\n
-        }.toByteArray()\n
-        return String(decryptedBytes)\n
-    }</string>
+    <string name="code_lab2"></string>
 
     <string name="code_lab3"></string>
     <string name="code_lab4"></string>
@@ -136,5 +82,6 @@
     <string name="code_lab7"></string>
     <string name="code_lab8"></string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
 </resources>
