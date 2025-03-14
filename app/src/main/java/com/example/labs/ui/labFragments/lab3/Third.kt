@@ -20,6 +20,7 @@ class Third: MainLabsFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         with(binding) {
+
             textForNameLab.setText(R.string.name_for_lab3)
             fieldForKey.setHint(R.string.count_of_rounds)
             btnForBottomDialog.setText(R.string.create_key)

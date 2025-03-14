@@ -39,7 +39,7 @@ object FeistelNetworkImpl : FeistelNetwork {
 
     private fun divideIntoBlocks(message: String): Pair<String, String> {
         val mid = message.length / 2
-        val paddedMessage = if (message.length % 2 != 0) message + " " else message
+        val paddedMessage = if (message.length % 2 != 0) message + "" else message
         return Pair(paddedMessage.substring(0, mid), paddedMessage.substring(mid))
     }
 
