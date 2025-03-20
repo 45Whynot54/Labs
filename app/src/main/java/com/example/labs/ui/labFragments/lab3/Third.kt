@@ -48,7 +48,7 @@ class Third: MainLabsFragment() {
                 feistelNetwork.feistelFunctionDecrypt(message, key, rounds)
             }
 
-            binding.outputText.text = result
+            binding.outputText.text = result.trim()
             binding.outputText.isVisible = true
             binding.buttonCopy.isVisible = true
         }

@@ -4,40 +4,70 @@ import com.example.labs.domain.lab3.FeistelNetwork
 
 object FeistelNetworkImpl : FeistelNetwork {
 
+    private val BLOCK_SIZE_BYTES = 32
+
     override fun feistelNetworkEncrypt(message: String, key: String, rounds: Int): String {
-        var encryptedMessage = message
-        repeat(rounds) { round ->
-            encryptedMessage = roundFunction(encryptedMessage, key, round)
+        val blocks = divideIntoBlocks(message)
+        var encryptedMessage = ""
+        blocks.forEach { block ->
+            var encryptedBlock = block
+            repeat(rounds) { round ->
+                encryptedBlock = roundFunction(encryptedBlock, key, round)
+            }
+            encryptedMessage += encryptedBlock
         }
         return encryptedMessage
     }
 
     override fun feistelFunctionDecrypt(message: String, key: String, rounds: Int): String {
-        var decryptedMessage = message
-        repeat(rounds) { round ->
-            decryptedMessage = reverseRoundFunction(decryptedMessage, key, rounds - round - 1)
+        val blocks = divideIntoBlocks(message)
+        var decryptedMessage = ""
+        blocks.forEach { block ->
+            var decryptedBlock = block
+            repeat(rounds) { round ->
+                decryptedBlock = reverseRoundFunction(decryptedBlock, key, rounds - round - 1)
+            }
+            decryptedMessage += decryptedBlock
         }
         return decryptedMessage
     }
 
-    private fun roundFunction(message: String, key: String, round: Int): String {
-        val (left, right) = divideIntoBlocks(message)
+    private fun roundFunction(block: String, key: String, round: Int): String {
+        val (left, right) = divideBlockIntoHalves(block)
         val roundKey = FeistelNetworkKeyGenerator.key(key, round)
         val newRight = xor(right, roundKey)
-        return newRight + left // Меняем местами левый и правый блоки
+        return newRight + left
     }
 
-    private fun reverseRoundFunction(message: String, key: String, round: Int): String {
-        val (left, right) = divideIntoBlocks(message)
+    private fun reverseRoundFunction(block: String, key: String, round: Int): String {
+        val (left, right) = divideBlockIntoHalves(block)
         val roundKey = FeistelNetworkKeyGenerator.key(key, round)
         val newLeft = xor(left, roundKey)
-        return right + newLeft // Меняем местами левый и правый блоки
+        return right + newLeft
     }
 
-    private fun divideIntoBlocks(message: String): Pair<String, String> {
-        val mid = message.length / 2
-        val paddedMessage = if (message.length % 2 != 0) message + " " else message // Добавляем пробел, если длина нечетная
-        return Pair(paddedMessage.substring(0, mid), paddedMessage.substring(mid))
+    private fun divideIntoBlocks(message: String): List<String> {
+        val bytes = message.toByteArray()
+        val blocks = mutableListOf<String>()
+        val totalBlocks = (bytes.size + BLOCK_SIZE_BYTES - 1) / BLOCK_SIZE_BYTES
+
+        for (i in 0 until totalBlocks) {
+            val start = i * BLOCK_SIZE_BYTES
+            val end = minOf(start + BLOCK_SIZE_BYTES, bytes.size)
+            val blockBytes = bytes.copyOfRange(start, end)
+            if (blockBytes.size < BLOCK_SIZE_BYTES) {
+                val paddedBlock = blockBytes + ByteArray(BLOCK_SIZE_BYTES - blockBytes.size) { ' '.toByte() }
+                blocks.add(paddedBlock.toString(Charsets.UTF_8))
+            } else {
+                blocks.add(blockBytes.toString(Charsets.UTF_8))
+            }
+        }
+        return blocks
+    }
+
+    private fun divideBlockIntoHalves(block: String): Pair<String, String> {
+        val mid = block.length / 2
+        return Pair(block.substring(0, mid), block.substring(mid))
     }
 
     private fun xor(a: String, b: String): String {
