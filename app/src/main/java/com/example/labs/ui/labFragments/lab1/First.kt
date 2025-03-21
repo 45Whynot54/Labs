@@ -1,4 +1,4 @@
-package com.example.labs.ui.labFragments
+package com.example.labs.ui.labFragments.lab1
 import android.os.Bundle
 import android.text.InputType
 import android.view.View

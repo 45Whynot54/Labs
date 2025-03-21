@@ -1,4 +1,4 @@
-package com.example.labs.ui.labFragments
+package com.example.labs.ui.labFragments.lab2
 
 import android.os.Bundle
 import android.view.View

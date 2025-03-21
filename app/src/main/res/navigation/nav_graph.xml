@@ -36,15 +36,15 @@
         </fragment>
     <fragment
         android:id="@+id/firstLabFragment"
-        android:name="com.example.labs.ui.labFragments.First"
+        android:name="com.example.labs.ui.labFragments.lab1.First"
         android:label="fragment_first_lab" />
     <fragment
         android:id="@+id/secondLabFragment"
-        android:name="com.example.labs.ui.labFragments.Second"
+        android:name="com.example.labs.ui.labFragments.lab2.Second"
         android:label="fragment_second_lab" />
     <fragment
         android:id="@+id/eighth"
-        android:name="com.example.labs.ui.labFragments.Eighth"
+        android:name="com.example.labs.ui.labFragments.lab8.Eighth"
         android:label="Eighth" />
     <fragment
         android:id="@+id/fifth"
@@ -52,11 +52,11 @@
         android:label="Fifth" />
     <fragment
         android:id="@+id/seventh"
-        android:name="com.example.labs.ui.labFragments.Seventh"
+        android:name="com.example.labs.ui.labFragments.lab7.Seventh"
         android:label="Seventh" />
     <fragment
         android:id="@+id/sixth"
-        android:name="com.example.labs.ui.labFragments.Sixth"
+        android:name="com.example.labs.ui.labFragments.lab6.Sixth"
         android:label="Sixth" />
     <fragment
         android:id="@+id/third"
