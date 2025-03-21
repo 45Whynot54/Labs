@@ -9,13 +9,13 @@ import com.example.labs.R
 import com.example.labs.data.GeneralFunctionsImpl
 import com.example.labs.data.lab4.RSAImpl
 import com.example.labs.ui.MainLabsFragment
-import com.example.labs.ui.KeyViewModel
+import com.example.labs.ui.GeneralViewModel
 
 class Fourth : MainLabsFragment() {
 
     private var rsa = RSAImpl
     private val generalFunctions = GeneralFunctionsImpl
-    private val viewModel: KeyViewModel by activityViewModels()
+    private val viewModel: GeneralViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

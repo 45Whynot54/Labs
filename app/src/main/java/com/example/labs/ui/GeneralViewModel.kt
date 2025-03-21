@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class KeyViewModel : ViewModel() {
+class GeneralViewModel : ViewModel() {
 
     //lab3
     var generatedKey: String?= null
@@ -24,4 +24,7 @@ class KeyViewModel : ViewModel() {
 
     //lab 5
     var generatedKeyLab5: String?= null
+
+    //lab 6
+
 }

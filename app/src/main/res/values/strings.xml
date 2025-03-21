@@ -63,7 +63,7 @@
 
     //Sixth
     <string name="explanation_lab6"></string>
-
+    <string name="name_for_lab6">Стенография</string>
     //Seventh
     <string name="explanation_lab7"></string>
 
@@ -82,6 +82,7 @@
     <string name="code_lab6"></string>
     <string name="code_lab7"></string>
     <string name="code_lab8"></string>
+    <string name="download_image">Загрузить изображение</string>
     <!-- TODO: Remove or change this placeholder text -->
 
 

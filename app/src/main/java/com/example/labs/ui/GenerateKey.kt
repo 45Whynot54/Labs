@@ -15,7 +15,7 @@ class GenerateKey : BottomSheetDialogFragment() {
 
     private val generateKeyFeistelNetwork = FeistelNetworkKeyGenerator
 
-    private val viewModel: KeyViewModel by activityViewModels()
+    private val viewModel: GeneralViewModel by activityViewModels()
     private val generalFunctions = GeneralFunctionsImpl
 
 

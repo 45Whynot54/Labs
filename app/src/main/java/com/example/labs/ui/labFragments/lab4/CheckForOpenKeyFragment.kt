@@ -14,11 +14,11 @@ import androidx.fragment.app.activityViewModels
 import com.example.labs.data.GeneralFunctionsImpl
 import com.example.labs.data.lab4.RSAImpl
 import com.example.labs.databinding.CheckOpenKeyFragmentBinding
-import com.example.labs.ui.KeyViewModel
+import com.example.labs.ui.GeneralViewModel
 
 class CheckForOpenKeyFragment : Fragment() {
 
-    private val viewModel: KeyViewModel by activityViewModels()
+    private val viewModel: GeneralViewModel by activityViewModels()
     private val generalFunctions = GeneralFunctionsImpl
     private var rsa = RSAImpl
 

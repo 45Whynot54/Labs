@@ -11,14 +11,14 @@ import com.example.labs.R
 import com.example.labs.data.GeneralFunctionsImpl
 import com.example.labs.data.lab4.RSAKeyGenerator
 import com.example.labs.databinding.FragmentCreationKeyBottomSheetBinding
-import com.example.labs.ui.KeyViewModel
+import com.example.labs.ui.GeneralViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
 open class CreationKeyBottomSheetFragment : BottomSheetDialogFragment() {
 
     private val generalFunctions = GeneralFunctionsImpl
-    private val viewModel: KeyViewModel by activityViewModels()
+    private val viewModel: GeneralViewModel by activityViewModels()
 
     private var _binding: FragmentCreationKeyBottomSheetBinding? = null
     private val binding: FragmentCreationKeyBottomSheetBinding

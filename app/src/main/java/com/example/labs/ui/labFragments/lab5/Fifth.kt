@@ -7,14 +7,13 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import com.example.labs.R
 import com.example.labs.data.GeneralFunctionsImpl
-import com.example.labs.ui.KeyViewModel
+import com.example.labs.ui.GeneralViewModel
 import com.example.labs.ui.MainLabsFragment
-import com.example.labs.ui.GenerateKey
 
 class Fifth: MainLabsFragment() {
 
     private val generalFunctions = GeneralFunctionsImpl
-    private val viewModel: KeyViewModel by activityViewModels()
+    private val viewModel: GeneralViewModel by activityViewModels()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
