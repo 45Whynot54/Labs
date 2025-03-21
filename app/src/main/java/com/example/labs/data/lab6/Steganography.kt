@@ -5,7 +5,6 @@ import android.graphics.Color
 
 object Steganography {
 
-    // Встраивание сообщения в изображение
     fun embedMessage(image: Bitmap, message: String): Bitmap {
         val width = image.width
         val height = image.height
@@ -15,34 +14,43 @@ object Steganography {
         var messageBitIndex = 0
         var currentByte = if (message.isNotEmpty()) message[messageIndex].code else 0
 
-        for (y in 0 until height) {
+        loop@ for (y in 0 until height) {
             for (x in 0 until width) {
-                if (messageIndex >= message.length && messageBitIndex == 0) {
-                    return mutableBitmap
+                val pixel = mutableBitmap.getPixel(x, y)
+                var red = Color.red(pixel)
+                var green = Color.green(pixel)
+                var blue = Color.blue(pixel)
+
+                for (channel in 0..2) {
+                    if (messageBitIndex >= 8) {
+                        messageIndex++
+                        messageBitIndex = 0
+                        currentByte = if (messageIndex < message.length) message[messageIndex].code else 0
+                    }
+
+                    if (messageIndex >= message.length && currentByte == 0 && messageBitIndex == 0) {
+                        break@loop
+                    }
+
+                    val bit = if (messageIndex < message.length || currentByte != 0) {
+                        (currentByte shr messageBitIndex) and 1
+                    } else {
+                        0
+                    }
+
+                    when (channel) {
+                        0 -> red = (red and 0xFE) or bit
+                        1 -> green = (green and 0xFE) or bit
+                        2 -> blue = (blue and 0xFE) or bit
+                    }
+
+                    messageBitIndex++
                 }
 
-                val pixel = mutableBitmap.getPixel(x, y)
-                val red = Color.red(pixel)
-                val green = Color.green(pixel)
-                val blue = Color.blue(pixel)
+                mutableBitmap.setPixel(x, y, Color.rgb(red, green, blue))
 
-                // Встраиваем по одному биту в каждый канал (R, G, B)
-                val newRed = embedBit(red, currentByte, messageBitIndex)
-                val newGreen = embedBit(green, currentByte, messageBitIndex + 1)
-                val newBlue = embedBit(blue, currentByte, messageBitIndex + 2)
-
-                val newPixel = Color.rgb(newRed, newGreen, newBlue)
-                mutableBitmap.setPixel(x, y, newPixel)
-
-                messageBitIndex += 3
-                if (messageBitIndex >= 8) {
-                    messageBitIndex = 0
-                    messageIndex++
-                    if (messageIndex < message.length) {
-                        currentByte = message[messageIndex].code
-                    } else {
-                        currentByte = 0 // Добавляем завершающий байт
-                    }
+                if (messageIndex >= message.length && currentByte == 0 && messageBitIndex >= 8) {
+                    break@loop
                 }
             }
         }
@@ -50,13 +58,6 @@ object Steganography {
         return mutableBitmap
     }
 
-    // Встраивание одного бита в цветовой канал
-    private fun embedBit(color: Int, byte: Int, bitIndex: Int): Int {
-        val bit = (byte shr bitIndex) and 1 // Извлекаем бит
-        return (color and 0xFE) or bit // Заменяем младший бит
-    }
-
-    // Извлечение сообщения из изображения
     fun extractMessage(image: Bitmap): String {
         val width = image.width
         val height = image.height
@@ -69,7 +70,6 @@ object Steganography {
             for (x in 0 until width) {
                 val pixel = image.getPixel(x, y)
 
-                // Извлекаем биты строго по одному из каждого канала
                 val bits = listOf(
                     Color.red(pixel) and 1,
                     Color.green(pixel) and 1,
@@ -81,7 +81,7 @@ object Steganography {
                     bitIndex++
                     if (bitIndex >= 8) {
                         if (currentByte == 0) {
-                            return message.toString() // Ноль — признак конца сообщения
+                            return message.toString()
                         }
                         message.append(currentByte.toChar())
                         currentByte = 0

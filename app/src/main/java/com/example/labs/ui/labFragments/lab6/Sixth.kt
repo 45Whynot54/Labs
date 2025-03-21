@@ -31,15 +31,17 @@ class Sixth : Fragment() {
 
     private var selectedImage: Bitmap? = null
 
-    private val pickImageLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            val data: Intent? = result.data
-            val selectedImageUri: Uri? = data?.data
-            selectedImageUri?.let {
-                loadImageFromUri(it)
+    private val pickImageLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data: Intent? = result.data
+                val selectedImageUri: Uri? = data?.data
+                selectedImageUri?.let {
+                    loadImageFromUri(it)
+                }
             }
         }
-    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,9 +53,6 @@ class Sixth : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
-        // Обработка выбора режима (шифрование/дешифрование)
         binding.radioGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.radioEncrypt -> binding.editTextMessage.visibility = View.VISIBLE
@@ -63,13 +62,11 @@ class Sixth : Fragment() {
             binding.textViewDecryptedMessage.isVisible = false
         }
 
-        // Обработка нажатия на кнопку "Загрузить изображение"
         binding.buttonLoadImage.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             pickImageLauncher.launch(intent)
         }
 
-        // Обработка нажатия на кнопку "Применить"
         binding.buttonApply.setOnClickListener {
             when (binding.radioGroup.checkedRadioButtonId) {
                 R.id.radioEncrypt -> {
@@ -78,27 +75,41 @@ class Sixth : Fragment() {
                         val encryptedImage = Steganography.embedMessage(selectedImage!!, message)
                         saveImageToGallery(encryptedImage)
                         binding.textViewDecryptedMessage.visibility = View.GONE
-                        Toast.makeText(requireContext(), "Сообщение зашифровано и изображение сохранено", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            requireContext(),
+                            "Сообщение зашифровано и изображение сохранено",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     } else {
-                        Toast.makeText(requireContext(), "Введите сообщение и выберите изображение", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            requireContext(),
+                            "Введите сообщение и выберите изображение",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
+
                 R.id.radioDecrypt -> {
                     if (selectedImage != null) {
                         val decryptedMessage = Steganography.extractMessage(selectedImage!!)
                         binding.editTextMessage.setText(decryptedMessage)
-                        binding.textViewDecryptedMessage.text = "Расшифрованный текст: $decryptedMessage"
+                        binding.textViewDecryptedMessage.text =
+                            "Расшифрованный текст: $decryptedMessage"
                         binding.textViewDecryptedMessage.visibility = View.VISIBLE
-                        Toast.makeText(requireContext(), "Сообщение дешифровано", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            requireContext(),
+                            "Сообщение дешифровано",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     } else {
-                        Toast.makeText(requireContext(), "Выберите изображение", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "Выберите изображение", Toast.LENGTH_SHORT)
+                            .show()
                     }
                 }
             }
         }
     }
 
-    // Загрузка изображения из Uri
     private fun loadImageFromUri(uri: Uri) {
         try {
             val bitmap = MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, uri)
@@ -106,20 +117,19 @@ class Sixth : Fragment() {
             Toast.makeText(requireContext(), "Изображение загружено", Toast.LENGTH_SHORT).show()
         } catch (e: IOException) {
             e.printStackTrace()
-            Toast.makeText(requireContext(), "Ошибка загрузки изображения", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Ошибка загрузки изображения", Toast.LENGTH_SHORT)
+                .show()
         }
     }
 
-    // Сохранение изображения в галерею
     private fun saveImageToGallery(bitmap: Bitmap) {
-        val filename = "steganography_${System.currentTimeMillis()}.jpg"
+        val filename = "steganography_${System.currentTimeMillis()}.png"
         var outputStream: OutputStream? = null
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            // Для Android 10 и выше
             val contentValues = ContentValues().apply {
                 put(MediaStore.Images.Media.DISPLAY_NAME, filename)
-                put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
+                put(MediaStore.Images.Media.MIME_TYPE, "image/png")
                 put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
             }
 
@@ -129,17 +139,22 @@ class Sixth : Fragment() {
                 outputStream = resolver.openOutputStream(it)
             }
         } else {
-            // Для Android 9 и ниже
-            val imagesDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+            val imagesDir =
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
             val imageFile = File(imagesDir, filename)
             outputStream = FileOutputStream(imageFile)
         }
 
         outputStream?.use {
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, it)
-            Toast.makeText(requireContext(), "Изображение сохранено в галерею", Toast.LENGTH_SHORT).show()
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, it)
+            Toast.makeText(requireContext(), "Изображение сохранено в галерею", Toast.LENGTH_SHORT)
+                .show()
         } ?: run {
-            Toast.makeText(requireContext(), "Ошибка при сохранении изображения", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                "Ошибка при сохранении изображения",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
