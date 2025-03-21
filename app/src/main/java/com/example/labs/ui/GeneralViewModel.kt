@@ -3,11 +3,12 @@ package com.example.labs.ui
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import kotlin.random.Random
 
 class GeneralViewModel : ViewModel() {
 
     //lab3
-    var generatedKey: String?= null
+    var generatedKey = Random(32).toString()
 
     //lab4
     var publicKey: Pair<String, String>? = null
