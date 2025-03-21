@@ -11,6 +11,7 @@ import com.example.labs.data.lab3.FeistelNetworkKeyGenerator
 import com.example.labs.databinding.FragmentGenerateKeyForLab3BottomDialogBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
+// В нем нет смысла!!!
 
 open class GenerateKeyForLab3BottomDialog : BottomSheetDialogFragment() {
 

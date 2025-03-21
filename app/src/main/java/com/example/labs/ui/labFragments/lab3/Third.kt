@@ -28,17 +28,12 @@ class Third: MainLabsFragment() {
             btnEncryptOrDecrypt.setOnClickListener {
                 startFeistelNetwork()
             }
-            btnForBottomDialog.setOnClickListener {
-                showCreateBottomSheep()
-            }
+            btnForBottomDialog.isVisible = false
             fieldForKey.setInputType(InputType.TYPE_CLASS_NUMBER)
         }
     }
 
     private fun startFeistelNetwork() {
-        if (viewModel.generatedKey == null) {
-            generalFunctions.showShortToast(context, "Нужно сгенерировать ключ", 1000)
-        } else {
             val message = binding.inputText.text.toString()
             val key = viewModel.generatedKey.toString()
             val rounds = binding.fieldForKey.text.toString().toIntOrNull() ?: 16
@@ -51,7 +46,7 @@ class Third: MainLabsFragment() {
             binding.outputText.text = result.trim()
             binding.outputText.isVisible = true
             binding.buttonCopy.isVisible = true
-        }
+
     }
 
     private fun showCreateBottomSheep() {

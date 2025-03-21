@@ -4,13 +4,14 @@ import com.example.labs.domain.lab3.FeistelNetwork
 
 object FeistelNetworkImpl : FeistelNetwork {
 
-    private val BLOCK_SIZE_BYTES = 32
+    private const val BLOCK_SIZE_BYTES = 8
 
     override fun feistelNetworkEncrypt(message: String, key: String, rounds: Int): String {
         val blocks = divideIntoBlocks(message)
         var encryptedMessage = ""
         blocks.forEach { block ->
             var encryptedBlock = block
+
             repeat(rounds) { round ->
                 encryptedBlock = roundFunction(encryptedBlock, key, round)
             }
