@@ -30,7 +30,11 @@ class Third: MainLabsFragment() {
             btnEncryptOrDecrypt.setOnClickListener {
                 startFeistelNetwork()
             }
-            btnForBottomDialog.isVisible = false
+            btnForBottomDialog.setOnClickListener {
+                showGenerateKey("Lab3")
+            }
+
+
             fieldForKey.setInputType(InputType.TYPE_CLASS_NUMBER)
         }
     }

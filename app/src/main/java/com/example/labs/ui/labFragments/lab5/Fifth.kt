@@ -25,7 +25,7 @@ class Fifth: MainLabsFragment() {
             fieldForKey.setHint(R.string.key)
             btnForBottomDialog.setText(R.string.create_key)
             btnForBottomDialog.setOnClickListener {
-                showCreateBottomSheep()
+                showGenerateKey("Lab5")
             }
             fieldForKey.setInputType(InputType.TYPE_CLASS_NUMBER)
 
@@ -43,9 +43,9 @@ class Fifth: MainLabsFragment() {
         }
         val key = viewModel.generatedKey.toString()
         val result = if (selectedOption()) {
-
+            TODO()
         } else {
-
+            TODO()
         }
 
         binding.outputText.text = result
@@ -54,8 +54,4 @@ class Fifth: MainLabsFragment() {
 
     }
 
-    private fun showCreateBottomSheep() {
-        val bottomSheet = GenerateKey()
-        bottomSheet.show(parentFragmentManager, "FragmentGenerateKeyForLab3BottomDialogBinding")
-    }
 }

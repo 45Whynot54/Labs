@@ -18,7 +18,7 @@ open class MainLabsFragment : Fragment() {
 
     private val generalFunctions = GeneralFunctionsImpl
 
-    private var _binding: FragmentMainLabsBinding ?= null
+    private var _binding: FragmentMainLabsBinding? = null
     val binding: FragmentMainLabsBinding
         get() = _binding ?: throw RuntimeException("MainLabsFragmentBinding == null")
 
@@ -44,24 +44,72 @@ open class MainLabsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.inputText.addTextChangedListener(textWatcher)
-        binding.fieldForKey.addTextChangedListener(textWatcher)
-        binding.buttonCopy.setOnClickListener {
-            generalFunctions.copyText(requireContext(), binding.outputText.text.toString())
-        }
-        binding.backOnMain.setOnClickListener {
-            requireActivity().onBackPressedDispatcher.onBackPressed()
-        }
-        binding.btnForCheck.isVisible = false
-        binding.explanationImageView.setOnClickListener {
-            showExplanation()
+        with(binding) {
+            inputText.addTextChangedListener(textWatcher)
+            fieldForKey.addTextChangedListener(textWatcher)
+            buttonCopy.setOnClickListener {
+                generalFunctions.copyText(requireContext(), binding.outputText.text.toString())
+            }
+            backOnMain.setOnClickListener {
+                requireActivity().onBackPressedDispatcher.onBackPressed()
+            }
+            btnForCheck.isVisible = false
+            explanationImageView.setOnClickListener {
+                showGitHub()
+            }
+            btnForBottomDialog.setOnClickListener {
+                showGenerateKey("")
+            }
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+
+    protected fun showGenerateKey(labId: String) {
+        val bottomSheetOne = GenerateKey.newInstance(labId)
+        bottomSheetOne.show(parentFragmentManager, "GenerateKey")
     }
+
+    private fun showGitHub() {
+        val bottomSheetTwo = ExplanationBottomSheetFragment()
+        bottomSheetTwo.show(childFragmentManager, "ExplanationBottomSheetFragment")
+    }
+
+
+    protected fun selectedOption(): Boolean {
+        return when (binding.radioGroup.checkedRadioButtonId) {
+            R.id.btn_encrypt -> true
+            R.id.btn_decrypt -> false
+            else -> throw IllegalArgumentException("Неправильный выбор!")
+        }
+    }
+
+    protected fun updateTextForButton() {
+        binding.btnEncryptOrDecrypt.setText(
+            if (selectedOption()) {
+                R.string.encrypt
+            } else {
+                R.string.decrypt
+            }
+        )
+    }
+
+    protected fun updateHintForField(openKeyHint: Int, closeKeyHint: Int) {
+        binding.fieldForKey.setHint(
+            if (selectedOption()) {
+                openKeyHint
+            } else {
+                closeKeyHint
+            }
+        )
+    }
+
+    private fun enableOrDisableButton() {
+        val inputText = binding.inputText.text.toString()
+        val shiftValue = binding.fieldForKey.text.toString()
+        binding.btnEncryptOrDecrypt.isEnabled = inputText.isNotEmpty() && shiftValue.isNotEmpty()
+    }
+
+
 
     protected fun updateButtonConstraints(btnForCheckVisible: Boolean) {
         val constraintSet = ConstraintSet()
@@ -98,44 +146,8 @@ open class MainLabsFragment : Fragment() {
         constraintSet.applyTo(binding.root)
     }
 
-
-    protected fun showExplanation() {
-        val bottomSheet = ExplanationBottomSheetFragment()
-        bottomSheet.show(parentFragmentManager, "ExplanationBottomSheetFragment")
-    }
-
-
-    protected fun selectedOption(): Boolean {
-        return when (binding.radioGroup.checkedRadioButtonId) {
-            R.id.btn_encrypt -> true
-            R.id.btn_decrypt -> false
-            else -> throw IllegalArgumentException("Неправильный выбор!")
-        }
-    }
-
-    protected fun updateTextForButton(){
-        binding.btnEncryptOrDecrypt.setText(
-            if (selectedOption()){
-                R.string.encrypt
-            } else {
-                R.string.decrypt
-            }
-        )
-    }
-
-    protected fun updateHintForField(openKeyHint: Int, closeKeyHint: Int) {
-        binding.fieldForKey.setHint(
-            if (selectedOption()) {
-                openKeyHint
-            } else {
-                closeKeyHint
-            }
-        )
-    }
-
-    private fun enableOrDisableButton() {
-        val inputText = binding.inputText.text.toString()
-        val shiftValue = binding.fieldForKey.text.toString()
-        binding.btnEncryptOrDecrypt.isEnabled = inputText.isNotEmpty() && shiftValue.isNotEmpty()
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
