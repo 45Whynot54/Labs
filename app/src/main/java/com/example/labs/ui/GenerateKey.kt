@@ -1,4 +1,4 @@
-package com.example.labs.ui.labFragments.lab3
+package com.example.labs.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,19 +8,17 @@ import androidx.fragment.app.activityViewModels
 import com.example.labs.R
 import com.example.labs.data.GeneralFunctionsImpl
 import com.example.labs.data.lab3.FeistelNetworkKeyGenerator
-import com.example.labs.databinding.FragmentGenerateKeyForLab3BottomDialogBinding
+import com.example.labs.databinding.FragmentGenerateKeyBottomDialogBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-// В нем нет смысла!!!
-
-open class GenerateKeyForLab3BottomDialog : BottomSheetDialogFragment() {
+open class GenerateKey : BottomSheetDialogFragment() {
 
     private val generateKeyFeistelNetwork = FeistelNetworkKeyGenerator
-    private val viewModel: FeistelKeyViewModel by activityViewModels()
+    private val viewModel: KeyViewModel by activityViewModels()
     private val generalFunctions = GeneralFunctionsImpl
 
-    private var _binding: FragmentGenerateKeyForLab3BottomDialogBinding? = null
-    private val binding: FragmentGenerateKeyForLab3BottomDialogBinding
+    private var _binding: FragmentGenerateKeyBottomDialogBinding? = null
+    private val binding: FragmentGenerateKeyBottomDialogBinding
         get() = _binding
             ?: throw RuntimeException("FragmentGenerateKeyForLab3BottomDialogBinding == null")
 
@@ -29,7 +27,7 @@ open class GenerateKeyForLab3BottomDialog : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentGenerateKeyForLab3BottomDialogBinding.inflate(inflater, container, false)
+        _binding = FragmentGenerateKeyBottomDialogBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -48,16 +46,16 @@ open class GenerateKeyForLab3BottomDialog : BottomSheetDialogFragment() {
         }
     }
 
-    private fun FragmentGenerateKeyForLab3BottomDialogBinding.extracted() {
+    private fun FragmentGenerateKeyBottomDialogBinding.extracted() {
         if (viewModel.generatedKey != null) {
             createdKey.text = viewModel.generatedKey.toString()
         }
     }
 
     private fun gen() {
-        val genKey = generateKeyFeistelNetwork.key(null.toString(), null)
-        viewModel.generatedKey = genKey.toString()
-        binding.createdKey.text = genKey.toString()
+        val genKeyLab3 = generateKeyFeistelNetwork.key(null.toString(), null)
+        viewModel.generatedKey = genKeyLab3
+        binding.createdKey.text = genKeyLab3
         generalFunctions.showShortToast(requireContext(), "${binding.createdKey.text.length}", 1000)
     }
 

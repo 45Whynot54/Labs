@@ -14,6 +14,7 @@ import androidx.fragment.app.activityViewModels
 import com.example.labs.data.GeneralFunctionsImpl
 import com.example.labs.data.lab4.RSAImpl
 import com.example.labs.databinding.CheckOpenKeyFragmentBinding
+import com.example.labs.ui.KeyViewModel
 
 class CheckForOpenKeyFragment : Fragment() {
 

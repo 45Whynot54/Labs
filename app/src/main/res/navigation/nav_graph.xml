@@ -48,7 +48,7 @@
         android:label="Eighth" />
     <fragment
         android:id="@+id/fifth"
-        android:name="com.example.labs.ui.labFragments.Fifth"
+        android:name="com.example.labs.ui.labFragments.lab5.Fifth"
         android:label="Fifth" />
     <fragment
         android:id="@+id/seventh"

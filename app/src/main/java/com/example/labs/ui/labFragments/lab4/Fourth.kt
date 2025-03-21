@@ -9,6 +9,7 @@ import com.example.labs.R
 import com.example.labs.data.GeneralFunctionsImpl
 import com.example.labs.data.lab4.RSAImpl
 import com.example.labs.ui.MainLabsFragment
+import com.example.labs.ui.KeyViewModel
 
 class Fourth : MainLabsFragment() {
 

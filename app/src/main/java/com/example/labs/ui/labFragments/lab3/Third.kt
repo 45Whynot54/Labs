@@ -8,13 +8,15 @@ import androidx.fragment.app.activityViewModels
 import com.example.labs.R
 import com.example.labs.data.GeneralFunctionsImpl
 import com.example.labs.data.lab3.FeistelNetworkImpl
+import com.example.labs.ui.GenerateKey
+import com.example.labs.ui.KeyViewModel
 import com.example.labs.ui.MainLabsFragment
 
 class Third: MainLabsFragment() {
 
     private val generalFunctions = GeneralFunctionsImpl
     private val feistelNetwork = FeistelNetworkImpl
-    private val viewModel: FeistelKeyViewModel by activityViewModels()
+    private val viewModel: KeyViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -50,7 +52,7 @@ class Third: MainLabsFragment() {
     }
 
     private fun showCreateBottomSheep() {
-        val bottomSheet = GenerateKeyForLab3BottomDialog()
+        val bottomSheet = GenerateKey()
         bottomSheet.show(parentFragmentManager, "FragmentGenerateKeyForLab3BottomDialogBinding")
     }
 
