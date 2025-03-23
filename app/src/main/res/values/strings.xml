@@ -66,6 +66,7 @@
     <string name="name_for_lab6">Стенография</string>
     //Seventh
     <string name="explanation_lab7"></string>
+    <string name="name_for_lab7">Парольная защита</string>
 
 
     //Eighth
@@ -83,6 +84,18 @@
     <string name="code_lab7"></string>
     <string name="code_lab8"></string>
     <string name="download_image">Загрузить изображение</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login">Логин</string>
+    <string name="password">Пароль</string>
+    <string name="entry">Войти</string>
+    <string name="registration">Зарегистрироваться</string>
+    <string name="foggot_password">Забыли пароль?</string>
+    <string name="your_password">Ваш пароль</string>
+    <string name="your_login">Ваш логин</string>
+    <string name="retry_parrword">Повторите пароль</string>
+    <string name="question">Вопрос, если забыли пароль</string>
+    <string name="answer_on_question">Ответ на вопрос</string>
     <!-- TODO: Remove or change this placeholder text -->
 
 

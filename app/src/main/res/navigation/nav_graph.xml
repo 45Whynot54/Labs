@@ -22,9 +22,6 @@
                 android:id="@+id/action_homeFragment_to_third"
                 app:destination="@id/third" />
             <action
-                android:id="@+id/action_homeFragment_to_seventh"
-                app:destination="@id/seventh" />
-            <action
                 android:id="@+id/action_homeFragment_to_fifth"
                 app:destination="@id/fifth" />
             <action
@@ -33,6 +30,9 @@
             <action
                 android:id="@+id/action_homeFragment_to_fourth"
                 app:destination="@id/fourth" />
+            <action
+                android:id="@+id/action_homeFragment_to_seven"
+                app:destination="@id/seven" />
         </fragment>
     <fragment
         android:id="@+id/firstLabFragment"
@@ -50,10 +50,6 @@
         android:id="@+id/fifth"
         android:name="com.example.labs.ui.labFragments.lab5.Fifth"
         android:label="Fifth" />
-    <fragment
-        android:id="@+id/seventh"
-        android:name="com.example.labs.ui.labFragments.lab7.Seventh"
-        android:label="Seventh" />
     <fragment
         android:id="@+id/sixth"
         android:name="com.example.labs.ui.labFragments.lab6.Sixth"
@@ -74,5 +70,18 @@
         android:id="@+id/checkForOpenKeyFragment"
         android:name="com.example.labs.ui.labFragments.lab4.CheckForOpenKeyFragment"
         android:label="CheckForOpenKeyFragment" />
+    <fragment
+        android:id="@+id/seven"
+        android:name="com.example.labs.ui.labFragments.lab7.Seven"
+        android:label="Seven">
+        <action
+            android:id="@+id/action_seven_to_registrationFragment"
+            app:destination="@id/registrationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="com.example.labs.ui.labFragments.lab7.RegistrationFragment"
+        android:label="fragment_registration"
+        tools:layout="@layout/fragment_registration" />
 
 </navigation>

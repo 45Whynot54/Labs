@@ -46,6 +46,7 @@ class HomeFragment: Fragment() {
             binding.btnLab3 to R.id.action_homeFragment_to_third,
             binding.btnLab4 to R.id.action_homeFragment_to_fourth,
             binding.btnLab6 to R.id.action_homeFragment_to_sixth,
+            binding.btnLab7 to R.id.action_homeFragment_to_seven
 
             )
         btnLabs.forEach { (button, actionId) ->
@@ -58,7 +59,6 @@ class HomeFragment: Fragment() {
     private fun btnNotEmployed() {
         val btnLabsIsNotEmployed = listOf(
             binding.btnLab5,
-            binding.btnLab7,
             binding.btnLab8
         )
 

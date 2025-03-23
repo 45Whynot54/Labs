@@ -14,7 +14,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 class GenerateKey : BottomSheetDialogFragment() {
 
     private val generateKeyFeistelNetwork = FeistelNetworkKeyGenerator
-
     private val viewModel: GeneralViewModel by activityViewModels()
     private val generalFunctions = GeneralFunctionsImpl
 
@@ -58,7 +57,7 @@ class GenerateKey : BottomSheetDialogFragment() {
             }
 
             "Lab5" -> {
-                { generateKeyFeistelNetwork.key(null.toString(), null) }
+                TODO()
             }
 
             "Lab6" -> {
