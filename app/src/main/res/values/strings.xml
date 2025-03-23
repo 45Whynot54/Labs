@@ -79,6 +79,9 @@
     <string name="question">Вопрос, если забыли пароль</string>
     <string name="answer_on_question">Ответ на вопрос</string>
     <string name="you_inside">Все подошло!</string>
+    <string name="your_question">Ответьте на вопрос: </string>
+    <string name="answer">Ответ</string>
+    <string name="remember_password">Вспомнили пароль?</string>
 
     //Eighth
 
