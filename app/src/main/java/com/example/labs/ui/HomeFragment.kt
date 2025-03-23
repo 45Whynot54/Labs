@@ -30,6 +30,10 @@ class HomeFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         btnEmployed()
         btnNotEmployed()
+
+        binding.explanationImageView.setOnClickListener {
+            showGitHub()
+        }
     }
 
 
@@ -69,5 +73,9 @@ class HomeFragment: Fragment() {
         }
     }
 
+    private fun showGitHub() {
+        val bottomSheetTwo = ExplanationBottomSheetFragment()
+        bottomSheetTwo.show(childFragmentManager, "ExplanationBottomSheetFragment")
+    }
 
 }

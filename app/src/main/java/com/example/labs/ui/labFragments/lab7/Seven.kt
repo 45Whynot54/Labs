@@ -49,6 +49,11 @@ class Seven : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
+
+            backOnMain.setOnClickListener {
+                requireActivity().onBackPressedDispatcher.onBackPressed()
+            }
+
             btnApply.isEnabled = false
             login.addTextChangedListener(textWatcher)
             password.addTextChangedListener(textWatcher)

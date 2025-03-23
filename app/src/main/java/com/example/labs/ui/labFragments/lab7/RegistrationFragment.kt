@@ -47,6 +47,11 @@ class RegistrationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
+
+            backOnMain.setOnClickListener {
+                requireActivity().onBackPressedDispatcher.onBackPressed()
+            }
+
             loginReg.addTextChangedListener(textWatcher)
             passwordReg.addTextChangedListener(textWatcher)
             retryPasswordReg.addTextChangedListener(textWatcher)

@@ -54,9 +54,6 @@ open class MainLabsFragment : Fragment() {
                 requireActivity().onBackPressedDispatcher.onBackPressed()
             }
             btnForCheck.isVisible = false
-            explanationImageView.setOnClickListener {
-                showGitHub()
-            }
             btnForBottomDialog.setOnClickListener {
                 showGenerateKey("")
             }
@@ -68,12 +65,6 @@ open class MainLabsFragment : Fragment() {
         val bottomSheetOne = GenerateKey.newInstance(labId)
         bottomSheetOne.show(parentFragmentManager, "GenerateKey")
     }
-
-    private fun showGitHub() {
-        val bottomSheetTwo = ExplanationBottomSheetFragment()
-        bottomSheetTwo.show(childFragmentManager, "ExplanationBottomSheetFragment")
-    }
-
 
     protected fun selectedOption(): Boolean {
         return when (binding.radioGroup.checkedRadioButtonId) {
