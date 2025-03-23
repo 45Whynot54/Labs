@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.labs.R
 import com.example.labs.data.GeneralFunctionsImpl
+import com.example.labs.databinding.BottomEntryInSystemBinding
 import com.example.labs.databinding.FragmentLab7Binding
 import com.example.labs.databinding.HomeFragmentBinding
 import com.example.labs.ui.GeneralViewModel
@@ -25,11 +26,12 @@ class Seven : Fragment() {
     private val generalFunctions = GeneralFunctionsImpl
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-
-        return inflater.inflate(R.layout.fragment_lab7, container, false)
+    ): View {
+        _binding = FragmentLab7Binding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -8,55 +8,65 @@
     android:padding="32dp">
 
 
-    <TextView
+    <EditText
         android:id="@+id/login_reg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:hint="@string/login"
+        android:clickable="true"
+        android:focusable="true"
         android:inputType="text"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registration" />
 
-    <TextView
+    <EditText
         android:id="@+id/password_reg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
+        android:clickable="true"
+        android:focusable="true"
         android:textSize="16sp"
         android:inputType="textPassword"
         android:hint="@string/password"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_reg" />
 
-    <TextView
+    <EditText
         android:id="@+id/retry_password_reg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
+        android:clickable="true"
+        android:focusable="true"
         android:inputType="textPassword"
         android:textSize="16sp"
         android:hint="@string/retry_parrword"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password_reg" />
 
-    <TextView
+    <EditText
         android:id="@+id/question_reg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
+        android:clickable="true"
+        android:focusable="true"
         android:textSize="16sp"
         android:inputType="text"
         android:hint="@string/question"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/retry_password_reg" />
 
-    <TextView
+    <EditText
         android:id="@+id/answer_on_question_reg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
+        android:clickable="true"
+        android:focusable="true"
         android:textSize="16sp"
         android:inputType="text"
         android:hint="@string/answer_on_question"
@@ -64,10 +74,10 @@
         app:layout_constraintTop_toBottomOf="@+id/question_reg" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btn_registration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button"
+        android:text="@string/registration"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

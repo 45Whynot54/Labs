@@ -1,6 +1,8 @@
 package com.example.labs.ui.labFragments.lab7
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.fragment.app.Fragment
@@ -44,9 +46,46 @@ class RegistrationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.button.addTextChangedListener(textWatcher)
-        binding.button.setOnClickListener {
-            registration()
+        with(binding) {
+            loginReg.addTextChangedListener(textWatcher)
+            passwordReg.addTextChangedListener(textWatcher)
+            retryPasswordReg.addTextChangedListener(textWatcher)
+            questionReg.addTextChangedListener(textWatcher)
+            answerOnQuestionReg.addTextChangedListener(textWatcher)
+
+            btnRegistration.isEnabled = false
+            btnRegistration.setOnClickListener {
+                registration()
+
+
+                generalFunctions.showShortToast(context, "логин - ${viewModel.login}", 1000)
+
+                Handler(Looper.getMainLooper()).apply {
+                    postDelayed({
+                        generalFunctions.showShortToast(
+                            context,
+                            "пароль - ${viewModel.password}",
+                            1000
+                        )
+                    }, 1000)
+
+                    postDelayed({
+                        generalFunctions.showShortToast(
+                            context,
+                            "вопрос - ${viewModel.question}",
+                            1000
+                        )
+                    }, 2000)
+
+                    postDelayed({
+                        generalFunctions.showShortToast(
+                            context,
+                            "ответ на вопрос - ${viewModel.answerOnQuestion}",
+                            1000
+                        )
+                    }, 3000)
+                }
+            }
         }
     }
 
@@ -61,6 +100,7 @@ class RegistrationFragment : Fragment() {
             viewModel.answerOnQuestion = binding.answerOnQuestionReg.text.toString()
         } else {
             generalFunctions.showShortToast(context, "Пароли не совпадают", 1000)
+            binding.btnRegistration.isEnabled = false
         }
     }
 
@@ -70,7 +110,7 @@ class RegistrationFragment : Fragment() {
         val retryPassword = binding.retryPasswordReg.text.toString()
         val question = binding.questionReg.text.toString()
         val answer = binding.answerOnQuestionReg.text.toString()
-        binding.button.isEnabled =
+        binding.btnRegistration.isEnabled =
             login.isNotEmpty() &&
                     password.isNotEmpty() &&
                     retryPassword.isNotEmpty() &&
