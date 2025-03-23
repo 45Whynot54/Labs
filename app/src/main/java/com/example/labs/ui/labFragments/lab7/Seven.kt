@@ -1,6 +1,8 @@
 package com.example.labs.ui.labFragments.lab7
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +27,14 @@ class Seven : Fragment() {
 
     private val generalFunctions = GeneralFunctionsImpl
 
+    private val textWatcher = object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        override fun afterTextChanged(s: Editable?) {
+            enableOrDisableButton()
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,6 +47,10 @@ class Seven : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
+            btnApply.isEnabled = false
+            login.addTextChangedListener(textWatcher)
+            password.addTextChangedListener(textWatcher)
+
             btnApply.setOnClickListener {
                 entryInSystem()
             }
@@ -61,5 +75,11 @@ class Seven : Fragment() {
     private fun showEntryInSystem() {
         val bottomSheetOne = EntryInSystemFragment()
         bottomSheetOne.show(parentFragmentManager, "EntryInSystemFragment")
+    }
+
+    private fun enableOrDisableButton() {
+        val login = binding.login.text.toString()
+        val password = binding.password.text.toString()
+        binding.btnApply.isEnabled = login.isNotEmpty() && password.isNotEmpty()
     }
 }
