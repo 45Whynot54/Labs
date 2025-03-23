@@ -54,49 +54,35 @@
     <string name="explanation_lab3">3</string>
 
     //Fourth
-    <string name="explanation_lab4">4</string>
+
     <string name="text_for_name_lab4">Шифрование RSA</string>
 
     //Fifth
-    <string name="explanation_lab5"></string>
+
     <string name="name_for_lab5">Создание эл. подписи</string>
 
     //Sixth
-    <string name="explanation_lab6"></string>
+
     <string name="name_for_lab6">Стенография</string>
-    //Seventh
-    <string name="explanation_lab7"></string>
-    <string name="name_for_lab7">Парольная защита</string>
-
-
-    //Eighth
-    <string name="explanation_lab8"></string>
-
-    //code
-    <string name="code_lab1"></string>
-
-    <string name="code_lab2"></string>
-
-    <string name="code_lab3"></string>
-    <string name="code_lab4"></string>
-    <string name="code_lab5"></string>
-    <string name="code_lab6"></string>
-    <string name="code_lab7"></string>
-    <string name="code_lab8"></string>
     <string name="download_image">Загрузить изображение</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    //Seventh
+    <string name="name_for_lab7">Парольная защита</string>
     <string name="login">Логин</string>
     <string name="password">Пароль</string>
     <string name="entry">Войти</string>
     <string name="registration">Зарегистрироваться</string>
     <string name="foggot_password">Забыли пароль?</string>
-    <string name="your_password">Ваш пароль</string>
-    <string name="your_login">Ваш логин</string>
+    <string name="your_password">Ваш пароль: </string>
+    <string name="your_login">Ваш логин: </string>
     <string name="retry_parrword">Повторите пароль</string>
     <string name="question">Вопрос, если забыли пароль</string>
     <string name="answer_on_question">Ответ на вопрос</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="you_inside">Все подошло!</string>
+
+    //Eighth
+
+
 
 
 </resources>

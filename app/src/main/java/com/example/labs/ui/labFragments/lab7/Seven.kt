@@ -47,8 +47,8 @@ class Seven : Fragment() {
     }
 
     private fun entryInSystem() {
-        val login = binding.login.text.toString()
-        val password = binding.password.text.toString()
+        val login = binding.login.text.toString().trim()
+        val password = binding.password.text.toString().trim()
         if (login != viewModel.login.toString() || password != viewModel.password.toString()) {
             generalFunctions.showShortToast(context, "Неправильный логин и/или пароль", 1000)
             return

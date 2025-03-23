@@ -31,8 +31,8 @@ class EntryInSystemFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
-            loginOpen.text = viewModel.login
-            passwordOpen.text = viewModel.password
+            loginOpen.text = "${getString(R.string.your_login)} ${viewModel.login}"
+            passwordOpen.text = "${getString(R.string.your_password)} ${viewModel.password}"
             btnClose.setOnClickListener {
                 dismiss()
             }

@@ -15,18 +15,20 @@
         android:text="@string/close"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password_open" />
 
     <TextView
         android:id="@+id/login_open"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="false"
+        android:layout_marginTop="24dp"
         android:focusable="false"
-        android:hint="@string/your_login"
+        android:text="@string/your_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/you_inside" />
 
     <TextView
         android:id="@+id/password_open"
@@ -35,8 +37,17 @@
         android:layout_height="wrap_content"
         android:clickable="false"
         android:focusable="false"
-        android:hint="@string/your_password"
+        android:text="@string/your_password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_open" />
+
+    <TextView
+        android:id="@+id/you_inside"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/you_inside"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -58,13 +58,13 @@ class RegistrationFragment : Fragment() {
                 registration()
 
 
-                generalFunctions.showShortToast(context, "логин - ${viewModel.login}", 1000)
+                generalFunctions.showShortToast(context, "Логин - ${viewModel.login}", 1000)
 
                 Handler(Looper.getMainLooper()).apply {
                     postDelayed({
                         generalFunctions.showShortToast(
                             context,
-                            "пароль - ${viewModel.password}",
+                            "Пароль - ${viewModel.password}",
                             1000
                         )
                     }, 1000)
@@ -72,7 +72,7 @@ class RegistrationFragment : Fragment() {
                     postDelayed({
                         generalFunctions.showShortToast(
                             context,
-                            "вопрос - ${viewModel.question}",
+                            "Вопрос - ${viewModel.question}",
                             1000
                         )
                     }, 2000)
@@ -80,7 +80,7 @@ class RegistrationFragment : Fragment() {
                     postDelayed({
                         generalFunctions.showShortToast(
                             context,
-                            "ответ на вопрос - ${viewModel.answerOnQuestion}",
+                            "Ответ на вопрос - ${viewModel.answerOnQuestion}",
                             1000
                         )
                     }, 3000)
@@ -92,12 +92,16 @@ class RegistrationFragment : Fragment() {
     private fun registration() {
 
         val password = binding.passwordReg.text.toString()
+        if (password.length < 8) {
+            generalFunctions.showShortToast(context, "Пароль должен быть более 8 символов", 1000)
+            return
+        }
         val retryPassword = binding.retryPasswordReg.text.toString()
         if (password == retryPassword) {
-            viewModel.login = binding.loginReg.text.toString()
-            viewModel.password = binding.passwordReg.text.toString()
-            viewModel.question = binding.questionReg.text.toString()
-            viewModel.answerOnQuestion = binding.answerOnQuestionReg.text.toString()
+            viewModel.login = binding.loginReg.text.toString().trim()
+            viewModel.password = binding.passwordReg.text.toString().trim()
+            viewModel.question = binding.questionReg.text.toString().trim()
+            viewModel.answerOnQuestion = binding.answerOnQuestionReg.text.toString().trim()
         } else {
             generalFunctions.showShortToast(context, "Пароли не совпадают", 1000)
             binding.btnRegistration.isEnabled = false
