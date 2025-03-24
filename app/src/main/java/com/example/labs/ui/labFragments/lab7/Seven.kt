@@ -1,6 +1,7 @@
 package com.example.labs.ui.labFragments.lab7
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.fragment.app.Fragment
@@ -12,11 +13,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.labs.R
 import com.example.labs.data.GeneralFunctionsImpl
-import com.example.labs.databinding.BottomEntryInSystemBinding
 import com.example.labs.databinding.FragmentLab7Binding
-import com.example.labs.databinding.HomeFragmentBinding
-import com.example.labs.ui.GeneralViewModel
-import com.example.labs.ui.GenerateKey
 
 class Seven : Fragment() {
 
@@ -28,6 +25,9 @@ class Seven : Fragment() {
 
     private val generalFunctions = GeneralFunctionsImpl
     private var isForgotMode: Boolean = false
+
+    private var failedAttempts = 0
+    private var countDownTimer: CountDownTimer? = null
 
     private val textWatcher = object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -67,7 +67,40 @@ class Seven : Fragment() {
             btnFoggot.setOnClickListener {
                 changeType()
             }
+            timer.isVisible = false
         }
+    }
+
+    private fun handleFailedAttempt() {
+        failedAttempts++
+        if (failedAttempts >= 3) {
+            startBlockingTimer()
+        } else {
+            generalFunctions.showShortToast(context, "Неверные данные. Попыток осталось: ${3 - failedAttempts}", 1000)
+        }
+    }
+
+    private fun startBlockingTimer() {
+        binding.btnApply.isEnabled = false
+        binding.btnApply.text = ""
+        binding.timer.isVisible = true
+
+        countDownTimer?.cancel()
+
+        countDownTimer = object : CountDownTimer(15000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                binding.timer.text = "Попробуйте через: ${millisUntilFinished / 1000} сек."
+            }
+
+            override fun onFinish() {
+                binding.timer.isVisible = false
+                binding.btnApply.isEnabled = true
+                binding.btnApply.text = getString(R.string.entry)
+                failedAttempts = 0
+            }
+        }.start()
+
+        generalFunctions.showShortToast(context, "Слишком много попыток. Подождите 15 секунд.", 2000)
     }
 
     private fun entryInSystem() {
@@ -75,19 +108,24 @@ class Seven : Fragment() {
         val input = binding.password.text.toString().trim()
 
         with(viewModel) {
-
             if (isForgotMode) {
                 when {
-                    login != this.login -> generalFunctions.showShortToast(context, "Неверный логин", 1000)
-                    input.isEmpty() -> generalFunctions.showShortToast(context, "Введите ответ", 1000)
-                    input != answerOnQuestion -> generalFunctions.showShortToast(context, "Неверный ответ", 1000)
-                    else -> showEntryInSystem()
+                    login != this.login -> handleFailedAttempt()
+                    input.isEmpty() -> handleFailedAttempt()
+                    input != answerOnQuestion -> handleFailedAttempt()
+                    else -> {
+                        failedAttempts = 0
+                        showEntryInSystem()
+                    }
                 }
             } else {
                 when {
-                    login != this.login -> generalFunctions.showShortToast(context, "Неверный логин", 1000)
-                    input != password -> generalFunctions.showShortToast(context, "Неверный пароль", 1000)
-                    else -> showEntryInSystem()
+                    login != this.login -> handleFailedAttempt()
+                    input != password -> handleFailedAttempt()
+                    else -> {
+                        failedAttempts = 0
+                        showEntryInSystem()
+                    }
                 }
             }
         }
