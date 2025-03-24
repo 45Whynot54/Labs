@@ -101,6 +101,14 @@ class RegistrationFragment : Fragment() {
             generalFunctions.showShortToast(context, "Пароль должен быть более 8 символов", 1000)
             return
         }
+
+        val hasLetter = password.any { it.isLetter() }
+        val hasDigit = password.any { it.isDigit() }
+        if (!hasLetter || !hasDigit) {
+            generalFunctions.showShortToast(context, "Пароль должен содержать буквы и цифры", 1000)
+            return
+        }
+
         val retryPassword = binding.retryPasswordReg.text.toString()
         if (password == retryPassword) {
             viewModel.login = binding.loginReg.text.toString().trim()
