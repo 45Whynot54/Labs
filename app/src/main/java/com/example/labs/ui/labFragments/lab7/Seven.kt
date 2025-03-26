@@ -159,4 +159,12 @@ class Seven : Fragment() {
             }
         }
     }
+
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        countDownTimer?.cancel()
+        _binding = null
+    }
 }

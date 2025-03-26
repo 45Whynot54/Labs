@@ -12,7 +12,7 @@ android {
         minSdk = 24
         targetSdk = 34
         versionCode = 1
-        versionName = "1.7.6 release"
+        versionName = "1.7.8 release"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -58,7 +58,5 @@ dependencies {
     // Lifecycle Components
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.1")
-
-
 
 }

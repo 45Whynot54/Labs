@@ -8,5 +8,6 @@ class PasswordAndLoginVM: ViewModel() {
     var login: String ?= null
     var question: String ?= null
     var answerOnQuestion: String ?= null
+    var timer: Int?= null
 
 }
