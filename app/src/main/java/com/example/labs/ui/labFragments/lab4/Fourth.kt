@@ -24,6 +24,7 @@ class Fourth : MainLabsFragment() {
         binding.btnForCheck.isVisible = true
         updateButtonConstraints(true)
         with(binding) {
+
             btnForCheck.isEnabled = false
             viewModel.isButtonEnabled.observe(viewLifecycleOwner) {
                     isEnabled -> binding.btnForCheck.isEnabled = true

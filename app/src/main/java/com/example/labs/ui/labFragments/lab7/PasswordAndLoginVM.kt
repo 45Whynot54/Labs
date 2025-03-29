@@ -4,10 +4,10 @@ import androidx.lifecycle.ViewModel
 
 class PasswordAndLoginVM: ViewModel() {
 
-    var password: String ?= null
-    var login: String ?= null
-    var question: String ?= null
-    var answerOnQuestion: String ?= null
+    var password: String ?= null ?: "hello"
+    var login: String ?= null ?: "hello"
+    var question: String ?= null ?: "hello"
+    var answerOnQuestion: String ?= null ?: "hello"
     var timer: Int?= null
 
 }
