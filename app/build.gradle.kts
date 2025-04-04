@@ -12,7 +12,7 @@ android {
         minSdk = 24
         targetSdk = 34
         versionCode = 1
-        versionName = "1.7.8 release"
+        versionName = "1.8.1 alpha build"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

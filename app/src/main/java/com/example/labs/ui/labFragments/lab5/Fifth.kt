@@ -26,7 +26,7 @@ class Fifth: MainLabsFragment() {
             btnForBottomDialog.setOnClickListener {
                 showGenerateKey("Lab5")
             }
-            fieldForKey.setInputType(InputType.TYPE_CLASS_NUMBER)
+            fieldForKey.setInputType(InputType.TYPE_CLASS_TEXT)
 
             btnEncryptOrDecrypt.setOnClickListener {
                 encyptOrDecrypt()
