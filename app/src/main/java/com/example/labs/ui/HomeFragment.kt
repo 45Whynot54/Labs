@@ -29,7 +29,6 @@ class HomeFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         btnEmployed()
-        btnNotEmployed()
 
         binding.explanationImageView.setOnClickListener {
             showGitHub()
@@ -49,8 +48,10 @@ class HomeFragment: Fragment() {
             binding.btnLab2 to R.id.action_homeFragment_to_secondLabFragment,
             binding.btnLab3 to R.id.action_homeFragment_to_third,
             binding.btnLab4 to R.id.action_homeFragment_to_fourth,
+            binding.btnLab5 to R.id.action_homeFragment_to_fifth,
             binding.btnLab6 to R.id.action_homeFragment_to_sixth,
             binding.btnLab7 to R.id.action_homeFragment_to_seven,
+            binding.btnLab8 to R.id.action_homeFragment_to_eighth
 
             )
         btnLabs.forEach { (button, actionId) ->
@@ -60,18 +61,6 @@ class HomeFragment: Fragment() {
         }
     }
 
-    private fun btnNotEmployed() {
-        val btnLabsIsNotEmployed = listOf(
-            binding.btnLab8,
-            binding.btnLab5
-        )
-
-        btnLabsIsNotEmployed.forEach { button ->
-            button.setOnClickListener {
-                showShortToast(context, "Не сделано :)", 200)
-            }
-        }
-    }
 
     private fun showGitHub() {
         val bottomSheetTwo = ExplanationBottomSheetFragment()

@@ -13,6 +13,8 @@ class Second: MainLabsFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.notWork.isVisible = false
         binding.btnEncryptOrDecrypt.setOnClickListener {
             applyGamming()
         }

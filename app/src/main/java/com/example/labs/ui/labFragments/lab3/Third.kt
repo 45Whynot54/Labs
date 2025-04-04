@@ -22,6 +22,7 @@ class Third: MainLabsFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         with(binding) {
+            binding.notWork.isVisible = false
 
             textForNameLab.setText(R.string.name_for_lab3)
             fieldForKey.setHint(R.string.count_of_rounds)
