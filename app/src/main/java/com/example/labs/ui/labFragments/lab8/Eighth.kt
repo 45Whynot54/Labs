@@ -23,10 +23,10 @@ class Eighth: Fragment() {
     private val n = BigInteger("7")  // порядок базовой точки
 
     // Ключи участников
-    private var alicePrivateKey: BigInteger? = null
-    private var alicePublicKey: Point? = null
-    private var bobPrivateKey: BigInteger? = null
-    private var bobPublicKey: Point? = null
+    private var user2PrivateKey: BigInteger? = null
+    private var user2PublicKey: Point? = null
+    private var user1PrivateKey: BigInteger? = null
+    private var user1PublicKey: Point? = null
     private var sharedSecret: Point? = null
 
     override fun onCreateView(
@@ -61,13 +61,13 @@ class Eighth: Fragment() {
     }
 
     private fun generateKeys() {
-        // Генерация ключей Алисы
-        alicePrivateKey = generatePrivateKey()
-        alicePublicKey = multiplyPoint(G, alicePrivateKey!!)
+        // Генерация ключей User 2
+        user2PrivateKey = generatePrivateKey()
+        user2PublicKey = multiplyPoint(G, user2PrivateKey!!)
 
-        // Генерация ключей Боба
-        bobPrivateKey = generatePrivateKey()
-        bobPublicKey = multiplyPoint(G, bobPrivateKey!!)
+        // Генерация ключей User 1
+        user1PrivateKey = generatePrivateKey()
+        user1PublicKey = multiplyPoint(G, user1PrivateKey!!)
 
         updateUI()
     }
@@ -85,38 +85,36 @@ class Eighth: Fragment() {
     }
 
     private fun performKeyExchange() {
-        if (alicePrivateKey == null || bobPrivateKey == null) {
+        if (user2PrivateKey == null || user1PrivateKey == null) {
             throw IllegalStateException("Ключи не сгенерированы")
         }
 
-        // Алиса вычисляет общий секрет
-        val aliceSecret = multiplyPoint(bobPublicKey!!, alicePrivateKey!!)
+        // User 2 вычисляет общий секрет
+        val user2Secret = multiplyPoint(user1PublicKey!!, user2PrivateKey!!)
 
-        // Боб вычисляет общий секрет
-        val bobSecret = multiplyPoint(alicePublicKey!!, bobPrivateKey!!)
+        // User 1 вычисляет общий секрет
+        val user1Secret = multiplyPoint(user2PublicKey!!, user1PrivateKey!!)
 
         // Проверка совпадения
-        if (aliceSecret != bobSecret) {
+        if (user2Secret != user1Secret) {
             throw IllegalStateException("Секреты не совпадают")
         }
 
-        sharedSecret = aliceSecret
+        sharedSecret = user2Secret
         updateUI()
     }
 
     private fun updateUI() {
-        binding.tvAlicePrivate.text = "Приватный Алисы: ${alicePrivateKey ?: "нет"}"
-        binding.tvAlicePublic.text = "Публичный Алисы: ${alicePublicKey ?: "нет"}"
-        binding.tvBobPrivate.text = "Приватный Боба: ${bobPrivateKey ?: "нет"}"
-        binding.tvBobPublic.text = "Публичный Боба: ${bobPublicKey ?: "нет"}"
+        binding.tvUser2Private.text = "Приватный User 2: ${user2PrivateKey ?: "нет"}"
+        binding.tvUser2Public.text = "Публичный User 2: ${user2PublicKey ?: "нет"}"
+        binding.tvUser1Private.text = "Приватный User 1: ${user1PrivateKey ?: "нет"}"
+        binding.tvUser1Public.text = "Публичный User 1: ${user1PublicKey ?: "нет"}"
 
         sharedSecret?.let {
-            binding.tvSharedSecretAlice.text = "Общий секрет: ${it.x}"
-            binding.tvSharedSecretBob.text = "Проверка: ${it.x}"
+            binding.tvSharedSecretUser2.text = "Общий секрет: ${it.x}"
             binding.tvResult.text = "ECDH успешен!"
         } ?: run {
-            binding.tvSharedSecretAlice.text = "Общий секрет: не вычислен"
-            binding.tvSharedSecretBob.text = "Проверка: не выполнена"
+            binding.tvSharedSecretUser2.text = "Общий секрет: не вычислен"
         }
     }
 

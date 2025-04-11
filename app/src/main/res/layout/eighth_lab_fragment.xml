@@ -1,69 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="32dp">
 
+    <!-- Заголовок -->
     <TextView
+        android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Демонстрация ECDH (Elliptic Curve Diffie-Hellman)"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:text="ECDH"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btnGenerateKeys"
+    <!-- Публичные ключи -->
+    <TextView
+        android:id="@+id/tvPublicKeysLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Сгенерировать ключи" />
+        android:gravity="center"
+        android:layout_marginTop="24dp"
+        android:text="Публичные ключи"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
-    <Button
-        android:id="@+id/btnExchange"
+    <TextView
+        android:id="@+id/tvUser1Public"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textSize="16dp"
+        android:text="Публичный User 1: "
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/tvPublicKeysLabel" />
+
+    <TextView
+        android:id="@+id/tvUser2Public"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:text="Публичный User 2: "
+        app:layout_constraintLeft_toRightOf="@id/guideline"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvUser1Public" />
+
+    <!-- Приватные ключи -->
+    <TextView
+        android:id="@+id/tvPrivateKeysLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Обменяться ключами" />
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="Приватные ключи"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvUser1Public" />
 
     <TextView
-        android:id="@+id/tvAlicePrivate"
+        android:id="@+id/tvUser1Private"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:layout_marginTop="20dp"
+        android:text="Приватный User 1: "
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/tvPrivateKeysLabel" />
+
+    <TextView
+        android:id="@+id/tvUser2Private"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:text="Приватный User2: "
+        app:layout_constraintLeft_toRightOf="@id/guideline"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvUser1Private" />
+
+    <!-- Общие секреты -->
+    <TextView
+        android:id="@+id/tvSharedSecretsLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp" />
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="Общий секрет"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvUser1Private" />
 
     <TextView
-        android:id="@+id/tvAlicePublic"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/tvBobPrivate"
-        android:layout_width="match_parent"
+        android:id="@+id/tvSharedSecretUser2"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp" />
-
-    <TextView
-        android:id="@+id/tvBobPublic"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/tvSharedSecretAlice"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp" />
-
-    <TextView
-        android:id="@+id/tvSharedSecretBob"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:text="Общий секрет"
+        android:layout_marginTop="20dp"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSharedSecretsLabel" />
 
     <TextView
         android:id="@+id/tvResult"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:textStyle="bold" />
+        android:textSize="16dp"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSharedSecretUser2" />
 
-</LinearLayout>
+    <Button
+        android:id="@+id/btnGenerateKeys"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Сгенерировать ключи"
+        android:layout_marginRight="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/btnExchange"
+        app:layout_constraintTop_toBottomOf="@id/tvResult"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/btnExchange"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Обменяться ключами"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/btnGenerateKeys"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btnGenerateKeys" />
+
+    <!-- Вертикальный guideline для разделения колонок -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
