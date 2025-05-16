@@ -149,18 +149,6 @@ class Fifth : Fragment() {
         }
     }
 
-    private fun handleDecryptMode() {
-        with(binding) {
-            fieldForKey.run {
-                visibility = View.VISIBLE
-                setText(DigitalSignature.publicKey.toString(16))
-                hint = getString(R.string.public_key)
-                inputType = InputType.TYPE_NULL
-                isEnabled = false
-            }
-        }
-    }
-
     private fun saveSignatureFile() {
         val baseName = viewModel.getOriginalFileName() ?: "signed_file"
         val fileName = "$baseName.sig"
