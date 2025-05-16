@@ -27,6 +27,8 @@
     <string name="generated_key">Сгенерированный ключ</string>
     <string name="github">https://github.com/45Whynot54/Labs</string>
     <string name="open_code">Открытый код</string>
+    <string name="public_key">Публичный ключ</string>
+
 
     // names for labs
     <string name="btn_lab1">Лабораторная работа 1</string>

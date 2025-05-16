@@ -18,6 +18,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.labs.R
+import com.example.labs.data.lab5.DigitalSignature
 import com.example.labs.databinding.FifthLabFragmentBinding
 import java.io.File
 
@@ -44,6 +45,23 @@ class Fifth : Fragment() {
             }
         }
     }
+
+    private val saveFileLauncher = registerForActivityResult(
+        ActivityResultContracts.CreateDocument("text/plain")
+    ) { uri ->
+        uri?.let {
+            try {
+                requireContext().contentResolver.openOutputStream(uri)?.use { output ->
+                    val signatureContent = viewModel.getSignatureContent()
+                    output.write(signatureContent?.toByteArray() ?: byteArrayOf())
+                    Toast.makeText(context, "Подпись сохранена", Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: Exception) {
+                Toast.makeText(context, "Ошибка сохранения: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
 
     private fun createTempFileFromUri(uri: Uri): File {
         val inputStream = requireContext().contentResolver.openInputStream(uri)!!
@@ -92,15 +110,22 @@ class Fifth : Fragment() {
                 openFilePicker()
             }
 
+
             btnForCheck.setOnClickListener {
                 viewModel.verifySignature()
             }
 
             buttonApply.setOnClickListener {
                 when (radioGroup.checkedRadioButtonId) {
-                    R.id.btn_encrypt -> viewModel.signFile()
+                    R.id.btn_encrypt -> {
+                        viewModel.signFile()
+                        if (viewModel.shouldSaveSignature()) {
+                        saveSignatureFile()
+                    }
+                }
                     R.id.btn_decrypt -> viewModel.verifySignature()
                 }
+                handleEncryptMode()
             }
 
             buttonCopy.setOnClickListener {
@@ -111,6 +136,36 @@ class Fifth : Fragment() {
                 requireActivity().onBackPressed()
             }
         }
+    }
+
+    private fun handleEncryptMode() {
+        with(binding) {
+            fieldForKey.run {
+                visibility = View.GONE
+                text?.clear()
+                hint = ""
+                isEnabled = false
+            }
+        }
+    }
+
+    private fun handleDecryptMode() {
+        with(binding) {
+            fieldForKey.run {
+                visibility = View.VISIBLE
+                setText(DigitalSignature.publicKey.toString(16))
+                hint = getString(R.string.public_key)
+                inputType = InputType.TYPE_NULL
+                isEnabled = false
+            }
+        }
+    }
+
+    private fun saveSignatureFile() {
+        val baseName = viewModel.getOriginalFileName() ?: "signed_file"
+        val fileName = "$baseName.sig"
+
+        saveFileLauncher.launch(fileName)
     }
 
     private fun observeViewModel() {

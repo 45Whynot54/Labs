@@ -24,11 +24,26 @@ class SignatureViewModel(application: Application) : AndroidViewModel(applicatio
         currentSignature = null
     }
 
+    fun getSignatureContent(): String? {
+        return currentSignature?.let { (r, s) ->
+            "Digital Signature\nR: ${r.toString(16)}\nS: ${s.toString(16)}"
+        }
+    }
+
+    fun shouldSaveSignature(): Boolean {
+        return currentSignature != null
+    }
+
+    fun getOriginalFileName(): String? {
+        return currentFile?.name
+    }
+
     fun signFile() {
         currentFile?.let { file ->
             try {
                 currentSignature = digitalSignature.signFile(file)
-                _signatureResult.value = "Файл успешно подписан!\nПодпись: ${currentSignature?.first}, ${currentSignature?.second}"
+                _signatureResult.value =
+                    "${currentSignature?.first}, ${currentSignature?.second}"
             } catch (e: Exception) {
                 _signatureResult.value = "Ошибка подписи: ${e.message}"
             }
